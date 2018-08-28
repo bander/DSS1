@@ -7,10 +7,11 @@ public class Item : ScriptableObject{
 
     public Sprite icon = null;
     public bool isDefaultItem = false;
+    public int maxCountInSlot=1;
 
     public virtual void Use()
     {
-        //Debug.Log("Using " + name);
+        
     }
 
     public void RemoveFromInventory()

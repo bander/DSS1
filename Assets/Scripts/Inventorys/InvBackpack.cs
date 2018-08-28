@@ -14,7 +14,6 @@ public class InvBackpack : Invent {
         int i = 0;
         foreach (Item item in items)
         {
-            Debug.Log(i+"  "+item);
             i++;
             if (item == null)  return true;
         }

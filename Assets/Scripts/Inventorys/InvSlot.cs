@@ -12,7 +12,10 @@ public class InvSlot : MonoBehaviour,IDragHandler,IBeginDragHandler,IEndDragHand
     public Image highLightIcon;
     int invIndex;
     int slotIndex;
-    
+
+    int countItems;
+    int maxcountOfItems;
+
     Transform parentToReturn;
     InvSlot placeHolder;
 
@@ -26,6 +29,7 @@ public class InvSlot : MonoBehaviour,IDragHandler,IBeginDragHandler,IEndDragHand
 
     public void SetItem(Item newItem,int index,int newInvIndex)
     {
+        
         if (newItem != null)
         {
             item = newItem;
