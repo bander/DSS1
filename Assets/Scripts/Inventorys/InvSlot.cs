@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using TMPro;
 
 public class InvSlot : MonoBehaviour,IDragHandler,IBeginDragHandler,IEndDragHandler,IDropHandler,IPointerEnterHandler,IPointerExitHandler {
     InvManager manager;
@@ -10,6 +11,7 @@ public class InvSlot : MonoBehaviour,IDragHandler,IBeginDragHandler,IEndDragHand
     Item item;
     public Image icon;
     public Image highLightIcon;
+    public GameObject countText;
     int invIndex;
     int slotIndex;
 
@@ -25,6 +27,7 @@ public class InvSlot : MonoBehaviour,IDragHandler,IBeginDragHandler,IEndDragHand
     void Start()
     {
         manager = InvManager.instance;
+        //  countText.GetComponent<Text>().text = "12";
     }
 
     public void SetItem(Item newItem,int index,int newInvIndex)
