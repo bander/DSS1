@@ -1,0 +1,67 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: Icons
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 2
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings:
+    - serializedVersion: 2
+      m_BuildTarget: DefaultTexturePlatform
+      m_MaxTextureSize: 2048
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: -1
+      m_TextureCompression: 0
+      m_CompressionQuality: 50
+      m_CrunchedCompression: 0
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 0
+      m_AndroidETC2FallbackOverride: 0
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 1
+      enableTightPacking: 1
+    variantMultiplier: 1
+    packables:
+    - {fileID: 102900000, guid: 826f8713277ce454baea15961faa86ed, type: 3}
+    bindAsDefault: 1
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: 07cd35c4ecc31a347a6b4bfa24209576, type: 3}
+  - {fileID: 21300000, guid: 074b8556e6c722143aae468f929c7757, type: 3}
+  - {fileID: 21300000, guid: 649926daffe1d4b4eb678810d4233754, type: 3}
+  - {fileID: 21300000, guid: 4ef5a3d38c06d3640951c504cef2f429, type: 3}
+  - {fileID: 21300000, guid: 7d395f571901d6f449844c106011d922, type: 3}
+  - {fileID: 21300000, guid: 6091cab7c4555de4fa9448ae25543924, type: 3}
+  - {fileID: 21300000, guid: 8a53d7290b0995446bc74d8d7a2042ac, type: 3}
+  - {fileID: 21300000, guid: d8311bebbefe22046b61f30904574e04, type: 3}
+  - {fileID: 21300000, guid: 0081c04c0b2ca2642b5162bc02d96301, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - Icon_Fireball2_168
+  - Icon_Fireball_168
+  - Icon_BlindingLight_168
+  - Icon_Leafs_128
+  - Icon_Arrows_128
+  - Icon_Shield_128
+  - Icon_Deathkiss_128
+  - Icon_Fireball_128
+  - Icon_Sword_128
+  m_Tag: Icons
+  m_IsVariant: 0
