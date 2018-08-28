@@ -18,8 +18,8 @@ public class PLAnim2 : PlayerAnimator {
     }
     void OnEquipmmentChange(Equipment newItem,Equipment oldItem)
     {
-       
 
+        /*
         if (oldItem != null && oldItem.equipSlot == EquipmentSlot.Weapon)
         {
             animator.SetLayerWeight(1, 0);
@@ -44,6 +44,7 @@ public class PLAnim2 : PlayerAnimator {
                 currentAttackAnimSet = weaponAnimationDict[newItem];
             }
         }
+        //*/
     }
 
     [System.Serializable]

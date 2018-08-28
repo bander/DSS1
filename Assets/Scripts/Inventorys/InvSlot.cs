@@ -16,6 +16,8 @@ public class InvSlot : MonoBehaviour,IDragHandler,IBeginDragHandler,IEndDragHand
     Transform parentToReturn;
     InvSlot placeHolder;
 
+    public EquipmentSlot slotType = EquipmentSlot.None;
+
     bool isDragging;
     void Start()
     {
@@ -141,7 +143,18 @@ public class InvSlot : MonoBehaviour,IDragHandler,IBeginDragHandler,IEndDragHand
             {
                 if (dragSlot.item != null)
                 {
-                    return true;
+                    if (slotType==EquipmentSlot.None)
+                    {
+                        return true;
+                    }else
+                    {
+                        if ((dragSlot.item as Equipment)!=null && slotType == (dragSlot.item as Equipment).equipSlot)
+                        {
+                            return true;
+                        }
+                        return false;
+                    }
+
                 }
                 return false;
             }

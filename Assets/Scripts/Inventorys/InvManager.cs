@@ -54,14 +54,30 @@ public class InvManager : MonoBehaviour {
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            invents[0].Add(tm);
+           /* invents[0].Add(tm);
 
            invents[1].Add(tm2);
            invents[2].Add(tm2);
 
             if (OnInvChangedCallback!=null)
             OnInvChangedCallback.Invoke();
+            //*/
         }
+    }
+
+    public bool AddToInventory(Item item,int numInv)
+    {
+        if (true)
+        {
+
+            invents[0].Add(item);
+
+            if (OnInvChangedCallback != null)
+                OnInvChangedCallback.Invoke();
+
+            return true;
+        }
+        return false;
     }
 
     public Invent GetInvent(int num)

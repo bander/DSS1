@@ -2,11 +2,7 @@
 
 public class Pickup : Interactable {
     public Item item;
-
-    void Start()
-    {
-        radius = 1.5f;
-    }
+    
     public override void Interact()
     {
         base.Interact();
@@ -15,7 +11,9 @@ public class Pickup : Interactable {
     }
     void GetItem()
     {
-        bool wasPickuped = Inventory.instance.Add(item);
+        //bool wasPickuped = Inventory.instance.Add(item);
+
+        bool wasPickuped = InvManager.instance.AddToInventory(item,0);
         if(wasPickuped) Destroy(gameObject);
     }
 }

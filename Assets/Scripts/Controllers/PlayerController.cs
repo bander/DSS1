@@ -71,6 +71,15 @@ public class PlayerController : MonoBehaviour {
         //*/
     }
 
+    public void PickTarget(Interactable inter)
+    {
+        target = inter;
+        lookAtTarget();
+        target.Interact();
+    }
+
+//prolonged interact 
+
     #region MoveByTap
 
     public LayerMask movementMask;

@@ -1,7 +1,14 @@
 ﻿using UnityEngine;
 
 public class Interactable : MonoBehaviour {
-    public float radius = 3f;
+    Transform player;
+    public float radius = 2f;
+    bool isInRange = false;
+
+    void Start()
+    {
+        player = GameObject.FindGameObjectWithTag("Player").transform;
+    }
 
     void OnDrawGizmosSelected()
     {
@@ -9,8 +16,42 @@ public class Interactable : MonoBehaviour {
         Gizmos.DrawWireSphere(transform.position, radius);
     }
 
+    void Update()
+    {
+        if (player != null)
+        {
+            if ((player.position - transform.position).magnitude < radius)
+            {
+                if (!isInRange)
+                {
+                    isInRange = true;
+                    inRange();
+                }
+            }
+            else
+            {
+                if (isInRange)
+                {
+                    isInRange = false;
+                    MenuScript.instance.removeImteractables(this);
+                }
+
+            }
+        }
+        else
+        {
+           // Debug.Log("null "+name  );
+        }
+    }
+
     public virtual void Interact()
     {
-        //Debug.Log("Interact");
+        MenuScript.instance.removeImteractables(this);
+       // Debug.Log("Interact "+name);
+    }
+
+    public virtual void inRange()
+    {
+        MenuScript.instance.addImteractables(this);
     }
 }

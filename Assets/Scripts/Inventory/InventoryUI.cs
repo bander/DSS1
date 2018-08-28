@@ -4,6 +4,7 @@ public class InventoryUI : MonoBehaviour {
     public GameObject inventoryUI;
     public Transform itemsParent;
 
+    
     Inventory inventory;
 
     InventorySlot[] slots;
