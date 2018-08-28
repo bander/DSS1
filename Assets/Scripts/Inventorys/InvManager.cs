@@ -34,8 +34,8 @@ public class InvManager : MonoBehaviour {
         EquipInvs.SetNum(2);
 
         GameObject invent= new GameObject();
-        invent.AddComponent<Invent>();
-        invent.GetComponent<Invent>().Init(8);
+        invent.AddComponent<InvBackpack>();
+        invent.GetComponent<InvBackpack>().Init(8);
         invents.Add(invent.GetComponent<Invent>());
 
         GameObject invent2 = new GameObject();
@@ -67,15 +67,18 @@ public class InvManager : MonoBehaviour {
 
     public bool AddToInventory(Item item,int numInv)
     {
-        if (true)
+        if (numInv==0)
         {
+            if (invents[0].isEmptySlotAvailable())
+            {
+                invents[0].Add(item);
 
-            invents[0].Add(item);
+                if (OnInvChangedCallback != null)
+                    OnInvChangedCallback.Invoke();
 
-            if (OnInvChangedCallback != null)
-                OnInvChangedCallback.Invoke();
-
-            return true;
+                return true;
+            }
+            return false;
         }
         return false;
     }

@@ -14,6 +14,11 @@ public class Pickup : Interactable {
         //bool wasPickuped = Inventory.instance.Add(item);
 
         bool wasPickuped = InvManager.instance.AddToInventory(item,0);
-        if(wasPickuped) Destroy(gameObject);
+
+        if (wasPickuped)
+        {
+            Destroy(gameObject);
+            MenuScript.instance.removeImteractables(this);
+        }
     }
 }

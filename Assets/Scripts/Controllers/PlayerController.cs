@@ -73,9 +73,10 @@ public class PlayerController : MonoBehaviour {
 
     public void PickTarget(Interactable inter)
     {
-        target = inter;
-        lookAtTarget();
-        target.Interact();
+            target = inter;
+            lookAtTarget();
+           // MenuScript.instance.removeImteractables(target);
+            target.Interact();
     }
 
 //prolonged interact 

@@ -11,7 +11,6 @@ public class Invent : MonoBehaviour {
         {
             items.Add(null);
         }
-        
     }
     public bool Add(Item newItem)
     {
@@ -46,5 +45,11 @@ public class Invent : MonoBehaviour {
             otherInvent.items[to] = items[from];
             Remove(items[from]);
         }
+    }
+
+    public virtual bool isEmptySlotAvailable()
+    {
+        Debug.Log("EMPTY AV");
+        return true;
     }
 }

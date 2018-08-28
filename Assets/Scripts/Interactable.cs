@@ -46,8 +46,7 @@ public class Interactable : MonoBehaviour {
 
     public virtual void Interact()
     {
-        MenuScript.instance.removeImteractables(this);
-       // Debug.Log("Interact "+name);
+
     }
 
     public virtual void inRange()
