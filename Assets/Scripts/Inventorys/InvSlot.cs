@@ -27,26 +27,34 @@ public class InvSlot : MonoBehaviour,IDragHandler,IBeginDragHandler,IEndDragHand
     void Start()
     {
         manager = InvManager.instance;
-        //  countText.GetComponent<Text>().text = "12";
     }
 
-    public void SetItem(Item newItem,int index,int newInvIndex)
+    public void SetItem(Item newItem,int newIndex,int newInvIndex)
     {
         
         if (newItem != null)
         {
-            item = newItem;
+            item = newItem.Clone();
             icon.sprite = item.icon;
             icon.enabled = true;
             transform.SetSiblingIndex(slotIndex);
-
+            if (item.countInSlot != 1)
+            {
+                countText.SetActive(true);
+                countText.GetComponent<TMP_Text>().text = item.countInSlot.ToString();
+            }
+            else
+            {
+                countText.SetActive(false);
+                //countText.GetComponent<TMP_Text>().enabled = true;
+            }
         }
         else
         {
             Clear();
         }
 
-        slotIndex = index;
+        slotIndex = newIndex;
         invIndex = newInvIndex;
     }
     public void Clear()
@@ -73,12 +81,16 @@ public class InvSlot : MonoBehaviour,IDragHandler,IBeginDragHandler,IEndDragHand
             placeHolder = Instantiate(this,this.transform).GetComponent<InvSlot>();
             placeHolder.transform.parent = this.transform.parent;
             placeHolder.transform.SetSiblingIndex(this.transform.GetSiblingIndex());
+            placeHolder.countText.SetActive(false);
             placeHolder.Clear();
 
             parentToReturn = this.transform.parent;
             this.transform.SetParent(this.transform.parent.parent.parent.parent);
 
             isDragging = true;
+
+            Debug.Log("start "+item);
+            Debug.Log("start2 "+(item as Equipment));
         }
     }
 
@@ -102,6 +114,14 @@ public class InvSlot : MonoBehaviour,IDragHandler,IBeginDragHandler,IEndDragHand
             this.transform.SetParent(parentToReturn);
             transform.SetSiblingIndex(slotIndex);
             isDragging = false;
+
+            if (item==null) 
+            {
+                countText.SetActive(false);
+            }else if (item.countInSlot == 1)
+            {
+                countText.SetActive(false);
+            }
         }
         gameObject.GetComponent<CanvasGroup>().blocksRaycasts = true;
     }
@@ -150,11 +170,18 @@ public class InvSlot : MonoBehaviour,IDragHandler,IBeginDragHandler,IEndDragHand
             {
                 if (dragSlot.item != null)
                 {
-                    if (slotType==EquipmentSlot.None)
+                    if (slotType == EquipmentSlot.None)
                     {
                         return true;
                     }else
                     {
+                        Debug.Log("FFF " + slotType+" "+ dragSlot.item);
+                        if ((dragSlot.item as Equipment) != null)
+                        {
+                            Debug.Log("FFF " + (dragSlot.item as Equipment).equipSlot);
+
+                        }
+
                         if ((dragSlot.item as Equipment)!=null && slotType == (dragSlot.item as Equipment).equipSlot)
                         {
                             return true;

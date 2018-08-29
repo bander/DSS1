@@ -38,7 +38,7 @@ public class Invs : MonoBehaviour {
             {
                 if (invent.items.Count > i)
                 {
-                    Item tm = invent.items[i];
+                    Item tm = invent.items[i].Clone();
                     if (tm != null)
                     {
                         s.SetItem(tm, i,num);

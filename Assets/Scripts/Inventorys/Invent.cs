@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 public class Invent : MonoBehaviour {
     public List<Item> items = new List<Item>();
 
@@ -14,20 +15,85 @@ public class Invent : MonoBehaviour {
     }
     public bool Add(Item newItem)
     {
-        for (int i = 0; i < items.Count; i++)
+        bool ret = false;
+        int i = -1;
+        if (newItem.countInSlot ==1)
         {
-            if (items[i] == null)
+            i = findIndexEmptySlot();
+            if(i != -1) items[i] = newItem.Clone();
+        }
+        else
+        {
+            int excess = fillSlotByType(newItem.Clone());
+            if (excess != 0)
             {
-                items[i] = newItem;
-                return true;
+                i = findIndexEmptySlot();
+                if (i != -1)
+                {
+                    Item excessItem = newItem.Clone();
+                    excessItem.countInSlot = excess;
+                    items[i] = excessItem;
+                }
+            }
+            else
+            {
+                i = 0;
             }
         }
-        return false;
-        
+        if (i != -1) ret = true;
+
+
+        return ret;
     }
+    int findIndexEmptySlot()
+    {
+        for (int i = 0; i < items.Count; i++)
+        {
+            if (items[i] == null) return i;
+        }
+        return -1;
+    }
+    public int findIndexNotFullItemOfType(Item.ItemType findType)
+    {
+        for (int i = 0; i < items.Count; i++)
+        {
+            if (items[i] != null && items[i].type == findType && items[i].countInSlot < items[i].maxCountInSlot)
+            {
+                return i;
+            }
+        }
+        return -1;
+    }
+    int fillSlotByType(Item fillItem)
+    {
+        int fillCount = fillItem.countInSlot;
+        int maxCount = fillItem.maxCountInSlot;
+        int i = findIndexNotFullItemOfType(fillItem.type);
+
+        while (i != -1)
+        {
+            int emptyCount = maxCount - items[i].countInSlot;
+
+            if (emptyCount >= fillCount)
+            {
+                items[i].countInSlot += fillCount;
+                fillCount = 0;
+
+                i = -1;
+            }
+            else
+            {
+                items[i].countInSlot = maxCount;
+                fillCount -= emptyCount;
+                i = findIndexNotFullItemOfType(fillItem.type);
+            }
+        }
+
+        return fillCount;
+    }
+    
     public void Remove(Item item)
     {
-        //items.Remove(item);
         int i = items.IndexOf(item);
         items[i] = null;
     }
@@ -49,7 +115,12 @@ public class Invent : MonoBehaviour {
 
     public virtual bool isEmptySlotAvailable()
     {
-        Debug.Log("EMPTY AV");
-        return true;
+        int i = 0;
+        foreach (Item item in items)
+        {
+            i++;
+            if (item == null) return true;
+        }
+        return false;
     }
 }

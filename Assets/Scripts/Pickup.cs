@@ -17,8 +17,8 @@ public class Pickup : Interactable {
 
         if (wasPickuped)
         {
-            Destroy(gameObject);
             MenuScript.instance.removeImteractables(this);
+            Destroy(gameObject);
         }
     }
 }

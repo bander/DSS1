@@ -17,6 +17,23 @@ public class Equipment : Item {
         EquipmentManager.instance.Equip(this);
         RemoveFromInventory();
     }
+    public override Item Clone()
+    {
+        Equipment itm = new Equipment();
+        itm.name = "New Item";
+        itm.mesh = mesh;
+
+        itm.icon = icon;
+        itm.isDefaultItem = isDefaultItem;
+        itm.countInSlot = countInSlot;
+        itm.maxCountInSlot = maxCountInSlot;
+        itm.type = type;
+
+
+        itm.equipSlot = equipSlot;
+
+        return itm;
+    }
 }
 
 public enum EquipmentSlot { None,Head,Body,Legs,Foot,Weap,Back,Slot }

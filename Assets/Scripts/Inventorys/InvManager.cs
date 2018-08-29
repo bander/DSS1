@@ -54,19 +54,18 @@ public class InvManager : MonoBehaviour {
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-           /* invents[0].Add(tm);
+            tm.countInSlot = 3;
+            
+            invents[0].Add(tm);
 
-           invents[1].Add(tm2);
-           invents[2].Add(tm2);
-
-            if (OnInvChangedCallback!=null)
-            OnInvChangedCallback.Invoke();
-            //*/
+            if (OnInvChangedCallback != null)
+                OnInvChangedCallback.Invoke();
         }
     }
 
     public bool AddToInventory(Item item,int numInv)
     {
+        Debug.Log("count "+item.countInSlot);
         if (numInv==0)
         {
             if (invents[0].isEmptySlotAvailable())
@@ -77,7 +76,10 @@ public class InvManager : MonoBehaviour {
                     OnInvChangedCallback.Invoke();
 
                 return true;
+            }else if(item.maxCountInSlot>1){
+                invents[0].findIndexNotFullItemOfType(item.type);
             }
+     
             return false;
         }
         return false;
