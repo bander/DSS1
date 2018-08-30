@@ -14,8 +14,8 @@ public class InvManager : MonoBehaviour {
     #endregion
 
     public Invs playerInvs;
-    public Invs lootInvs;
     public Invs EquipInvs;
+    public Invs lootInvs;
 
 
     public Item tm;
@@ -29,9 +29,6 @@ public class InvManager : MonoBehaviour {
 
     void Start()
     {
-        playerInvs.SetNum(0);
-        lootInvs.SetNum(1);
-        EquipInvs.SetNum(2);
 
         GameObject invent= new GameObject();
         invent.AddComponent<InvBackpack>();
@@ -40,13 +37,19 @@ public class InvManager : MonoBehaviour {
 
         GameObject invent2 = new GameObject();
         invent2.AddComponent<Invent>();
-        invent2.GetComponent<Invent>().Init(8);
+        invent2.GetComponent<Invent>().Init(7);
         invents.Add(invent2.GetComponent<Invent>());
-        
+
         GameObject invent3 = new GameObject();
         invent3.AddComponent<Invent>();
-        invent3.GetComponent<Invent>().Init(7);
+        invent3.GetComponent<Invent>().Init(8);
         invents.Add(invent3.GetComponent<Invent>());
+        
+
+
+        playerInvs.SetNum(0);
+        EquipInvs.SetNum(1);
+        lootInvs.SetNum(2);
         //*/
     }
 
@@ -54,9 +57,9 @@ public class InvManager : MonoBehaviour {
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            tm.countInSlot = 3;
-            
-            invents[0].Add(tm);
+            tm.countInSlot = 6;
+            invents[0].Add(tm.Clone());
+            //invents[1].Add(tm);
 
             if (OnInvChangedCallback != null)
                 OnInvChangedCallback.Invoke();
@@ -65,7 +68,7 @@ public class InvManager : MonoBehaviour {
 
     public bool AddToInventory(Item item,int numInv)
     {
-        Debug.Log("count "+item.countInSlot);
+
         if (numInv==0)
         {
             if (invents[0].isEmptySlotAvailable())
@@ -93,5 +96,93 @@ public class InvManager : MonoBehaviour {
         }
         return null;
     }
-    
+
+    public bool IsLootEmpty()
+    {
+        if(invents!=null && invents.Count>1 && invents[2]!=null && invents[2].items != null)
+        {
+            foreach (Item item in invents[2].items)
+            {
+                if (item != null)
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public void GetAllLoot()
+    {
+
+
+        List<Item> loot = invents[2].items;
+        int j = 0;
+
+        int i = 0;
+        foreach (Item item in loot)
+        {
+            if (item != null)
+            {
+                int indexEmpty;
+                if (item.maxCountInSlot < 1)
+                {
+                    indexEmpty = invents[0].findIndexEmptySlot();
+                
+                    if (indexEmpty != -1)
+                    {
+                        invents[2].SwitchItems(i, indexEmpty, 2, 0);
+                    }
+                }
+                else
+                {
+                    ///мщес все слот незаполненнык с аналогичным айтемом
+                    ///заполняем его
+                    ///если не все айтемы перенесены
+                    ///ищем следующий аналогичный незаполненный слот
+                    
+                    bool stillSearchAnalogItems = true;
+                    while (stillSearchAnalogItems && invents[2].items[i]!= null)
+                    {
+                        int indexNotFull = invents[0].findIndexNotFullItemOfType(item.type);
+            
+                        if (indexNotFull != -1)
+                        {
+                            invents[2].fillItems(i,indexNotFull, 2, 0);
+
+                            if (invents[2].items[i] == null)
+                            {
+                                stillSearchAnalogItems = false;
+                            }
+                            else if(invents[2].items[i].countInSlot == 0)
+                            {
+                                stillSearchAnalogItems = false;
+                            }
+                        }
+                        else
+                        {
+                            stillSearchAnalogItems = false;
+                        }
+                    }
+
+                    /// если перенесли не все элементы 
+                    /// проверяем есть ли пустой слот
+
+                    if (invents[2].items[i] != null)
+                    {
+                        indexEmpty = invents[0].findIndexEmptySlot();
+                        if (indexEmpty != -1)
+                        {
+                            invents[2].SwitchItems(i, indexEmpty, 2, 0);
+                        }
+                    }
+                        
+                }
+            }
+            i++;
+
+        }
+
+        OnInvChangedCallback.Invoke();
+    }
 }

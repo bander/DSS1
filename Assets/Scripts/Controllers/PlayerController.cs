@@ -33,6 +33,9 @@ public class PlayerController : MonoBehaviour {
 
     Joystick joystick;
 
+    float gravity = 9.8f;
+    private float vSpeed = 0f;
+
     public delegate void OnMainUIUpdate();
     public OnMainUIUpdate onMainUIUpdate;
 
@@ -47,8 +50,18 @@ public class PlayerController : MonoBehaviour {
         
         moveDirection = transform.forward * joystick.Vertical + transform.right * joystick.Horizontal;
         moveDirection = moveDirection.normalized * moveSpeed;
+
+        if (controller.isGrounded)
+        {
+            vSpeed = 0; 
+        }
+
+        // apply gravity acceleration to vertical speed:
+        vSpeed -= gravity * Time.deltaTime;
+        moveDirection.y = vSpeed; 
+
         controller.Move(moveDirection * Time.deltaTime);
-        
+
         if (joystick.Vertical != 0 || joystick.Horizontal != 0)
         {
             Quaternion modelRotation = Quaternion.LookRotation(new Vector3(moveDirection.x, 0f, moveDirection.z));

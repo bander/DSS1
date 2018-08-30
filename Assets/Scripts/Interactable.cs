@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 public class Interactable : MonoBehaviour {
-    Transform player;
+    protected Transform player;
     public float radius = 2f;
     bool isInRange = false;
 
@@ -33,7 +33,7 @@ public class Interactable : MonoBehaviour {
                 if (isInRange)
                 {
                     isInRange = false;
-                    MenuScript.instance.removeImteractables(this);
+                    inRange();
                 }
 
             }
@@ -51,6 +51,13 @@ public class Interactable : MonoBehaviour {
 
     public virtual void inRange()
     {
-        MenuScript.instance.addImteractables(this);
+        if (isInRange)
+        {
+            MenuScript.instance.addImteractables(this);
+        }
+        else
+        {
+            MenuScript.instance.removeImteractables(this);
+        }
     }
 }

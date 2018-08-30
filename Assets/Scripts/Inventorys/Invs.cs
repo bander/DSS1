@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Invs : MonoBehaviour {
     InvManager manager;
+
     [SerializeField]
     InvSlot[] slots;
     int num = 0;
@@ -26,7 +27,13 @@ public class Invs : MonoBehaviour {
         num = number;
         manager.OnInvChangedCallback += UpdateSlots;
 
-        UpdateSlots();
+        int i = 0;
+        foreach (InvSlot s in slots)
+        {
+            s.SetItem(null, i, num);
+            i++;
+        }
+           // UpdateSlots();
     }
     void UpdateSlots()
     {
@@ -38,10 +45,10 @@ public class Invs : MonoBehaviour {
             {
                 if (invent.items.Count > i)
                 {
-                    Item tm = invent.items[i].Clone();
+                    Item tm = invent.items[i];
                     if (tm != null)
                     {
-                        s.SetItem(tm, i,num);
+                        s.SetItem(tm.Clone(), i, num);
                     }
                     else
                     {

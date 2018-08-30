@@ -7,13 +7,14 @@ using TMPro;
 
 public class InvSlot : MonoBehaviour,IDragHandler,IBeginDragHandler,IEndDragHandler,IDropHandler,IPointerEnterHandler,IPointerExitHandler {
     InvManager manager;
+    CanvasController canvas;
 
     Item item;
     public Image icon;
-    public Image highLightIcon;
+    public GameObject highLightIcon;
     public GameObject countText;
-    int invIndex;
-    int slotIndex;
+    public int invIndex;
+    public int slotIndex;
 
     int countItems;
     int maxcountOfItems;
@@ -22,11 +23,12 @@ public class InvSlot : MonoBehaviour,IDragHandler,IBeginDragHandler,IEndDragHand
     InvSlot placeHolder;
 
     public EquipmentSlot slotType = EquipmentSlot.None;
-
+    
     bool isDragging;
     void Start()
     {
         manager = InvManager.instance;
+        canvas = CanvasController.instance;
     }
 
     public void SetItem(Item newItem,int newIndex,int newInvIndex)
@@ -46,7 +48,6 @@ public class InvSlot : MonoBehaviour,IDragHandler,IBeginDragHandler,IEndDragHand
             else
             {
                 countText.SetActive(false);
-                //countText.GetComponent<TMP_Text>().enabled = true;
             }
         }
         else
@@ -62,20 +63,58 @@ public class InvSlot : MonoBehaviour,IDragHandler,IBeginDragHandler,IEndDragHand
         item = null;
         icon.sprite = null;
         icon.enabled = false;
+
+        if (highLightIcon.activeSelf) highLight(false);
+        countText.SetActive(false);
     }
 
     public void highLight(bool activate=true)
     {
-        highLightIcon.enabled = activate;
+        highLightIcon.SetActive(activate);
+    }
+    public Item GetItem()
+    {
+        return item;
     }
 
+    public void SelectSlot()
+    {
+        if (canvas.selectedSlot != null)
+        {
+            if (canvas.selectedSlot == this)
+            {
+                canvas.selectedSlot.DeselectSlot();
+                return;
+            }
+            canvas.selectedSlot.DeselectSlot();
+        }
+        
+        if (item != null)
+        {
+            canvas.selectedSlot = this;
 
+            bool splitted = (item.countInSlot > 1) ? true : false;
+
+            highLight();
+            CanvasController.instance.buttonsControl(false, splitted, true);
+        }
+        //*/
+    }
+
+    public void DeselectSlot()
+    {
+        highLight(false);
+        canvas.selectedSlot = null;
+        canvas.buttonsControl(false, false, false);
+    }
 
 
     public void OnBeginDrag(PointerEventData eventData)
     {
         if (item != null)
         {
+            if (highLightIcon.activeSelf) DeselectSlot();
+
             gameObject.GetComponent<CanvasGroup>().blocksRaycasts = false;
 
             placeHolder = Instantiate(this,this.transform).GetComponent<InvSlot>();
@@ -88,9 +127,6 @@ public class InvSlot : MonoBehaviour,IDragHandler,IBeginDragHandler,IEndDragHand
             this.transform.SetParent(this.transform.parent.parent.parent.parent);
 
             isDragging = true;
-
-            Debug.Log("start "+item);
-            Debug.Log("start2 "+(item as Equipment));
         }
     }
 
@@ -104,16 +140,18 @@ public class InvSlot : MonoBehaviour,IDragHandler,IBeginDragHandler,IEndDragHand
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        if (highLightIcon.enabled)
+        if (highLightIcon.activeSelf)
         {
             highLight(false);
         }
         if (eventData.pointerDrag != null && isDragging)
         {
-            Destroy(placeHolder.gameObject);
+            if (placeHolder != null)
+            {
+                Destroy(placeHolder.gameObject);
+            }
             this.transform.SetParent(parentToReturn);
             transform.SetSiblingIndex(slotIndex);
-            isDragging = false;
 
             if (item==null) 
             {
@@ -122,9 +160,12 @@ public class InvSlot : MonoBehaviour,IDragHandler,IBeginDragHandler,IEndDragHand
             {
                 countText.SetActive(false);
             }
+
         }
         gameObject.GetComponent<CanvasGroup>().blocksRaycasts = true;
     }
+
+    
 
     public void OnDrop(PointerEventData eventData)
     {
@@ -132,32 +173,82 @@ public class InvSlot : MonoBehaviour,IDragHandler,IBeginDragHandler,IEndDragHand
         if (check)
         {
             InvSlot slt = eventData.pointerDrag.GetComponent<InvSlot>();
-            if (highLightIcon.enabled)
+            if (highLightIcon.activeSelf)
             {
-                InvManager.instance.invents[slt.invIndex].SwitchItems(slt.slotIndex, slotIndex,slt.invIndex,invIndex);
+                if (item==null)
+                {
+                    InvManager.instance.invents[slt.invIndex].SwitchItems(slt.slotIndex, slotIndex,slt.invIndex,invIndex);
+                }
+                else
+                {
+                    InvManager.instance.invents[slt.invIndex].fillItems(slt.slotIndex, slotIndex, slt.invIndex, invIndex);
+                }
                 highLight(false);
             }
         }
         InvManager.instance.OnInvChangedCallback.Invoke();
     }
 
+    
+
     public void OnPointerEnter(PointerEventData eventData)
     {
         bool check = checkDragData(eventData);
-        if (item == null && check)
+        if (check)
         {
-            highLight();
+            if(item == null)
+            {
+                highLight();
+            }
+            else{
+                int availMergeCount = checkEqualsItemAndAvailableCount(eventData);
+                if (availMergeCount > 0)
+                {
+                    highLight();
+                }
+            }
         }
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
         bool check = checkDragData(eventData);
-        if (item == null && check)
+        if (check)
         {
-            highLight(false);
+            if (item == null)
+            {
+                highLight(false);
+            }
+            else
+            {
+                int availMergeCount = checkEqualsItemAndAvailableCount(eventData);
+                if (availMergeCount > 0)
+                {
+                    highLight(false);
+                }
+
+            }
+
         }
 
+    }
+
+    int checkEqualsItemAndAvailableCount(PointerEventData eventData)
+    {
+        int ret = 0;
+        if (slotType == EquipmentSlot.None)
+        {
+            Item dragItem = eventData.pointerDrag.GetComponent<InvSlot>().item;
+            if (dragItem.type == item.type)
+            {
+                if (item.countInSlot < item.maxCountInSlot)
+                {
+                    ret = item.maxCountInSlot - item.countInSlot;
+                }
+            }
+        }
+
+        return ret;
     }
 
     bool checkDragData(PointerEventData eventData)
@@ -175,13 +266,6 @@ public class InvSlot : MonoBehaviour,IDragHandler,IBeginDragHandler,IEndDragHand
                         return true;
                     }else
                     {
-                        Debug.Log("FFF " + slotType+" "+ dragSlot.item);
-                        if ((dragSlot.item as Equipment) != null)
-                        {
-                            Debug.Log("FFF " + (dragSlot.item as Equipment).equipSlot);
-
-                        }
-
                         if ((dragSlot.item as Equipment)!=null && slotType == (dragSlot.item as Equipment).equipSlot)
                         {
                             return true;

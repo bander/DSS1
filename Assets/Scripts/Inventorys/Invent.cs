@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable]
 public class Invent : MonoBehaviour {
+
+    [SerializeField]
     public List<Item> items = new List<Item>();
 
     public void Init(int count)
@@ -45,7 +46,8 @@ public class Invent : MonoBehaviour {
 
         return ret;
     }
-    int findIndexEmptySlot()
+
+    public int findIndexEmptySlot()
     {
         for (int i = 0; i < items.Count; i++)
         {
@@ -95,7 +97,14 @@ public class Invent : MonoBehaviour {
     public void Remove(Item item)
     {
         int i = items.IndexOf(item);
-        items[i] = null;
+        if(i>=0 && items.Count>i) items[i] = null;
+
+        InvManager.instance.OnInvChangedCallback.Invoke();
+    }
+    public void RemoveItemByNum(int i)
+    {
+        if (i >= 0 && items.Count > i) items[i] = null;
+        InvManager.instance.OnInvChangedCallback.Invoke();
     }
 
     public void SwitchItems(int from,int to, int fromInv,int toInv)
@@ -109,7 +118,42 @@ public class Invent : MonoBehaviour {
         {
             Invent otherInvent = InvManager.instance.GetInvent(toInv);//.Add(items[from]);
             otherInvent.items[to] = items[from];
-            Remove(items[from]);
+            items[from] = null;
+        }
+    }
+
+    public void fillItems(int from, int to, int fromInv, int toInv)
+    {
+        if (fromInv == toInv)
+        {
+            int availableCount = items[to].maxCountInSlot-items[to].countInSlot;
+            if (items[from].countInSlot > availableCount)
+            {
+                items[to].countInSlot = items[to].maxCountInSlot;
+                items[from].countInSlot -= availableCount;
+            }
+            else
+            {
+                items[to].countInSlot += items[from].countInSlot;
+                items[from] = null;
+            }
+        }
+        else
+        {
+            Invent otherInvent = InvManager.instance.GetInvent(toInv);//.Add(items[from]);
+            
+            int availableCount = otherInvent.items[to].maxCountInSlot - otherInvent.items[to].countInSlot;
+         
+            if (items[from].countInSlot > availableCount)
+            {
+                otherInvent.items[to].countInSlot = otherInvent.items[to].maxCountInSlot;
+                items[from].countInSlot -= availableCount;
+            }
+            else
+            {
+                otherInvent.items[to].countInSlot += items[from].countInSlot;
+                items[from] = null;
+            }
         }
     }
 
@@ -122,5 +166,23 @@ public class Invent : MonoBehaviour {
             if (item == null) return true;
         }
         return false;
+    }
+
+    public int GetSummMetall()
+    {
+        int ret = 0;
+        foreach (Item item in items)
+        {
+            if (item != null)
+            {
+                if (item.type == Item.ItemType.Metall)
+                {
+                    ret += item.countInSlot;
+                }
+            }
+        }
+        Debug.Log(" Summ metal "+ret);
+
+        return ret;
     }
 }
