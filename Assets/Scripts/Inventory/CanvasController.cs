@@ -100,6 +100,7 @@ public class CanvasController : MonoBehaviour {
         closeAll();
         mainUI.SetActive(true);
         updateBuildButtonsActivity();
+        builder.turnOffCurrent();
     }
     void closeAll()
     {

@@ -144,13 +144,14 @@ public class BuildController : MonoBehaviour
         }
     }
     
-    void turnOffCurrent()
+    public void turnOffCurrent()
     {
         if (currentTarget != null)
         {
             currentTarget.GetComponent<MeshRenderer>().material = invis;
             currentTarget.transform.position = new Vector3(0, -20, 0);
             currentTarget = null;
+            onBuildUpdate = null;
         }
     }
 
@@ -291,14 +292,8 @@ public class BuildController : MonoBehaviour
                 i++;
             }
 
-            if (isset)
-            {
-                current = green;
-            }
-            else
-            {
-                current = red;
-            }
+            current = (isset) ? green : red;
+
             wall.GetComponent<MeshRenderer>().material = current;
         }
         if (current == green)
@@ -312,18 +307,15 @@ public class BuildController : MonoBehaviour
     }
     void BoxState()
     {
-        if (EventSystem.current.IsPointerOverGameObject())
-        {
-            return;
-        }
+        if (EventSystem.current.IsPointerOverGameObject())  return;
+
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
         RaycastHit hit;
-
         if (Physics.Raycast(ray, out hit, 100, layerMask))
         {
-            float vx = Mathf.Round((hit.point.x / divider) - 0.5f) * divider;
-            float vz = Mathf.Round((hit.point.z / divider) + 0.5f) * divider;
+            float vx = Mathf.Round((hit.point.x / divider) + 0.5f) * divider-1f;
+            float vz = Mathf.Round((hit.point.z / divider) - 0.5f) * divider + 1f;
+            Vector3 v2 = new Vector3(-1f, 0,1f);
             Vector3 v = new Vector3(vx, box.transform.position.y, vz);
 
             if (v != currentV)
@@ -334,22 +326,28 @@ public class BuildController : MonoBehaviour
                 float rtx = panel.GetComponent<RectTransform>().rect.width / 6;
                 float rty = -panel.GetComponent<RectTransform>().rect.height / 4;
                 panel.transform.position = Camera.main.WorldToScreenPoint(tile.transform.position) + new Vector3(rtx, rty, 0);
-                //                    WorldToScreenPoint(star.coordinates) + labelOffset; ;
+                //WorldToScreenPoint(star.coordinates) + labelOffset; ;
             }
+            bool isset = false;
+            int i = 0;
 
-        }
-
-        current = red;
-        foreach (Collider col in tile.GetComponent<TileCollider>().cols)
-        {
-            if (col.GetComponent<TileCollider>() != null)
+            foreach (Vector3 v3 in tilesSetted)
             {
-                current = green;
-                break;
+                if ((v+v2) == v3) isset = true;
+                i++;
             }
-            current = red;
+            current = (isset) ? green : red;
+            box.GetComponent<MeshRenderer>().material = current;
+
+            if (current == green)
+            {
+                ShowPanel();
+            }
+            else
+            {
+                ShowPanel(false);
+            }
         }
-        box.GetComponent<MeshRenderer>().material = current;
     }
 
     void ShowPanel(bool act=true)

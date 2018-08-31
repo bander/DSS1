@@ -188,7 +188,7 @@ public class InvManager : MonoBehaviour {
 
     public void spendItems(Item.ItemType inType,int count)
     {
-        if (invents[0].GetSummMetall() > count)
+        if (invents[0].GetSummMetall() >= count)
         {
             while (count > 0)
             {
