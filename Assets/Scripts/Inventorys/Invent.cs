@@ -181,8 +181,7 @@ public class Invent : MonoBehaviour {
                 }
             }
         }
-        Debug.Log(" Summ metal "+ret);
-
+        Debug.Log("summ "+ret);
         return ret;
     }
 }

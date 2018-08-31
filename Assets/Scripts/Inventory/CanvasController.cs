@@ -13,6 +13,7 @@ public class CanvasController : MonoBehaviour {
     #endregion
 
     InvManager manager;
+    BuildController builder;
 
     public GameObject mainUI;
     public GameObject inventoryUI;
@@ -20,6 +21,7 @@ public class CanvasController : MonoBehaviour {
     public GameObject closeButton;
     public GameObject LootUI;
     public GameObject BuildUI;
+    public GameObject BuildPanel;
 
     public GameObject useButton;
     public GameObject splitButton;
@@ -34,6 +36,8 @@ public class CanvasController : MonoBehaviour {
         buttonsControl(false, false, false);
 
         manager = InvManager.instance;
+        builder = BuildController.instance;
+
         if (manager != null)
         {
             manager.OnInvChangedCallback += UpdateGetAllButton;
@@ -87,6 +91,7 @@ public class CanvasController : MonoBehaviour {
     {
         closeAll();
         BuildUI.SetActive(true);
+        updateBuildButtonsActivity();
     }
 
 
@@ -104,6 +109,7 @@ public class CanvasController : MonoBehaviour {
         mainUI.SetActive(false);
         LootUI.SetActive(false);
         BuildUI.SetActive(false);
+        showBuildPanel(false);
     }
 
     public void RemoveSelectedItem()
@@ -120,16 +126,24 @@ public class CanvasController : MonoBehaviour {
     {
         updateBuildButtonsActivity();
         buildOn(BuildUI.transform.GetChild(1).gameObject, true);
+        builder.setFloorState();
     }
     public void buildWall()
     {
         updateBuildButtonsActivity();
         buildOn(BuildUI.transform.GetChild(2).gameObject, true);
+        builder.setWallState();
     }
     public void buildBox()
     {
         updateBuildButtonsActivity();
         buildOn(BuildUI.transform.GetChild(3).gameObject, true);
+        builder.setBoxState();
+    }
+
+    public void showBuildPanel(bool act=true)
+    {
+        BuildPanel.SetActive(act);
     }
 
     void updateBuildButtonsActivity()
@@ -144,7 +158,7 @@ public class CanvasController : MonoBehaviour {
             SetActiveBuildButton(BuildUI.transform.GetChild(1).gameObject, true);
             SetActiveBuildButton(BuildUI.transform.GetChild(2).gameObject, true);
         }
-        if (summ > 5)
+        if (summ > 4)
         {
             SetActiveBuildButton(BuildUI.transform.GetChild(3).gameObject, true);
         }

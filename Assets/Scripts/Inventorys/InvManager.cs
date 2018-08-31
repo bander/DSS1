@@ -185,4 +185,53 @@ public class InvManager : MonoBehaviour {
 
         OnInvChangedCallback.Invoke();
     }
+
+    public void spendItems(Item.ItemType inType,int count)
+    {
+        if (invents[0].GetSummMetall() > count)
+        {
+            while (count > 0)
+            {
+                int i = indexMinCountOfType(inType);
+                spendOneItemFromIndex(i);
+                count--;
+            }
+        }
+    }
+
+    int indexMinCountOfType(Item.ItemType inType)
+    {
+        int min = 1000;
+        int index=-1;
+        int i = 0;
+        foreach (Item item in invents[0].items)
+        {
+            if (item != null)
+            {
+                if (item.type == inType)
+                {
+                    if (item.countInSlot < min)
+                    {
+                        min = item.countInSlot;
+                        index = i;
+                    }
+                }
+            }
+            i++;
+        }
+        return index;
+    }
+    void spendOneItemFromIndex(int index)
+    {
+        if (invents[0].items[index].countInSlot > 1)
+        {
+            invents[0].items[index].countInSlot -= 1;
+        }
+        else
+        {
+            invents[0].items[index] = null;
+        }
+
+        OnInvChangedCallback.Invoke();
+    }
 }
