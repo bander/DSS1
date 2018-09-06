@@ -33,7 +33,6 @@ public class InvSlot : MonoBehaviour,IDragHandler,IBeginDragHandler,IEndDragHand
 
     public void SetItem(Item newItem,int newIndex,int newInvIndex)
     {
-        
         if (newItem != null)
         {
             item = newItem.Clone();
@@ -100,7 +99,6 @@ public class InvSlot : MonoBehaviour,IDragHandler,IBeginDragHandler,IEndDragHand
         }
         //*/
     }
-
     public void DeselectSlot()
     {
         highLight(false);
@@ -129,7 +127,6 @@ public class InvSlot : MonoBehaviour,IDragHandler,IBeginDragHandler,IEndDragHand
             isDragging = true;
         }
     }
-
     public void OnDrag(PointerEventData eventData)
     {
         if (item != null && isDragging)
@@ -137,7 +134,6 @@ public class InvSlot : MonoBehaviour,IDragHandler,IBeginDragHandler,IEndDragHand
             transform.position = eventData.position;
         }
     }
-
     public void OnEndDrag(PointerEventData eventData)
     {
         if (highLightIcon.activeSelf)

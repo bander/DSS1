@@ -55,6 +55,16 @@ public class Invent : MonoBehaviour {
         }
         return -1;
     }
+    public List<int> findAllIndexesEmptySlots()
+    {
+        List<int> ret = new List<int>();
+        for (int i = 0; i < items.Count; i++)
+        {
+            if (items[i] == null) ret.Add(i);
+        }
+        if (ret.Count == 0)  ret=null;
+        return ret;
+    }
     public int findIndexNotFullItemOfType(Item.ItemType findType)
     {
         for (int i = 0; i < items.Count; i++)
@@ -65,6 +75,19 @@ public class Invent : MonoBehaviour {
             }
         }
         return -1;
+    }
+    public List<int> findAllIndexesNotFullItemsOfType(Item.ItemType findType)
+    {
+        List<int> ret = new List<int>();
+        for (int i = 0; i < items.Count; i++)
+        {
+            if (items[i] != null && items[i].type == findType && items[i].countInSlot < items[i].maxCountInSlot)
+            {
+                ret.Add(i);
+            }
+        }
+        if (ret.Count == 0) ret = null;
+        return ret;
     }
     int fillSlotByType(Item fillItem)
     {
@@ -121,7 +144,6 @@ public class Invent : MonoBehaviour {
             items[from] = null;
         }
     }
-
     public void fillItems(int from, int to, int fromInv, int toInv)
     {
         if (fromInv == toInv)
@@ -167,7 +189,6 @@ public class Invent : MonoBehaviour {
         }
         return false;
     }
-
     public int GetSummMetall()
     {
         int ret = 0;

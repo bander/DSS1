@@ -28,6 +28,8 @@ public class CanvasController : MonoBehaviour {
     public GameObject removeButton;
     public GameObject getAllButton;
     public InvSlot selectedSlot;
+    public InvSlot selectedSlot2;
+    public bool isSpliting = false;
 
     int currentBuild = 0;
 
