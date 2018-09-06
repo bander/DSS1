@@ -31,6 +31,9 @@ public class CanvasController : MonoBehaviour {
     public InvSlot selectedSlot2;
     public bool isSpliting = false;
 
+    public GameObject splitLeft;
+    public GameObject splitRight;
+
     int currentBuild = 0;
 
     void Start()
@@ -185,4 +188,8 @@ public class CanvasController : MonoBehaviour {
 
     }
     
+    public void splitAction(float percent)
+    {
+
+    }
 }
