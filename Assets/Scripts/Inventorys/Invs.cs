@@ -7,7 +7,7 @@ public class Invs : MonoBehaviour {
     CanvasController canvas;
 
     [SerializeField]
-    List<InvSlot> slots;
+    public List<InvSlot> slots;
     int num = 0;
 
     public GameObject slotPrefab;
@@ -23,7 +23,8 @@ public class Invs : MonoBehaviour {
         {
            // slots = GetComponentsInChildren<InvSlot>();
         }
-        activateBackpackSlots();
+
+       // activateBackpackSlots();
     }
     public void SetNum(int number)
     {

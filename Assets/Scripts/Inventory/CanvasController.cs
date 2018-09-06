@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class CanvasController : MonoBehaviour {
     #region Singleton
@@ -22,17 +23,20 @@ public class CanvasController : MonoBehaviour {
     public GameObject LootUI;
     public GameObject BuildUI;
     public GameObject BuildPanel;
+    public GameObject SplitPanel;
 
     public GameObject useButton;
     public GameObject splitButton;
     public GameObject removeButton;
     public GameObject getAllButton;
-    public InvSlot selectedSlot;
-    public InvSlot selectedSlot2;
-    public bool isSpliting = false;
 
+    public InvSlot selectedSlot;
+
+    public InvSlot selectedSlot2;
     public GameObject splitLeft;
     public GameObject splitRight;
+    public bool isSpliting = false;
+    public Item splittedItem;
 
     int currentBuild = 0;
 
@@ -188,8 +192,33 @@ public class CanvasController : MonoBehaviour {
 
     }
     
+    public void ActivateSplitPanel()
+    {
+        SplitPanel.SetActive(true);
+        int index2 = manager.invents[0].findIndexEmptySlot();
+        selectedSlot2 = manager.playerInvs.slots[index2];
+        selectedSlot2.highLight();
+        splittedItem = selectedSlot.GetItem().Clone();
+        splitAction(0.5f);
+    }
+    public void DectivateSplitPanel()
+    {
+        selectedSlot2.highLight(false);
+        SplitPanel.SetActive(false);
+        selectedSlot.DeselectSlot();
+    }
+
     public void splitAction(float percent)
     {
+        int splittedCount = splittedItem.countInSlot;
+        int leftCount = (int)(Mathf.Round(splittedCount * percent));
+        int rightCount = splittedCount - leftCount;//(int)(Mathf.Round(splittedCount * (1-percent)));
+        splitLeft.GetComponent<TMP_Text>().text = ""+leftCount;
+        splitRight.GetComponent<TMP_Text>().text = ""+rightCount;
+       
+        manager.invents[selectedSlot.invIndex].UpdateCountOfItems(splittedItem,selectedSlot.slotIndex ,leftCount);
+        manager.invents[0].UpdateCountOfItems(splittedItem,selectedSlot2.slotIndex ,rightCount);
 
+        manager.OnInvChangedCallback.Invoke();
     }
 }

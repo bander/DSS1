@@ -32,7 +32,7 @@ namespace UnityStandardAssets.ImageEffects
         private Material m_SeparableBlurMaterial;
         private Material m_ChromAberrationMaterial;
 
-
+        
         public override bool CheckResources ()
         {
             CheckSupport (false);
@@ -45,6 +45,7 @@ namespace UnityStandardAssets.ImageEffects
                 ReportAutoDisable ();
             return isSupported;
         }
+        //*/
 
 
         void OnRenderImage (RenderTexture source, RenderTexture destination)
@@ -54,7 +55,7 @@ namespace UnityStandardAssets.ImageEffects
                 Graphics.Blit (source, destination);
                 return;
             }
-
+//*/
             int rtW = source.width;
             int rtH = source.height;
 

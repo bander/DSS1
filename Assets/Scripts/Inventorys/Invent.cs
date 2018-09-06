@@ -178,6 +178,18 @@ public class Invent : MonoBehaviour {
             }
         }
     }
+    public void UpdateCountOfItems(Item newItem,int num,int count)
+    {
+        if (count == 0)
+        {
+            items[num] = null;
+        }
+        else
+        {
+            if (items[num] == null) items[num] = newItem.Clone();
+            items[num].countInSlot = count;
+        }
+    }
 
     public virtual bool isEmptySlotAvailable()
     {
@@ -202,7 +214,6 @@ public class Invent : MonoBehaviour {
                 }
             }
         }
-        Debug.Log("summ "+ret);
         return ret;
     }
 }

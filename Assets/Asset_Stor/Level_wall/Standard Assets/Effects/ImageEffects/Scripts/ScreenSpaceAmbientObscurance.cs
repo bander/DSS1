@@ -6,7 +6,7 @@ namespace UnityStandardAssets.ImageEffects
     [ ExecuteInEditMode]
     [RequireComponent (typeof(Camera))]
     [AddComponentMenu ("Image Effects/Rendering/Screen Space Ambient Obscurance")]
-    class ScreenSpaceAmbientObscurance : PostEffectsBase {
+    class ScreenSpaceAmbientObscurance : MonoBehaviour{//PostEffectsBase {
         [Range (0,3)]
         public float intensity = 0.5f;
         [Range (0.1f,3)]
@@ -23,7 +23,7 @@ namespace UnityStandardAssets.ImageEffects
 
         private Material aoMaterial = null;
 
-        public override bool CheckResources () {
+        /*public override bool CheckResources () {
             CheckSupport (true);
 
             aoMaterial = CheckShaderAndCreateMaterial (aoShader, aoMaterial);
@@ -32,6 +32,7 @@ namespace UnityStandardAssets.ImageEffects
                 ReportAutoDisable ();
             return isSupported;
         }
+        //*/
 
         void OnDisable () {
             if (aoMaterial)
@@ -41,10 +42,11 @@ namespace UnityStandardAssets.ImageEffects
 
         [ImageEffectOpaque]
         void OnRenderImage (RenderTexture source, RenderTexture destination) {
-            if (CheckResources () == false) {
+            /*if (CheckResources () == false) {
                 Graphics.Blit (source, destination);
                 return;
             }
+            //*/
 
             Matrix4x4 P = GetComponent<Camera>().projectionMatrix;
             var invP= P.inverse;

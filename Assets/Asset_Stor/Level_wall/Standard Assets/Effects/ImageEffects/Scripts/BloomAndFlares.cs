@@ -96,7 +96,7 @@ namespace UnityStandardAssets.ImageEffects
                 ReportAutoDisable();
             return isSupported;
         }
-
+        //*/
         void OnRenderImage(RenderTexture source, RenderTexture destination)
         {
             if (CheckResources() == false)
@@ -104,12 +104,12 @@ namespace UnityStandardAssets.ImageEffects
                 Graphics.Blit(source, destination);
                 return;
             }
-
+//*/
             // screen blend is not supported when HDR is enabled (will cap values)
 
             doHdr = false;
             if (hdr == HDRBloomMode.Auto)
-                doHdr = source.format == RenderTextureFormat.ARGBHalf && GetComponent<Camera>().hdr;
+                doHdr = source.format == RenderTextureFormat.ARGBHalf && GetComponent<Camera>().allowHDR;
             else
             {
                 doHdr = hdr == HDRBloomMode.On;

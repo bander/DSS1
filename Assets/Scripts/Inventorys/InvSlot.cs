@@ -93,6 +93,10 @@ public class InvSlot : MonoBehaviour,IDragHandler,IBeginDragHandler,IEndDragHand
             canvas.selectedSlot = this;
 
             bool splitted = (item.countInSlot > 1) ? true : false;
+            if (splitted)
+            {
+                if(manager.invents[0].findIndexEmptySlot()==-1) splitted=false;
+            }
 
             highLight();
             CanvasController.instance.buttonsControl(false, splitted, true);
