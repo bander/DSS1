@@ -38,6 +38,9 @@ public class CanvasController : MonoBehaviour {
     public bool isSpliting = false;
     public Item splittedItem;
 
+    public HPBar bar1;
+    public HPBar bar2;
+
     int currentBuild = 0;
 
     void Start()
@@ -53,6 +56,8 @@ public class CanvasController : MonoBehaviour {
             manager.OnInvChangedCallback += updateBuildButtonsActivity;
         }
 
+        bar1.UpdateBar(60);
+        bar2.Show(false);
     }
 
     public void buttonsControl(bool use=true,bool split=true,bool rem=true)
@@ -151,9 +156,12 @@ public class CanvasController : MonoBehaviour {
         builder.setBoxState();
     }
 
-    public void showBuildPanel(bool act=true)
+    public void showBuildPanel(bool act=true,bool buil=true, bool rot = true, bool del = true)
     {
         BuildPanel.SetActive(act);
+        BuildPanel.transform.GetChild(0).gameObject.SetActive(del);
+        BuildPanel.transform.GetChild(1).gameObject.SetActive(rot);
+        BuildPanel.transform.GetChild(2).gameObject.SetActive(buil);
     }
 
     void updateBuildButtonsActivity()

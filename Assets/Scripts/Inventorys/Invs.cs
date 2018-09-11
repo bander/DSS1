@@ -108,13 +108,23 @@ public class Invs : MonoBehaviour {
 
     public void activateBackpackSlots(bool act=true)
     {
-        if (num == 0)
+        if (act)
         {
             for (int i = 8; i < 12; i++)
             {
                 InvSlot newSlot = Instantiate(slotPrefab, this.transform).GetComponent<InvSlot>();
                 slots.Add(newSlot);
                 slots[i].transform.parent = this.transform;
+            }
+        }
+        else
+        {
+            for (int i = 11; i >7; i--)
+            {
+                InvSlot slt= slots[i];
+                slt.transform.parent = null;
+                GameObject.Destroy(slt);
+                slots.RemoveAt(i);
             }
         }
         

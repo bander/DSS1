@@ -26,12 +26,17 @@ public class BuildController : MonoBehaviour
     public Material green;
     public Material red;
     public Material invis;
-    public Material final;
+
+    Material finalWall;
+    Material finalFloor;
+    Material finalBox;
+    Material finalLedder;
+    Material finalMaterial;
 
 
     Material current;
     Vector3 currentV;
-    Vector3 wallCorrector=new Vector3(2,0,-2);
+    Vector3 wallCorrector=new Vector3(-2,0,1);
 
     public delegate void OnBuidUpdate();
     public OnBuidUpdate onBuildUpdate;
@@ -43,15 +48,22 @@ public class BuildController : MonoBehaviour
     GameObject currentTarget;
 
     List<Vector3> tilesSetted = new List<Vector3>();
+    public List<Vector3> AvailableForBuild = new List<Vector3>();
 
     void Start() {
         canvas = CanvasController.instance;
         manager = InvManager.instance;
 
         tile.transform.localScale = tile.transform.localScale * 2 / 3;
+        finalFloor = tile.GetComponent<MeshRenderer>().material;
         wall.transform.localScale = wall.transform.localScale * 2 / 3;
+        finalWall = wall.GetComponent<MeshRenderer>().material;
+        wall.GetComponent<BoxCollider>().enabled = false;
+
+        finalBox = box.GetComponent<MeshRenderer>().material;
+
         tile.transform.position = new Vector3(0, -20, 0);
-       // wall.transform.position = new Vector3(0, -20, 0);
+        wall.transform.position = new Vector3(0, -20, 0);
     }
 
     public void setFloorState()
@@ -60,6 +72,7 @@ public class BuildController : MonoBehaviour
         currentTarget = tile;
         currentTarget.transform.position = new Vector3(0, 0.1f, 0);
         onBuildUpdate = FloorState;
+        finalMaterial = finalFloor;
 
         if (onBuildUpdate != null) onBuildUpdate.Invoke();
     }
@@ -69,6 +82,7 @@ public class BuildController : MonoBehaviour
         currentTarget = wall;
         currentTarget.transform.position = new Vector3(0, 0.1f, 0);
         onBuildUpdate = WallState;
+        finalMaterial = finalWall;
 
         if (onBuildUpdate != null) onBuildUpdate.Invoke();
     }
@@ -78,6 +92,7 @@ public class BuildController : MonoBehaviour
         currentTarget = box;
         currentTarget.transform.position = new Vector3(0, 0.1f, 0);
         onBuildUpdate = BoxState;
+        finalMaterial = finalBox;
 
         if (onBuildUpdate != null) onBuildUpdate.Invoke();
     }
@@ -95,7 +110,7 @@ public class BuildController : MonoBehaviour
             //turnOffCurrent();
             currentTarget = wall;
             //currentTarget.transform.position = new Vector3(0, 0.1f, 0);
-            wallCorrector = new Vector3(2,0, -2);
+            wallCorrector = new Vector3(2, 0, -1);// -2);
             onBuildUpdate = WallState;
         }
         if (Input.GetKeyDown(KeyCode.E))
@@ -120,7 +135,7 @@ public class BuildController : MonoBehaviour
 
             switch (sw){
                 case 0:
-                    wallCorrector = new Vector3(2, 0, -2);
+                    wallCorrector = new Vector3(2, 0, -1);// -2);
                     break;
                 case 1:
                     wallCorrector = new Vector3(0, 0, -2);
@@ -146,7 +161,7 @@ public class BuildController : MonoBehaviour
     
     public void turnOffCurrent()
     {
-        if (currentTarget != null)
+        if (currentTarget != null && currentTarget.GetComponent<MeshRenderer>()!=null)
         {
             currentTarget.GetComponent<MeshRenderer>().material = invis;
             currentTarget.transform.position = new Vector3(0, -20, 0);
@@ -162,7 +177,9 @@ public class BuildController : MonoBehaviour
             if (currentTarget == tile)
             {
                 tilesSetted.Add(currentTarget.transform.position);
+                Debug.Log(tilesSetted.Count+"  // ");
             }
+
             if (currentTarget == box)
             {
                 manager.spendItems(Item.ItemType.Metall, 5);
@@ -172,12 +189,12 @@ public class BuildController : MonoBehaviour
                 manager.spendItems(Item.ItemType.Metall, 1);
             }
 
-            currentTarget.transform.position = currentTarget.transform.position + Vector3.up;
-            GameObject newObject = GameObject.Instantiate(currentTarget, currentTarget.transform.position - Vector3.up, currentTarget.transform.rotation);
-            newObject.GetComponent<MeshRenderer>().material = final;
+            GameObject newObject = GameObject.Instantiate(currentTarget, currentTarget.transform.position , currentTarget.transform.rotation);
+            newObject.GetComponent<MeshRenderer>().material = finalMaterial;
 
-            currentTarget.transform.position = currentTarget.transform.position - Vector3.up;
-            currentTarget.GetComponent<MeshRenderer>().material = invis;
+            if (finalMaterial != finalFloor) newObject.GetComponent<BoxCollider>().enabled = true;
+
+            currentTarget.GetComponent<MeshRenderer>().material = red;
 
             canvas.showBuildPanel(false);
         }
@@ -189,72 +206,129 @@ public class BuildController : MonoBehaviour
         int sw = (int)(wall.transform.rotation.eulerAngles.y / 90);
         switch (sw) { 
             case 0:
-                wall.transform.position += new Vector3(0, 0, -2);
-                wallCorrector = new Vector3(2, 0, -2);
+                wall.transform.position += new Vector3(-1, 0, -1);//(0, 0, -2);
+                wallCorrector = new Vector3(-1, 0, 0);// -2);
                 break;
             case 1:
-                wall.transform.position += new Vector3(-2,0, 0);
-                wallCorrector = new Vector3(0, 0, -2);
+                wall.transform.position += new Vector3(-1,0, 1);//(-2,0, 0);
+                wallCorrector = new Vector3(-2, 0, 1);
                 break;
             case 2:
-                wall.transform.position += new Vector3(0, 0, 2);
-                wallCorrector = new Vector3(0, 0, 0);
+                wall.transform.position += new Vector3(1, 0, 1);//(0, 0, 2);
+                wallCorrector = new Vector3(-1, 0, 2);
                 break;
             case 3:
-                wall.transform.position += new Vector3(2, 0, 0);
-                wallCorrector = new Vector3(2, 0, 0);
+                wall.transform.position += new Vector3(1, 0, -1);//(2, 0, 0);
+                wallCorrector = new Vector3(0, 0, 1);
                 break;
         }
         
     }
     public void removeTarget()
     {
+        if (currentTarget == tile)
+        {
+            removeTile();
+        }
+        if (currentTarget == wall)
+        {
+
+        }
+    }
+
+    void removeTile()
+    {
+        Vector3 v4 = tile.transform.position;
+        if (tilesSetted.Contains(v4)) tilesSetted.Remove(v4);
+        foreach (GameObject tileObj in GameObject.FindGameObjectsWithTag("Floor"))
+        {
+            if (tileObj.transform.position == v4 && tileObj!=tile)
+            {
+                GameObject.Destroy(tileObj);
+                ShowFloor();   
+                return;
+            }
+        }
+    }
+    void removeWall()
+    {
+
+    }
+    void removeBox()
+    {
 
     }
 
-    void FloorState() { 
-        if (EventSystem.current.IsPointerOverGameObject())
+    void FloorState() {
+        if (!EventSystem.current.IsPointerOverGameObject())
         {
-            return;
+            ShowFloor();
         }
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
+    }
+    void ShowFloor() { 
+
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
+        Vector3 v=Vector2.zero;
 
         if (Physics.Raycast(ray,out hit,100, layerMask))
         {
-            float vx = Mathf.Round((hit.point.x/divider)-0.5f)* divider;
-            float vz = Mathf.Round((hit.point.z/ divider) + 0.5f) * divider;
-            Vector3 v = new Vector3(vx,tile.transform.position.y, vz);
 
+            float vx = Mathf.Round((hit.point.x/divider)+0.5f)* divider;
+            float vz = Mathf.Round((hit.point.z/ divider)- 0.5f) * divider;
+            v = new Vector3(vx,tile.transform.position.y, vz);
+            
             if (v != currentV)
             {
-                tile.transform.position = v;
+                tile.transform.position =  v;
                 currentV = v;
 
-                float rtx = panel.GetComponent<RectTransform>().rect.width / 6;
-                float rty = -panel.GetComponent<RectTransform>().rect.height / 4;
-                panel.transform.position = Camera.main.WorldToScreenPoint(tile.transform.position)+new Vector3(rtx,rty,0);
-//                    WorldToScreenPoint(star.coordinates) + labelOffset; ;
+                float rtx = -panel.GetComponent<RectTransform>().rect.width /4;
+                float rty = panel.GetComponent<RectTransform>().rect.height;
+                panel.transform.position = Camera.main.WorldToScreenPoint(tile.transform.position) +new Vector3(rtx,rty,0);
             }
             
         }
 
-        current = green;
-        foreach (Collider col in tile.GetComponent<TileCollider>().cols)
+        bool canBuild = false;
+        bool isset = true;
+        int i = 0;
+        foreach (Vector3 v3 in AvailableForBuild)
         {
-            if (col.GetComponent<BuildLocker>() != null)
+            if (v == v3) canBuild = true;
+            i++;
+        }
+
+        if (canBuild)
+        {
+            i = 0;
+            foreach (Vector3 v3 in tilesSetted)
             {
-                current = red;
-                break;
+                if (v == v3)
+                {
+                    isset = false;
+                    break;
+                }
+                i++;
             }
         }
+        else
+        {
+            isset = false;
+            ShowPanel(false, false, false, false);
+            tile.GetComponent<MeshRenderer>().material = red;
+            return;
+        }
+
+        current = (isset) ? green : red;
 
         tile.GetComponent<MeshRenderer>().material = current;
         if (current == green) {
-            ShowPanel();
-        } else {
-            ShowPanel(false);
+            ShowPanel(true,true,false,false);
+        } else
+        {
+            ShowPanel(true,false,false,true);
         }
     }
     void WallState()
@@ -269,9 +343,10 @@ public class BuildController : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit, 100, layerMask))
         {
-            float vx = Mathf.Round((hit.point.x / divider) - 0.5f) * divider + wallCorrector.x;
-            float vz = Mathf.Round((hit.point.z / divider) + 0.5f) * divider + wallCorrector.z;
-            Vector3 v = new Vector3(vx, wall.transform.position.y, vz);
+            float vx = Mathf.Round((hit.point.x / divider) + 0.5f) * divider;// + wallCorrector.x;// -2;
+            float vz = Mathf.Round((hit.point.z / divider) - 0.5f) * divider;// + wallCorrector.z;// +1f;
+            Vector3 v = new Vector3(vx + wallCorrector.x, wall.transform.position.y, vz + wallCorrector.z);
+            
 
             if (v != currentV)
             {
@@ -350,8 +425,8 @@ public class BuildController : MonoBehaviour
         }
     }
 
-    void ShowPanel(bool act=true)
+    void ShowPanel(bool act=true, bool buil = true, bool rot = true, bool del = true)
     {
-        canvas.showBuildPanel(act);
+        canvas.showBuildPanel(act,buil,rot,del);
     }
 }

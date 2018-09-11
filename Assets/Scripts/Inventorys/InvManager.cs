@@ -29,7 +29,6 @@ public class InvManager : MonoBehaviour {
 
     void Start()
     {
-
         GameObject invent= new GameObject();
         invent.AddComponent<InvBackpack>();
         invent.GetComponent<InvBackpack>().Init(8);
@@ -45,21 +44,32 @@ public class InvManager : MonoBehaviour {
         invent3.GetComponent<Invent>().Init(8);
         invents.Add(invent3.GetComponent<Invent>());
         
-
-
+        
         playerInvs.SetNum(0);
         EquipInvs.SetNum(1);
         lootInvs.SetNum(2);
-        //*/
+    }
+    public void SetBackpack(bool act = true)
+    {
+        if (act)
+        {
+            playerInvs.activateBackpackSlots();
+            invents[0].Init(4);
+        }
+        else
+        {
+            playerInvs.activateBackpackSlots(false);
+            invents[0].reinit(4);
+        }
+
     }
 
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            tm.countInSlot = 6;
+            tm.countInSlot = 12;
             invents[0].Add(tm.Clone());
-            //invents[1].Add(tm);
 
             if (OnInvChangedCallback != null)
                 OnInvChangedCallback.Invoke();

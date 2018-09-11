@@ -7,11 +7,23 @@ public class Invent : MonoBehaviour {
     [SerializeField]
     public List<Item> items = new List<Item>();
 
+    InvManager manager;
+
     public void Init(int count)
     {
+        manager = InvManager.instance;
         for (int i = 0; i < count; i++)
         {
             items.Add(null);
+        }
+    }
+    public void reinit(int count)
+    {
+        int i = 0;
+        while (i < count)
+        {
+            items.RemoveAt(items.Count - 1);
+            i++;
         }
     }
     public bool Add(Item newItem)
@@ -142,6 +154,20 @@ public class Invent : MonoBehaviour {
             Invent otherInvent = InvManager.instance.GetInvent(toInv);//.Add(items[from]);
             otherInvent.items[to] = items[from];
             items[from] = null;
+
+            if(toInv==1 && (otherInvent.items[to] as Equipment).equipSlot == EquipmentSlot.Back)
+            {
+                manager.SetBackpack();
+                return;
+            }
+            if (fromInv == 1)
+            {
+                if ((otherInvent.items[to] as Equipment).equipSlot == EquipmentSlot.Back)
+                {
+                    manager.SetBackpack(false);
+                    return;
+                }
+            }
         }
     }
     public void fillItems(int from, int to, int fromInv, int toInv)
