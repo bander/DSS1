@@ -1,0 +1,244 @@
+fileFormatVersion: 2
+guid: edd3fe74217c20b408686c81c057910d
+timeCreated: 1524207957
+licenseType: Store
+ModelImporter:
+  serializedVersion: 21
+  fileIDToRecycleName:
+    100000: Box001
+    100002: Box002
+    100004: Plane001
+    100006: //RootNode
+    100008: Polygonal Ulifo
+    100010: Rig
+    100012: RigBLArm1
+    100014: RigBLArm1Gizmo
+    100016: RigBLArm2
+    100018: RigBLArm2Gizmo
+    100020: RigBLArm3
+    100022: RigBLArm3Gizmo
+    100024: RigBLLeg1
+    100026: RigBLLeg2
+    100028: RigBLLeg3
+    100030: RigBLLegPlatform
+    100032: RigBRArm1
+    100034: RigBRArm1Gizmo
+    100036: RigBRArm2
+    100038: RigBRArm2Gizmo
+    100040: RigBRArm3
+    100042: RigBRArm3Gizmo
+    100044: RigBRLeg1
+    100046: RigBRLeg2
+    100048: RigBRLeg3
+    100050: RigBRLegPlatform
+    100052: RigFeelerL1
+    100054: RigFeelerL1Gizmo
+    100056: RigFeelerL2
+    100058: RigFeelerL2Gizmo
+    100060: RigFeelerR1
+    100062: RigFeelerR1Gizmo
+    100064: RigFeelerR2
+    100066: RigFeelerR2Gizmo
+    100068: RigFLArm1
+    100070: RigFLArm1Gizmo
+    100072: RigFLArm2
+    100074: RigFLArm2Gizmo
+    100076: RigFLArm3
+    100078: RigFLArm3Gizmo
+    100080: RigFLLeg1
+    100082: RigFLLeg2
+    100084: RigFLLeg3
+    100086: RigFLLegPlatform
+    100088: RigFRArm1
+    100090: RigFRArm1Gizmo
+    100092: RigFRArm2
+    100094: RigFRArm2Gizmo
+    100096: RigFRArm3
+    100098: RigFRArm3Gizmo
+    100100: RigFRLeg1
+    100102: RigFRLeg2
+    100104: RigFRLeg3
+    100106: RigFRLegPlatform
+    100108: RigMain
+    100110: RigMainGizmo
+    100112: RigTeethB
+    100114: RigTeethBGizmo
+    100116: RigTeethBL
+    100118: RigTeethBLGizmo
+    100120: RigTeethBR
+    100122: RigTeethBRGizmo
+    100124: RigTeethF
+    100126: RigTeethFGizmo
+    100128: RigTeethFL
+    100130: RigTeethFLGizmo
+    100132: RigTeethFR
+    100134: RigTeethFRGizmo
+    100136: RigTeethML
+    100138: RigTeethMLGizmo
+    100140: RigTeethMR
+    100142: RigTeethMRGizmo
+    100144: TurnInPlaceDummy
+    400000: Box001
+    400002: Box002
+    400004: Plane001
+    400006: //RootNode
+    400008: Polygonal Ulifo
+    400010: Rig
+    400012: RigBLArm1
+    400014: RigBLArm1Gizmo
+    400016: RigBLArm2
+    400018: RigBLArm2Gizmo
+    400020: RigBLArm3
+    400022: RigBLArm3Gizmo
+    400024: RigBLLeg1
+    400026: RigBLLeg2
+    400028: RigBLLeg3
+    400030: RigBLLegPlatform
+    400032: RigBRArm1
+    400034: RigBRArm1Gizmo
+    400036: RigBRArm2
+    400038: RigBRArm2Gizmo
+    400040: RigBRArm3
+    400042: RigBRArm3Gizmo
+    400044: RigBRLeg1
+    400046: RigBRLeg2
+    400048: RigBRLeg3
+    400050: RigBRLegPlatform
+    400052: RigFeelerL1
+    400054: RigFeelerL1Gizmo
+    400056: RigFeelerL2
+    400058: RigFeelerL2Gizmo
+    400060: RigFeelerR1
+    400062: RigFeelerR1Gizmo
+    400064: RigFeelerR2
+    400066: RigFeelerR2Gizmo
+    400068: RigFLArm1
+    400070: RigFLArm1Gizmo
+    400072: RigFLArm2
+    400074: RigFLArm2Gizmo
+    400076: RigFLArm3
+    400078: RigFLArm3Gizmo
+    400080: RigFLLeg1
+    400082: RigFLLeg2
+    400084: RigFLLeg3
+    400086: RigFLLegPlatform
+    400088: RigFRArm1
+    400090: RigFRArm1Gizmo
+    400092: RigFRArm2
+    400094: RigFRArm2Gizmo
+    400096: RigFRArm3
+    400098: RigFRArm3Gizmo
+    400100: RigFRLeg1
+    400102: RigFRLeg2
+    400104: RigFRLeg3
+    400106: RigFRLegPlatform
+    400108: RigMain
+    400110: RigMainGizmo
+    400112: RigTeethB
+    400114: RigTeethBGizmo
+    400116: RigTeethBL
+    400118: RigTeethBLGizmo
+    400120: RigTeethBR
+    400122: RigTeethBRGizmo
+    400124: RigTeethF
+    400126: RigTeethFGizmo
+    400128: RigTeethFL
+    400130: RigTeethFLGizmo
+    400132: RigTeethFR
+    400134: RigTeethFRGizmo
+    400136: RigTeethML
+    400138: RigTeethMLGizmo
+    400140: RigTeethMR
+    400142: RigTeethMRGizmo
+    400144: TurnInPlaceDummy
+    2300000: Box001
+    2300002: Box002
+    2300004: Plane001
+    2300006: //RootNode
+    2300008: Polygonal Ulifo
+    3300000: Box001
+    3300002: Box002
+    3300004: Plane001
+    3300006: //RootNode
+    3300008: Polygonal Ulifo
+    4300000: Box001
+    4300002: Plane001
+    4300004: Box002
+    4300006: Polygonal Ulifo
+    9500000: //RootNode
+    13700000: Polygonal Ulifo
+  materials:
+    importMaterials: 0
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 3
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 1
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
