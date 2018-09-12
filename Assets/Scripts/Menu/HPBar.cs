@@ -9,15 +9,18 @@ public class HPBar : MonoBehaviour {
     CharacterStats stats;
     Slider slider;
 
-	void Start () {
+	void Awake() {
         slider = GetComponent<Slider>();
 	}
 
     public void UpdateBar(CharacterStats newStats) {
-        stats = newStats;
+        if (newStats != null)
+        {
+            stats = newStats;
 
-        slider.value = ((float)stats.currentHealth / (float)stats.maxHealth);
-        updateText();
+            slider.value = ((float)stats.currentHealth / (float)stats.maxHealth);
+            updateText();
+        }
 	}
 
     void updateText()

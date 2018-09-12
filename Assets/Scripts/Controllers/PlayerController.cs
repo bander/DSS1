@@ -58,8 +58,9 @@ public class PlayerController : MonoBehaviour {
     }
 	
 	void Update () {
-        
-        moveDirection = transform.forward * joystick.Vertical + transform.right * joystick.Horizontal;
+
+        Vector3 cameraForward = new Vector3(Camera.main.transform.forward.x,0, Camera.main.transform.forward.z).normalized;
+        moveDirection = cameraForward * joystick.Vertical + Camera.main.transform.right * joystick.Horizontal;
         moveDirection = moveDirection.normalized * moveSpeed;
 
         if (controller.isGrounded)
@@ -67,7 +68,6 @@ public class PlayerController : MonoBehaviour {
             vSpeed = 0; 
         }
 
-        // apply gravity acceleration to vertical speed:
         vSpeed -= gravity * Time.deltaTime;
         moveDirection.y = vSpeed;
 
