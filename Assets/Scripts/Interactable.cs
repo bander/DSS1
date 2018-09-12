@@ -3,7 +3,7 @@
 public class Interactable : MonoBehaviour {
     protected Transform player;
     public float radius = 2f;
-    bool isInRange = false;
+    protected bool isInRange = false;
 
     void Start()
     {
@@ -18,6 +18,8 @@ public class Interactable : MonoBehaviour {
 
     void Update()
     {
+        SecondUpdate();
+
         if (player != null)
         {
             if ((player.position - transform.position).magnitude < radius)
@@ -43,6 +45,10 @@ public class Interactable : MonoBehaviour {
            // Debug.Log("null "+name  );
         }
     }
+    public virtual void SecondUpdate()
+    {
+
+    } 
 
     public virtual void Interact()
     {

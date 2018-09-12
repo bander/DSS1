@@ -41,11 +41,13 @@ public class PlayerAnimator : MonoBehaviour {
 
 	protected virtual void Update () {
         float speedPercent = 0;//agent.velocity.magnitude / agent.speed;
-        if (controller != null)
-        {
-           speedPercent = controller.velocity.magnitude;//agent.velocity.magnitude / agent.speed;
+        if (agent.enabled==true) {
+            speedPercent = agent.velocity.magnitude;
         }
-
+        else if (controller != null)
+        {
+            speedPercent = controller.velocity.magnitude;//agent.velocity.magnitude / agent.speed;
+        }
         animator.SetFloat("speedPercent", speedPercent);//,smoothTime, Time.deltaTime);
         if (combat != null)
         {

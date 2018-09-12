@@ -6,6 +6,10 @@ using UnityEngine;
 public class Enemy : Interactable {
     PlayerManager playerManager;
     CharacterStats stats;
+
+
+
+    public string enemyName = "Enemy1";
     void Start()
     {
         playerManager = PlayerManager.instance;

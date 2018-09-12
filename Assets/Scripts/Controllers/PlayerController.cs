@@ -36,15 +36,26 @@ public class PlayerController : MonoBehaviour {
     float gravity = 9.8f;
     private float vSpeed = 0f;
 
+    Interactable enemy;
+    bool inCombat= false;
+
+    float attackDelay = 1f;
+    float timeinterval;
+
     public delegate void OnMainUIUpdate();
     public OnMainUIUpdate onMainUIUpdate;
 
+    public delegate void OnEnemyInRange();
+    public OnEnemyInRange onEnemyInRange;
+
     void Start () {
         cam = Camera.main;
-        //agent = GetComponent<NavMeshAgent>();
+        agent = GetComponent<NavMeshAgent>();
         controller = GetComponent<CharacterController>();
         joystick = FindObjectOfType<Joystick>();
-	}
+        
+        agent.enabled = false;
+    }
 	
 	void Update () {
         
@@ -58,7 +69,7 @@ public class PlayerController : MonoBehaviour {
 
         // apply gravity acceleration to vertical speed:
         vSpeed -= gravity * Time.deltaTime;
-        moveDirection.y = vSpeed; 
+        moveDirection.y = vSpeed;
 
         controller.Move(moveDirection * Time.deltaTime);
 
@@ -66,22 +77,84 @@ public class PlayerController : MonoBehaviour {
         {
             Quaternion modelRotation = Quaternion.LookRotation(new Vector3(moveDirection.x, 0f, moveDirection.z));
             transform.GetChild(0).rotation = Quaternion.Slerp(transform.GetChild(0).rotation, modelRotation, rotationSpeed * Time.deltaTime);
+
+            if (agent.enabled == true) agent.enabled = false;
         }
-        
-
-        //CheckMouse();
-
-        /*
-        if (target != null)
+        else
         {
-            agent.SetDestination(target.transform.position);
-            if ((target.transform.position - transform.position).magnitude<target.radius)
+            if (agent.enabled == true)
             {
-                target.Interact();
-                lookAtTarget();
+                if (pathComplete())
+                {
+                    agent.enabled = false;
+                }
+                transform.GetChild(0).rotation = Quaternion.LookRotation(agent.velocity.normalized);
+                setFocus(enemy);
+            }
+            else
+            {
+                if (inCombat==true)
+                {
+                    if (CheckDistanceToEnemy())
+                    {
+                        lookAtEnemy();
+                        AttackEnemy();
+                    }
+                    else
+                    {
+                        StartAttackCurrentEnemy(enemy);
+                    }
+                }
             }
         }
-        //*/
+
+        if (onEnemyInRange != null) onEnemyInRange.Invoke();
+        
+    }
+
+    public void StartAttackCurrentEnemy(Interactable newEnemy)
+    {
+        if (newEnemy != null)
+        {
+            inCombat = true;
+            enemy = newEnemy;
+            agent.enabled = true;
+            agent.SetDestination(enemy.transform.position);
+        }
+    }
+    protected bool pathComplete()
+    {
+        if (Vector3.Distance(agent.destination, agent.transform.position) <= agent.stoppingDistance)
+        {
+            if (!agent.hasPath || agent.velocity.sqrMagnitude == 0f)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+    bool CheckDistanceToEnemy()
+    {
+        if (enemy != null)
+        {
+            float dist = (enemy.transform.position - transform.position).magnitude;
+            if (dist < agent.stoppingDistance)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void AttackEnemy()
+    {
+        timeinterval += Time.deltaTime;
+        if (timeinterval >= attackDelay)
+        {
+            timeinterval = 0;
+            enemy.GetComponent<EnemyStats>().TakeDamage(GetComponent<PlayerStats>().damage.GetValue());
+        }
     }
 
     public void PickTarget(Interactable inter)
@@ -139,12 +212,12 @@ public class PlayerController : MonoBehaviour {
     void setFocus(Interactable newFocus)
     {
         target = newFocus;
-        agent.stoppingDistance = target.radius*0.8f;
+        //agent.stoppingDistance = target.radius*0.8f;
     }
     void removeFocus()
     {
         target = null;
-        agent.stoppingDistance = 0f;
+        //agent.stoppingDistance = 0f;
     }
 
     void lookAtTarget()
@@ -152,6 +225,12 @@ public class PlayerController : MonoBehaviour {
         Vector3 direction = (target.transform.position - transform.position).normalized;
         Quaternion rotation = Quaternion.LookRotation(new Vector3(direction.x,0f,direction.z));
         transform.rotation = Quaternion.Slerp(transform.rotation,rotation,Time.deltaTime*3f);
+    }
+    void lookAtEnemy()
+    {
+        Vector3 direction = (enemy.transform.position - transform.position).normalized;
+        Quaternion rotation = Quaternion.LookRotation(new Vector3(direction.x, 0f, direction.z));
+        transform.GetChild(0).rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * 3f);
     }
 
     public void SwitchRunWalk()

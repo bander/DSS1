@@ -56,7 +56,7 @@ public class CanvasController : MonoBehaviour {
             manager.OnInvChangedCallback += updateBuildButtonsActivity;
         }
 
-        bar1.UpdateBar(60);
+        bar1.UpdateBar(PlayerManager.instance.player.GetComponent<CharacterStats>());
         bar2.Show(false);
     }
 
@@ -228,5 +228,61 @@ public class CanvasController : MonoBehaviour {
         manager.invents[0].UpdateCountOfItems(splittedItem,selectedSlot2.slotIndex ,rightCount);
 
         manager.OnInvChangedCallback.Invoke();
+    }
+
+
+    public delegate void OnEnemyInRange();
+    public OnEnemyInRange onEnemyInRange;
+    EnemySample currentEnemy;
+
+    void Update()
+    {
+        if (onEnemyInRange != null) onEnemyInRange.Invoke();
+    }
+    public void StarttrackEnemy(bool act=true)
+    {
+        if (act)
+        {
+            onEnemyInRange += TrackEnemy;
+        }
+        else
+        {
+            onEnemyInRange -= TrackEnemy;
+            stopTrackEnemy();
+        }
+    }
+    void TrackEnemy()
+    {
+        EnemySample newEnemy = mainUI.GetComponent<MenuScript>().FindNearestEnemy() as EnemySample;
+        if (newEnemy == null)
+        {
+            if (currentEnemy != null && currentEnemy.onEnemyHPChange != null)
+            {
+                currentEnemy.onEnemyHPChange = null;
+                currentEnemy = null;
+            }
+            StarttrackEnemy(false);
+            return;
+        }
+        if (newEnemy != currentEnemy)
+        {
+            if (currentEnemy!=null && currentEnemy.onEnemyHPChange != null) currentEnemy.onEnemyHPChange = null;
+            currentEnemy = newEnemy;
+            Debug.Log(currentEnemy.enemyName);
+            bar2.Show();
+            EnemyStats stats = currentEnemy.GetComponent<EnemyStats>();
+            bar2.UpdateBar(stats);
+
+            currentEnemy.onEnemyHPChange += UpdateHPBar2;
+        }
+    }
+    void UpdateHPBar2()
+    {
+        EnemyStats stats = currentEnemy.GetComponent<EnemyStats>();
+        bar2.UpdateBar(stats);
+    }
+    void stopTrackEnemy()
+    {
+        bar2.Show(false);
     }
 }

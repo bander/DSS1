@@ -6,26 +6,26 @@ using TMPro;
 
 public class HPBar : MonoBehaviour {
     public GameObject text;
-    public int maxHP=100;
-    public int currentHP=100;
+    CharacterStats stats;
     Slider slider;
 
 	void Start () {
         slider = GetComponent<Slider>();
-        currentHP = maxHP;
-       slider.value = ((float)currentHP / (float)maxHP);
-        updateText();
 	}
 
-    public void UpdateBar(int value) {
-        currentHP = value;
-        slider.value = ((float)currentHP / (float)maxHP);
+    public void UpdateBar(CharacterStats newStats) {
+        stats = newStats;
+
+        slider.value = ((float)stats.currentHealth / (float)stats.maxHealth);
         updateText();
 	}
 
     void updateText()
     {
-        text.GetComponent<TMP_Text>().text = currentHP+"/" +maxHP;
+        if (stats != null)
+        {
+            text.GetComponent<TMP_Text>().text = stats.currentHealth + "/" + stats.maxHealth;
+        }
     }
 
     public void Show(bool act=true)

@@ -7,6 +7,7 @@ public class Equipment : Item {
 
     public EquipmentSlot equipSlot;
     public EquipmentSlot equipSlot2;
+    public WeaponAttackType attackType;
 
     public int armorModifier;
     public int damageModifier;
@@ -29,12 +30,15 @@ public class Equipment : Item {
         itm.countInSlot = countInSlot;
         itm.maxCountInSlot = maxCountInSlot;
         itm.type = type;
-
-
         itm.equipSlot = equipSlot;
+        itm.equipSlot2 = equipSlot2;
+        itm.attackType = attackType;
+        itm.armorModifier = armorModifier;
+        itm.damageModifier = damageModifier;
 
         return itm;
     }
 }
 
 public enum EquipmentSlot { None,Head,Body,Legs,Foot,Weap,Back,Slot }
+public enum WeaponAttackType { None,Sword,Pistol,Automative }

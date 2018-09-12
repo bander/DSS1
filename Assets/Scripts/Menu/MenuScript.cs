@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MenuScript : MonoBehaviour {
-    
+public class MenuScript : MonoBehaviour
+{
+
     #region Singleton
     public static MenuScript instance;
     void Awake()
@@ -23,16 +24,19 @@ public class MenuScript : MonoBehaviour {
     public GameObject RunWalkButton;
 
     public GameObject use;
+    public AttackButton attack;
 
     List<Interactable> inters = new List<Interactable>();
+    List<Interactable> enemies = new List<Interactable>();
 
-	void Start () {
+    void Start()
+    {
         pController = PlayerController.instance;
         pController.onMainUIUpdate += UpdateUI;
-	}
-	void UpdateUI()
+    }
+    void UpdateUI()
     {
-        RunWalkButton.GetComponent<Image>().sprite =  (pController.isRunning())? runIcon:walkIcon;
+        RunWalkButton.GetComponent<Image>().sprite = (pController.isRunning()) ? runIcon : walkIcon;
     }
 
 
@@ -52,6 +56,21 @@ public class MenuScript : MonoBehaviour {
             use.SetActive(false);
         }
     }
+    Interactable findNearestItemToPlayer()
+    {
+        Interactable inter = inters[0];
+        float dist = (pController.transform.position - inters[0].transform.position).magnitude;
+        for (int i = 1; i < inters.Count; i++)
+        {
+            float newDist = (pController.transform.position - inters[1].transform.position).magnitude;
+            if (dist > newDist)
+            {
+                inter = inters[i];
+                dist = newDist;
+            }
+        }
+        return inter;
+    }
 
     public void interactWithItem()
     {
@@ -69,20 +88,51 @@ public class MenuScript : MonoBehaviour {
             pController.PickTarget(inter);
         }
     }
-
-    Interactable findNearestItemToPlayer()
+    
+    public void AddEnemy(Interactable enemy)
     {
-        Interactable inter= inters[0];
-        float dist = (pController.transform.position - inters[0].transform.position).magnitude;
-        for (int i = 1; i < inters.Count; i++)
+        if (enemies.Count == 0)
         {
-            float newDist = (pController.transform.position - inters[1].transform.position).magnitude;
+            attack.Activate();
+            CanvasController.instance.StarttrackEnemy();
+        }
+        enemies.Add(enemy);
+    }
+    public void RemoveEnemy(Interactable enemy)
+    {
+        enemies.Remove(enemy);
+        if (enemies.Count == 0)
+        {
+            attack.Activate(false);
+
+        }
+    }
+    public Interactable FindNearestEnemy()
+    {
+        if (enemies.Count == 0)
+        {
+            return null;
+        }
+        if (enemies.Count == 1)
+        {
+            return enemies[0];
+        }
+        Interactable inter = enemies[0];
+        float dist = (pController.transform.position - enemies[0].transform.position).magnitude;
+        for (int i = 1; i < enemies.Count; i++)
+        {
+            float newDist = (pController.transform.position - enemies[1].transform.position).magnitude;
             if (dist > newDist)
             {
-                inter = inters[i];
+                inter = enemies[i];
                 dist = newDist;
             }
         }
         return inter;
+    }
+
+    public void AttackButton()
+    {
+        PlayerManager.instance.player.GetComponent<PlayerController>().StartAttackCurrentEnemy(FindNearestEnemy());
     }
 }

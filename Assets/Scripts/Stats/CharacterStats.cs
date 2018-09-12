@@ -11,14 +11,7 @@ public class CharacterStats : MonoBehaviour {
     {
         currentHealth = maxHealth;
     }
-
-    public void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            TakeDamage(10);
-        }
-    }
+    
 
     public void TakeDamage(int damage)
     {
@@ -26,11 +19,17 @@ public class CharacterStats : MonoBehaviour {
         damage = Mathf.Clamp(damage,0,int.MaxValue);
 
         currentHealth -= damage;
-        Debug.Log(transform.name + " take " + damage + "damage");
+       // Debug.Log(transform.name + " take " + damage + "damage");
 
         if(currentHealth <= 0)
         {
             Die();
+        }
+
+        EnemySample enSample = GetComponent<EnemySample>();
+        if (enSample!=null)
+        {
+            if (enSample.onEnemyHPChange != null) enSample.onEnemyHPChange.Invoke();
         }
     }
 

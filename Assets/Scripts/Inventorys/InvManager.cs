@@ -244,4 +244,31 @@ public class InvManager : MonoBehaviour {
 
         OnInvChangedCallback.Invoke();
     }
+
+    public WeaponAttackType GetAttackType()
+    {
+        WeaponAttackType ret = WeaponAttackType.None;
+        int weaponIndex=-1;
+
+        int i = 0;
+        foreach(Item item in invents[1].items)
+        {
+            if((item as Equipment)!= null){
+                if ((item as Equipment).equipSlot==EquipmentSlot.Weap)
+                {
+                    weaponIndex = i;
+                    break;
+                }
+            }
+            i++;
+        }
+        if (weaponIndex != -1)
+        {
+            Equipment eq = invents[1].items[weaponIndex] as Equipment;
+            Debug.Log("dd rr " + invents[1].items[weaponIndex].name + " " + eq.attackType);
+            ret = eq.attackType;
+        }
+
+        return ret;
+    }
 }

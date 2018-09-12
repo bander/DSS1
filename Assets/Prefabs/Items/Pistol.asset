@@ -20,5 +20,6 @@ MonoBehaviour:
   type: 0
   equipSlot: 5
   equipSlot2: 7
+  attackType: 2
   armorModifier: 0
   damageModifier: 5
