@@ -1,0 +1,325 @@
+fileFormatVersion: 2
+guid: 6521b4ee46891934eb20540d0feabe27
+timeCreated: 1526029903
+licenseType: Store
+ModelImporter:
+  serializedVersion: 21
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: Polygonal Alien Magantee
+    100004: Polygonal Alien Magantis
+    100006: Rig
+    100008: RigHead
+    100010: RigHeadGizmo
+    100012: RigJawL
+    100014: RigJawLGizmo
+    100016: RigJawR
+    100018: RigJawRGizmo
+    100020: RigLBLeg1
+    100022: RigLBLeg2
+    100024: RigLBLeg3
+    100026: RigLBLegPlatform
+    100028: RigLFLeg1
+    100030: RigLFLeg2
+    100032: RigLFLeg3
+    100034: RigLFLegPlatform
+    100036: RigLMLeg1
+    100038: RigLMLeg2
+    100040: RigLMLeg3
+    100042: RigLMLegPlatform
+    100044: RigNeck
+    100046: RigPelvis
+    100048: RigPelvisGizmo
+    100050: RigRBLeg1
+    100052: RigRBLeg2
+    100054: RigRBLeg3
+    100056: RigRBLegPlatform
+    100058: RigRFLeg1
+    100060: RigRFLeg2
+    100062: RigRFLeg3
+    100064: RigRFLegPlatform
+    100066: RigRibcage
+    100068: RigRibcageGizmo
+    100070: RigRMLeg1
+    100072: RigRMLeg2
+    100074: RigRMLeg3
+    100076: RigRMLegPlatform
+    100078: RigSpine1
+    100080: RigSpine2
+    100082: RigTail1
+    100084: RigTail2
+    100086: RigTail2Gizmo
+    100088: RigTail3
+    100090: RigTail3Gizmo
+    100092: RigTail4
+    100094: RigTail4Gizmo
+    100096: RigTentaclesLB1
+    100098: RigTentaclesLB1Gizmo
+    100100: RigTentaclesLB2
+    100102: RigTentaclesLB2Gizmo
+    100104: RigTentaclesLB3
+    100106: RigTentaclesLB3Gizmo
+    100108: RigTentaclesLB4
+    100110: RigTentaclesLB4Gizmo
+    100112: RigTentaclesLB5
+    100114: RigTentaclesLB5Gizmo
+    100116: RigTentaclesLB6
+    100118: RigTentaclesLB6Gizmo
+    100120: RigTentaclesLB7
+    100122: RigTentaclesLB7Gizmo
+    100124: RigTentaclesLT1
+    100126: RigTentaclesLT10
+    100128: RigTentaclesLT10Gizmo
+    100130: RigTentaclesLT1Gizmo
+    100132: RigTentaclesLT2
+    100134: RigTentaclesLT2Gizmo
+    100136: RigTentaclesLT3
+    100138: RigTentaclesLT3Gizmo
+    100140: RigTentaclesLT4
+    100142: RigTentaclesLT4Gizmo
+    100144: RigTentaclesLT5
+    100146: RigTentaclesLT5Gizmo
+    100148: RigTentaclesLT6
+    100150: RigTentaclesLT6Gizmo
+    100152: RigTentaclesLT7
+    100154: RigTentaclesLT7Gizmo
+    100156: RigTentaclesLT8
+    100158: RigTentaclesLT8Gizmo
+    100160: RigTentaclesLT9
+    100162: RigTentaclesLT9Gizmo
+    100164: RigTentaclesRB1
+    100166: RigTentaclesRB1Gizmo
+    100168: RigTentaclesRB2
+    100170: RigTentaclesRB2Gizmo
+    100172: RigTentaclesRB3
+    100174: RigTentaclesRB3Gizmo
+    100176: RigTentaclesRB4
+    100178: RigTentaclesRB4Gizmo
+    100180: RigTentaclesRB5
+    100182: RigTentaclesRB5Gizmo
+    100184: RigTentaclesRB6
+    100186: RigTentaclesRB6Gizmo
+    100188: RigTentaclesRB7
+    100190: RigTentaclesRB7Gizmo
+    100192: RigTentaclesRT1
+    100194: RigTentaclesRT10
+    100196: RigTentaclesRT10Gizmo
+    100198: RigTentaclesRT1Gizmo
+    100200: RigTentaclesRT2
+    100202: RigTentaclesRT2Gizmo
+    100204: RigTentaclesRT3
+    100206: RigTentaclesRT3Gizmo
+    100208: RigTentaclesRT4
+    100210: RigTentaclesRT4Gizmo
+    100212: RigTentaclesRT5
+    100214: RigTentaclesRT5Gizmo
+    100216: RigTentaclesRT6
+    100218: RigTentaclesRT6Gizmo
+    100220: RigTentaclesRT7
+    100222: RigTentaclesRT7Gizmo
+    100224: RigTentaclesRT8
+    100226: RigTentaclesRT8Gizmo
+    100228: RigTentaclesRT9
+    100230: RigTentaclesRT9Gizmo
+    400000: //RootNode
+    400002: Polygonal Alien Magantee
+    400004: Polygonal Alien Magantis
+    400006: Rig
+    400008: RigHead
+    400010: RigHeadGizmo
+    400012: RigJawL
+    400014: RigJawLGizmo
+    400016: RigJawR
+    400018: RigJawRGizmo
+    400020: RigLBLeg1
+    400022: RigLBLeg2
+    400024: RigLBLeg3
+    400026: RigLBLegPlatform
+    400028: RigLFLeg1
+    400030: RigLFLeg2
+    400032: RigLFLeg3
+    400034: RigLFLegPlatform
+    400036: RigLMLeg1
+    400038: RigLMLeg2
+    400040: RigLMLeg3
+    400042: RigLMLegPlatform
+    400044: RigNeck
+    400046: RigPelvis
+    400048: RigPelvisGizmo
+    400050: RigRBLeg1
+    400052: RigRBLeg2
+    400054: RigRBLeg3
+    400056: RigRBLegPlatform
+    400058: RigRFLeg1
+    400060: RigRFLeg2
+    400062: RigRFLeg3
+    400064: RigRFLegPlatform
+    400066: RigRibcage
+    400068: RigRibcageGizmo
+    400070: RigRMLeg1
+    400072: RigRMLeg2
+    400074: RigRMLeg3
+    400076: RigRMLegPlatform
+    400078: RigSpine1
+    400080: RigSpine2
+    400082: RigTail1
+    400084: RigTail2
+    400086: RigTail2Gizmo
+    400088: RigTail3
+    400090: RigTail3Gizmo
+    400092: RigTail4
+    400094: RigTail4Gizmo
+    400096: RigTentaclesLB1
+    400098: RigTentaclesLB1Gizmo
+    400100: RigTentaclesLB2
+    400102: RigTentaclesLB2Gizmo
+    400104: RigTentaclesLB3
+    400106: RigTentaclesLB3Gizmo
+    400108: RigTentaclesLB4
+    400110: RigTentaclesLB4Gizmo
+    400112: RigTentaclesLB5
+    400114: RigTentaclesLB5Gizmo
+    400116: RigTentaclesLB6
+    400118: RigTentaclesLB6Gizmo
+    400120: RigTentaclesLB7
+    400122: RigTentaclesLB7Gizmo
+    400124: RigTentaclesLT1
+    400126: RigTentaclesLT10
+    400128: RigTentaclesLT10Gizmo
+    400130: RigTentaclesLT1Gizmo
+    400132: RigTentaclesLT2
+    400134: RigTentaclesLT2Gizmo
+    400136: RigTentaclesLT3
+    400138: RigTentaclesLT3Gizmo
+    400140: RigTentaclesLT4
+    400142: RigTentaclesLT4Gizmo
+    400144: RigTentaclesLT5
+    400146: RigTentaclesLT5Gizmo
+    400148: RigTentaclesLT6
+    400150: RigTentaclesLT6Gizmo
+    400152: RigTentaclesLT7
+    400154: RigTentaclesLT7Gizmo
+    400156: RigTentaclesLT8
+    400158: RigTentaclesLT8Gizmo
+    400160: RigTentaclesLT9
+    400162: RigTentaclesLT9Gizmo
+    400164: RigTentaclesRB1
+    400166: RigTentaclesRB1Gizmo
+    400168: RigTentaclesRB2
+    400170: RigTentaclesRB2Gizmo
+    400172: RigTentaclesRB3
+    400174: RigTentaclesRB3Gizmo
+    400176: RigTentaclesRB4
+    400178: RigTentaclesRB4Gizmo
+    400180: RigTentaclesRB5
+    400182: RigTentaclesRB5Gizmo
+    400184: RigTentaclesRB6
+    400186: RigTentaclesRB6Gizmo
+    400188: RigTentaclesRB7
+    400190: RigTentaclesRB7Gizmo
+    400192: RigTentaclesRT1
+    400194: RigTentaclesRT10
+    400196: RigTentaclesRT10Gizmo
+    400198: RigTentaclesRT1Gizmo
+    400200: RigTentaclesRT2
+    400202: RigTentaclesRT2Gizmo
+    400204: RigTentaclesRT3
+    400206: RigTentaclesRT3Gizmo
+    400208: RigTentaclesRT4
+    400210: RigTentaclesRT4Gizmo
+    400212: RigTentaclesRT5
+    400214: RigTentaclesRT5Gizmo
+    400216: RigTentaclesRT6
+    400218: RigTentaclesRT6Gizmo
+    400220: RigTentaclesRT7
+    400222: RigTentaclesRT7Gizmo
+    400224: RigTentaclesRT8
+    400226: RigTentaclesRT8Gizmo
+    400228: RigTentaclesRT9
+    400230: RigTentaclesRT9Gizmo
+    2300000: //RootNode
+    2300002: Polygonal Alien Magantee
+    2300004: Polygonal Alien Magantis
+    3300000: //RootNode
+    3300002: Polygonal Alien Magantee
+    3300004: Polygonal Alien Magantis
+    4300000: Box001
+    4300002: Polygonal Alien Magantis
+    4300004: Polygonal Alien Magantee
+    9500000: //RootNode
+    13700000: Polygonal Alien Magantis
+  materials:
+    importMaterials: 0
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 3
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 1
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
