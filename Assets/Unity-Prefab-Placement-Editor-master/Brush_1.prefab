@@ -1,0 +1,105 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 1488587275720478}
+  m_IsPrefabAsset: 1
+--- !u!1 &1488587275720478
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4539258183711170}
+  - component: {fileID: 114316303593118128}
+  m_Layer: 0
+  m_Name: Brush_1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4539258183711170
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1488587275720478}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114316303593118128
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1488587275720478}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b813315cd46451f4a9aba1f36e3f8d6d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefab:
+  - {fileID: 132528, guid: 52f8e402bc62469498da0db3201b70f0, type: 2}
+  - {fileID: 163768, guid: ef351ae852cf4074d92058fa7e693157, type: 2}
+  - {fileID: 131980, guid: 157d5700ed64d7944b94591792c88854, type: 2}
+  - {fileID: 154806, guid: 64e706371e827ff43951c18c06b4e44c, type: 2}
+  - {fileID: 198786, guid: 39b5880d9b2dd6e439dfc6984e724ad9, type: 2}
+  - {fileID: 180130, guid: 239e707308108124ba10c172e06dfc56, type: 2}
+  - {fileID: 161370, guid: 3461338e5e4e68e43bf4aa1a9ffd532b, type: 2}
+  - {fileID: 166914, guid: 642ad5ce217054d40aa20eec43bf4db1, type: 2}
+  - {fileID: 149484, guid: 1218e76a12dc0fb45a88b0e6e9a0f517, type: 2}
+  - {fileID: 110518, guid: 8283e555d9164ab49a36444a43ba8c59, type: 2}
+  - {fileID: 176336, guid: f5b5586eda417f14fabdb48a284bbc35, type: 2}
+  - {fileID: 152290, guid: 16638106cce57d347b6cf9c72bb09334, type: 2}
+  - {fileID: 120148, guid: 731441c634300b4449a7700125b69464, type: 2}
+  - {fileID: 176764, guid: a2063106864a5a2409bbbfd5a88780af, type: 2}
+  - {fileID: 181164, guid: c8a6eab0282158b41a8da91f8772d52c, type: 2}
+  - {fileID: 127696, guid: 5371d65894e457744a61288bccf47945, type: 2}
+  - {fileID: 113882, guid: c397c9a811b5e4d43a723200bbab48cf, type: 2}
+  - {fileID: 123224, guid: 76c0ba7d97235b84b840071e2b9e61fb, type: 2}
+  - {fileID: 134042, guid: 8ca02df3d92cf394a9b52d5024390ae6, type: 2}
+  - {fileID: 108372, guid: d0211697be623a44c9803e5256bc6307, type: 2}
+  - {fileID: 115840, guid: 8d8aceb4b0b9c994390fbbbad5d69824, type: 2}
+  - {fileID: 160804, guid: f03cb068e6e565345ac90915ee236e60, type: 2}
+  - {fileID: 140882, guid: c2b08b74061623a45950b01a8b2f9874, type: 2}
+  - {fileID: 156120, guid: d504568e3b869b144a87af410c9514ba, type: 2}
+  - {fileID: 104624, guid: f559276d721b62e45857e375692e25af, type: 2}
+  - {fileID: 107450, guid: 386f5fd710675dd4aa3a3abc76ef0bfb, type: 2}
+  - {fileID: 189494, guid: 253c982395f7d684e83e980afc2f8fc9, type: 2}
+  - {fileID: 124866, guid: cbc395971a3be0c40847995fcab671f5, type: 2}
+  - {fileID: 168622, guid: d02f480b144f6e747a1f799450eda98f, type: 2}
+  - {fileID: 163662, guid: 3962283c6f4ca3e46b1a378bd40ba02e, type: 2}
+  - {fileID: 168624, guid: c38fa9e6739b3ee498a79127ab47e01a, type: 2}
+  - {fileID: 155080, guid: 9bc64d8414731de479017ea33f22b455, type: 2}
+  - {fileID: 106094, guid: 9600c9181862c2940b46b4707ce63e48, type: 2}
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 0
+  prefabTag: 
+  randomizePrefab: 1
+  minRage: 18
+  maxRage: 32
+  toInstantiate: 0
+  radius: 2.47
+  spread: 4.85
+  amount: 1
+  size: 0.7
+  positionOffset: -1
+  canPlaceOver: 1
+  canAling: 0
+  isRandomS: 1
+  isRandomR: 1
+  hideInHierarchy: 0
