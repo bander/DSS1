@@ -14,9 +14,14 @@ public class AttackButton : MonoBehaviour {
     public Sprite pistol;
     public Sprite auto;
 
+    Color alphaColor;
+
     Dictionary<WeaponAttackType, Sprite> spriteDict;
 
 	void Start () {
+        alphaColor = Color.white;
+        alphaColor.a = 0.4f;
+
         manager = InvManager.instance;
         button = GetComponent<Button>();
         imageObject = transform.GetChild(0).gameObject;
@@ -28,21 +33,37 @@ public class AttackButton : MonoBehaviour {
         spriteDict.Add(WeaponAttackType.Pistol, pistol);
         spriteDict.Add(WeaponAttackType.Automative, auto);
 
+       //UpdateImage();
         Activate(false);
+    }
+    public void UpdateImage()
+    {
+
+        Equipment weapon = manager.GetCurrentWeapon();
+        if (weapon != null)
+        {
+            image.sprite = spriteDict[weapon.attackType];
+            //imageObject.SetActive(true);
+        }
+        else
+        {
+            image.sprite = spriteDict[0];
+            //imageObject.SetActive(false);
+        }
     }
 	
     public void Activate(bool act=true)
     {
+        Equipment weapon = manager.GetCurrentWeapon();
         if (act)
         {
-            image.sprite = spriteDict[manager.GetAttackType()];
             button.interactable = true;
-            imageObject.SetActive(true);
+            imageObject.GetComponent<Image>().color = Color.white;
         }
         else
         {
             button.interactable = false;
-            imageObject.SetActive(false);
+            imageObject.GetComponent<Image>().color = alphaColor;
         }
     }
 }

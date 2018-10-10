@@ -134,7 +134,10 @@ public class Invent : MonoBehaviour {
         int i = items.IndexOf(item);
         if(i>=0 && items.Count>i) items[i] = null;
 
-        InvManager.instance.OnInvChangedCallback.Invoke();
+        if (InvManager.instance.OnInvChangedCallback!=null)
+        {
+            InvManager.instance.OnInvChangedCallback.Invoke();
+        }
     }
     public void RemoveItemByNum(int i)
     {
@@ -144,16 +147,21 @@ public class Invent : MonoBehaviour {
 
     public void SwitchItems(int from,int to, int fromInv,int toInv)
     {
+        Item switchedItem;
+
         if (fromInv == toInv)
         {
+            switchedItem = items[to];
             items[to] = items[from];
-            items[from] = null;
+            items[from] = switchedItem;
         }
         else
         {
             Invent otherInvent = InvManager.instance.GetInvent(toInv);//.Add(items[from]);
+
+            switchedItem = otherInvent.items[to];
             otherInvent.items[to] = items[from];
-            items[from] = null;
+            items[from] = switchedItem;
 
             if(toInv==1 && (otherInvent.items[to] as Equipment).equipSlot == EquipmentSlot.Back)
             {

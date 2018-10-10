@@ -63,23 +63,12 @@ public class InvManager : MonoBehaviour {
         }
 
     }
-
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            tm.countInSlot = 12;
-            invents[0].Add(tm.Clone());
-
-            if (OnInvChangedCallback != null)
-                OnInvChangedCallback.Invoke();
-        }
-    }
+    
 
     public bool AddToInventory(Item item,int numInv)
     {
 
-        if (numInv==0)
+        if (numInv==0 && item!=null)
         {
             if (invents[0].isEmptySlotAvailable())
             {
@@ -127,7 +116,7 @@ public class InvManager : MonoBehaviour {
 
 
         List<Item> loot = invents[2].items;
-        int j = 0;
+       // int j = 0;
 
         int i = 0;
         foreach (Item item in loot)
@@ -245,30 +234,67 @@ public class InvManager : MonoBehaviour {
         OnInvChangedCallback.Invoke();
     }
 
-    public WeaponAttackType GetAttackType()
+    public Equipment GetCurrentWeapon()
     {
-        WeaponAttackType ret = WeaponAttackType.None;
+        Equipment eq=null;
         int weaponIndex=-1;
 
         int i = 0;
-        foreach(Item item in invents[1].items)
+        if (invents.Count > 1 && invents[1] != null)
         {
-            if((item as Equipment)!= null){
-                if ((item as Equipment).equipSlot==EquipmentSlot.Weap)
+            foreach (Item item in invents[1].items)
+            {
+                if ((item as Equipment) != null)
                 {
-                    weaponIndex = i;
-                    break;
+                    if ((item as Equipment).equipSlot == EquipmentSlot.Weap)
+                    {
+                        weaponIndex = i;
+                        break;
+                    }
                 }
+                i++;
             }
-            i++;
-        }
-        if (weaponIndex != -1)
-        {
-            Equipment eq = invents[1].items[weaponIndex] as Equipment;
-            Debug.Log("dd rr " + invents[1].items[weaponIndex].name + " " + eq.attackType);
-            ret = eq.attackType;
+            weaponIndex = 1;
+            if (weaponIndex != -1)
+            {
+                eq = invents[1].items[weaponIndex] as Equipment;
+            }
+
         }
 
-        return ret;
+        return eq;
+    }
+    public Item GetFastSlotItem()
+    {
+        Item itm = null;
+        int fastIndex = -1;
+
+        if (invents.Count>0 && invents[1]!=null)
+        {
+            int i = 0;
+            foreach (Item item in invents[1].items)
+            {
+                if (item!= null)
+                {
+                    if (item.equipSlot2 == EquipmentSlot.Slot)
+                    {
+                        fastIndex = i;
+                        //Debug.Log(" ff "+i+"  __ "+item);
+                        break;
+                    }
+                }
+                i++;
+            }
+            //////   
+            ///      Проверка конкретного слота инвенторя без обхода
+            fastIndex = 5;
+            if (fastIndex != -1)
+            {
+                itm = invents[1].items[fastIndex] as Equipment;
+            }
+        }
+        
+
+        return itm;
     }
 }

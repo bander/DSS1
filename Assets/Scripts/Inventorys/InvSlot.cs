@@ -266,9 +266,10 @@ public class InvSlot : MonoBehaviour,IDragHandler,IBeginDragHandler,IEndDragHand
                         return true;
                     }else
                     {
-                        if ((dragSlot.item as Equipment)!=null && slotType == (dragSlot.item as Equipment).equipSlot)
-                        {
-                            return true;
+                        if ((dragSlot.item as Equipment)!=null){
+                            if (slotType == (dragSlot.item as Equipment).equipSlot || slotType == (dragSlot.item as Equipment).equipSlot2){
+                                return true;
+                            }
                         }
                         return false;
                     }

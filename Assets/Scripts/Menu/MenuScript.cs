@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class MenuScript : MonoBehaviour
 {
-
     #region Singleton
     public static MenuScript instance;
     void Awake()
@@ -16,7 +15,6 @@ public class MenuScript : MonoBehaviour
 
     #endregion
 
-
     PlayerController pController;
 
     public Sprite runIcon;
@@ -25,6 +23,7 @@ public class MenuScript : MonoBehaviour
 
     public GameObject use;
     public AttackButton attack;
+    public FastButton fast;
 
     List<Interactable> inters = new List<Interactable>();
     List<Interactable> enemies = new List<Interactable>();
@@ -93,6 +92,7 @@ public class MenuScript : MonoBehaviour
     {
         if (enemies.Count == 0)
         {
+            Debug.Log(" IN ");
             attack.Activate();
             CanvasController.instance.StarttrackEnemy();
         }
@@ -103,8 +103,9 @@ public class MenuScript : MonoBehaviour
         enemies.Remove(enemy);
         if (enemies.Count == 0)
         {
+            Debug.Log(" OUT ");
             attack.Activate(false);
-
+            CanvasController.instance.StarttrackEnemy(false);
         }
     }
     public Interactable FindNearestEnemy()
@@ -121,7 +122,7 @@ public class MenuScript : MonoBehaviour
         float dist = (pController.transform.position - enemies[0].transform.position).magnitude;
         for (int i = 1; i < enemies.Count; i++)
         {
-            float newDist = (pController.transform.position - enemies[1].transform.position).magnitude;
+            float newDist = (pController.transform.position - enemies[i].transform.position).magnitude;
             if (dist > newDist)
             {
                 inter = enemies[i];
@@ -131,8 +132,34 @@ public class MenuScript : MonoBehaviour
         return inter;
     }
 
+    /// <summary>
+    /// ///////   Attack Button 
+    /// </summary>
     public void AttackButton()
     {
-        PlayerManager.instance.player.GetComponent<PlayerController>().StartAttackCurrentEnemy(FindNearestEnemy());
+        //PlayerManager.instance.player.GetComponent<PlayerController>().StartTrackCurrentEnemy(FindNearestEnemy());
+        PlayerManager.instance.player.GetComponent<PlayerControl>().Attack();
+    }
+    public void AttackStart()
+    {
+        //PlayerManager.instance.player.GetComponent<PlayerController>().StartTrackCurrentEnemy(FindNearestEnemy());
+        PlayerManager.instance.player.GetComponent<PlayerControl>().AttackStart();
+    }
+    public void AttackStop()
+    {
+        //PlayerManager.instance.player.GetComponent<PlayerController>().StartTrackCurrentEnemy(FindNearestEnemy());
+        PlayerManager.instance.player.GetComponent<PlayerControl>().AttackStop();
+    }
+
+
+    public void UpdateFastSlot()
+    {
+        fast.UpdateImage();
+        attack.UpdateImage();
+    }
+    public void UseFast()
+    {
+        InvManager.instance.invents[1].SwitchItems(5,1,1,1);
+        InvManager.instance.OnInvChangedCallback.Invoke();
     }
 }

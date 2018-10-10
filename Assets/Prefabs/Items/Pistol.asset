@@ -13,13 +13,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Pistol
   mesh: {fileID: 0}
-  icon: {fileID: 21300000, guid: e80b5efdbd07a6d4e84bb0701888a044, type: 3}
+  icon: {fileID: 21300000, guid: d4fe9af0026ec2640b58fd6a031b14c3, type: 3}
   isDefaultItem: 0
   countInSlot: 1
   maxCountInSlot: 1
   type: 0
-  equipSlot: 5
   equipSlot2: 7
+  equipSlot: 5
   attackType: 2
   armorModifier: 0
-  damageModifier: 5
+  damageModifier: 25
+  attackDistance: 6
+  attackRate: 4
+  speed: 0
+  audioClip: {fileID: 8300000, guid: baf2b2e1655472946841adbfb57b672a, type: 3}
+  muzzleEffect: {fileID: 100002, guid: e840492206edf364baccc15150e2cc63, type: 2}

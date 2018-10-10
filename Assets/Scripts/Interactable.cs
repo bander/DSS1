@@ -4,10 +4,13 @@ public class Interactable : MonoBehaviour {
     protected Transform player;
     public float radius = 2f;
     protected bool isInRange = false;
+    public EnemyStats stats;
+    public bool low = true;
 
     void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player").transform;
+        player = PlayerManager.instance.player.transform;
+        stats = GetComponent<EnemyStats>();
     }
 
     void OnDrawGizmosSelected()

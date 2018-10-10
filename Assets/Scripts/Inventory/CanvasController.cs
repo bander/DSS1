@@ -15,6 +15,7 @@ public class CanvasController : MonoBehaviour {
 
     InvManager manager;
     BuildController builder;
+    PlayerStats pStats;
 
     public GameObject mainUI;
     public GameObject inventoryUI;
@@ -54,9 +55,13 @@ public class CanvasController : MonoBehaviour {
         {
             manager.OnInvChangedCallback += UpdateGetAllButton;
             manager.OnInvChangedCallback += updateBuildButtonsActivity;
+            manager.OnInvChangedCallback += mainUI.GetComponent<MenuScript>().UpdateFastSlot;
         }
 
-        bar1.UpdateBar(PlayerManager.instance.player.GetComponent<CharacterStats>());
+        pStats = PlayerManager.instance.player.GetComponent<PlayerStats>();
+        pStats.onHPChange += UpdateHPBar;
+        UpdateHPBar();
+
         bar2.Show(false);
     }
 
@@ -256,11 +261,6 @@ public class CanvasController : MonoBehaviour {
         EnemySample newEnemy = mainUI.GetComponent<MenuScript>().FindNearestEnemy() as EnemySample;
         if (newEnemy == null)
         {
-            if (currentEnemy != null && currentEnemy.onEnemyHPChange != null)
-            {
-                currentEnemy.onEnemyHPChange = null;
-                currentEnemy = null;
-            }
             StarttrackEnemy(false);
             return;
         }
@@ -268,7 +268,7 @@ public class CanvasController : MonoBehaviour {
         {
             if (currentEnemy!=null && currentEnemy.onEnemyHPChange != null) currentEnemy.onEnemyHPChange = null;
             currentEnemy = newEnemy;
-            Debug.Log(currentEnemy.enemyName);
+
             bar2.Show();
             EnemyStats stats = currentEnemy.GetComponent<EnemyStats>();
             bar2.UpdateBar(stats);
@@ -283,6 +283,18 @@ public class CanvasController : MonoBehaviour {
     }
     void stopTrackEnemy()
     {
+
+        if (currentEnemy != null && currentEnemy.onEnemyHPChange != null)
+        {
+            currentEnemy.onEnemyHPChange = null;
+            currentEnemy = null;
+        }
         bar2.Show(false);
+    }
+    
+
+    void UpdateHPBar()
+    {
+        bar1.UpdateBar(pStats);
     }
 }

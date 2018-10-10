@@ -54,6 +54,7 @@ public class BuildController : MonoBehaviour
         canvas = CanvasController.instance;
         manager = InvManager.instance;
 
+        /*
         tile.transform.localScale = tile.transform.localScale * 2 / 3;
         finalFloor = tile.GetComponent<MeshRenderer>().material;
         wall.transform.localScale = wall.transform.localScale * 2 / 3;
@@ -64,6 +65,7 @@ public class BuildController : MonoBehaviour
 
         tile.transform.position = new Vector3(0, -20, 0);
         wall.transform.position = new Vector3(0, -20, 0);
+        //*/
     }
 
     public void setFloorState()
@@ -97,7 +99,7 @@ public class BuildController : MonoBehaviour
         if (onBuildUpdate != null) onBuildUpdate.Invoke();
     }
 
-    void Update() {
+    void UpdateFake() {
         if (Input.GetKeyDown(KeyCode.Q))
         {
             turnOffCurrent();

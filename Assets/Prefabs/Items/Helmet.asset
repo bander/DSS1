@@ -3,7 +3,7 @@
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
@@ -15,6 +15,15 @@ MonoBehaviour:
   mesh: {fileID: 137860818134638488, guid: d541674d2c62e6e48ad74d8033edd77e, type: 2}
   icon: {fileID: 21300000, guid: 63a13adb2b0e64f20a9b56869ed72751, type: 3}
   isDefaultItem: 0
+  countInSlot: 1
+  maxCountInSlot: 1
+  type: 0
+  equipSlot2: 0
   equipSlot: 1
-  armorModifier: 0
-  damageModifier: 5
+  attackType: 0
+  armorModifier: 2
+  damageModifier: 0
+  attackDistance: 0
+  attackRate: 0
+  audioClip: {fileID: 0}
+  muzzleEffect: {fileID: 0}
