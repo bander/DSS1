@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.AI;
 using UnityEngine.EventSystems;
 
-//[RequireComponent(typeof(NavMeshAgent))]
+[RequireComponent(typeof(NavMeshAgent))]
 [RequireComponent(typeof(CharacterController))]
 public class PlayerController : MonoBehaviour {
     #region Singleton
@@ -22,6 +22,8 @@ public class PlayerController : MonoBehaviour {
     Interactable target;
     Camera cam;
     CharacterController controller;
+    PlayerAnimator pAnim;
+    InvManager manager;
 
     Vector3 moveDirection;
     float rotationSpeed = 12f;
@@ -38,22 +40,33 @@ public class PlayerController : MonoBehaviour {
 
     Interactable enemy;
     bool inCombat= false;
-
-    float attackDelay = 1f;
-    float timeinterval;
-
+    
     public delegate void OnMainUIUpdate();
     public OnMainUIUpdate onMainUIUpdate;
 
     public delegate void OnEnemyInRange();
     public OnEnemyInRange onEnemyInRange;
 
-    void Start () {
+    public GameObject muzzlePrefab;
+    AudioSource audioSource;
+
+    public Transform muzzle;
+    public AudioClip audioClip;
+
+    public Transform[] muzzles;
+
+    void Start ()
+    {
+        audioSource = GetComponent<AudioSource>();
         cam = Camera.main;
         agent = GetComponent<NavMeshAgent>();
         controller = GetComponent<CharacterController>();
         joystick = FindObjectOfType<Joystick>();
-        
+        pAnim = GetComponent<PlayerAnimator>();
+
+        manager = InvManager.instance;
+        manager.OnInvChangedCallback += updateAttackType;
+
         agent.enabled = false;
     }
 	
@@ -61,7 +74,7 @@ public class PlayerController : MonoBehaviour {
 
         Vector3 cameraForward = new Vector3(Camera.main.transform.forward.x,0, Camera.main.transform.forward.z).normalized;
         moveDirection = cameraForward * joystick.Vertical + Camera.main.transform.right * joystick.Horizontal;
-        moveDirection = moveDirection.normalized * moveSpeed;
+        moveDirection = new Vector3(0,0,0);// moveDirection.normalized * moveSpeed;
 
         if (controller.isGrounded)
         {
@@ -73,12 +86,23 @@ public class PlayerController : MonoBehaviour {
 
         controller.Move(moveDirection * Time.deltaTime);
 
-        if (joystick.Vertical != 0 || joystick.Horizontal != 0)
+        if (false)//(joystick.Vertical != 0 || joystick.Horizontal != 0)
         {
             Quaternion modelRotation = Quaternion.LookRotation(new Vector3(moveDirection.x, 0f, moveDirection.z));
-            transform.GetChild(0).rotation = Quaternion.Slerp(transform.GetChild(0).rotation, modelRotation, rotationSpeed * Time.deltaTime);
+            transform.rotation = Quaternion.Slerp(transform.rotation, modelRotation, rotationSpeed * Time.deltaTime);
 
-            if (agent.enabled == true) agent.enabled = false;
+            if (inCombat == true)
+            {
+                inCombat = false;
+                if (agent.enabled)
+                {
+                    if (!agent.isStopped)
+                    {
+                        agent.isStopped = true;
+                    }
+                    agent.enabled = false;
+                }
+            }
         }
         else
         {
@@ -86,9 +110,10 @@ public class PlayerController : MonoBehaviour {
             {
                 if (pathComplete())
                 {
+                    agent.isStopped = true;
                     agent.enabled = false;
                 }
-                transform.GetChild(0).rotation = Quaternion.LookRotation(agent.velocity.normalized);
+//              transform.rotation = Quaternion.LookRotation(agent.velocity.normalized);
                 setFocus(enemy);
             }
             else
@@ -97,22 +122,22 @@ public class PlayerController : MonoBehaviour {
                 {
                     if (CheckDistanceToEnemy())
                     {
-                        lookAtEnemy();
-                        AttackEnemy();
+                        if (lookAtEnemy())
+                        {
+                            StartAttack();
+                        }
                     }
                     else
                     {
-                        StartAttackCurrentEnemy(enemy);
+                        StartTrackCurrentEnemy(enemy);
                     }
                 }
             }
         }
-
         if (onEnemyInRange != null) onEnemyInRange.Invoke();
-        
     }
 
-    public void StartAttackCurrentEnemy(Interactable newEnemy)
+    public void StartTrackCurrentEnemy(Interactable newEnemy)
     {
         if (newEnemy != null)
         {
@@ -122,6 +147,59 @@ public class PlayerController : MonoBehaviour {
             agent.SetDestination(enemy.transform.position);
         }
     }
+    public void StartAttack()
+    {
+
+    }
+    public void Shoot()
+    {
+        //agent.stoppingDistance = 5;
+        //muzzle = muzzles[3];
+        //audioClip = audioClip;
+
+        Instantiate(muzzlePrefab, muzzle.transform);
+        AudioClip clip = audioClip;//audioSource.clip;
+        audioSource.PlayOneShot(clip);
+
+        if (enemy != null)
+        {
+            enemy.GetComponent<EnemyStats>().TakeDamage(GetComponent<PlayerStats>().damage.GetValue());
+        }
+    }
+
+    int attackType;
+    void updateAttackType()
+    {
+        Equipment weapon = InvManager.instance.GetCurrentWeapon();
+        float attackDist = 2.5f;
+        if (weapon != null)
+        {
+            attackDist = weapon.attackDistance;
+            muzzlePrefab = weapon.muzzleEffect;
+            audioClip = weapon.audioClip;
+            int newWeapon = (int)weapon.attackType;
+            muzzle = muzzles[newWeapon];
+
+            if (attackType != newWeapon)
+            {
+                attackType = newWeapon;
+                pAnim.animator.SetInteger("WeaponType", attackType);
+                pAnim.animator.SetFloat("WeaponNumber", attackType);
+                pAnim.animator.SetTrigger("SwitchWeapon");
+                pAnim.showWeapon(attackType);
+        }
+        agent.stoppingDistance = attackDist;
+    }
+        else
+        {
+            if (attackType != -1)
+            {
+                attackType = -1;
+                pAnim.animator.SetInteger("WeaponType", attackType);
+            }
+        }
+    }
+
     protected bool pathComplete()
     {
         if (Vector3.Distance(agent.destination, agent.transform.position) <= agent.stoppingDistance)
@@ -145,16 +223,6 @@ public class PlayerController : MonoBehaviour {
             }
         }
         return false;
-    }
-
-    public void AttackEnemy()
-    {
-        timeinterval += Time.deltaTime;
-        if (timeinterval >= attackDelay)
-        {
-            timeinterval = 0;
-            enemy.GetComponent<EnemyStats>().TakeDamage(GetComponent<PlayerStats>().damage.GetValue());
-        }
     }
 
     public void PickTarget(Interactable inter)
@@ -226,11 +294,14 @@ public class PlayerController : MonoBehaviour {
         Quaternion rotation = Quaternion.LookRotation(new Vector3(direction.x,0f,direction.z));
         transform.rotation = Quaternion.Slerp(transform.rotation,rotation,Time.deltaTime*3f);
     }
-    void lookAtEnemy()
+    bool lookAtEnemy()
     {
+        bool ret = false;
         Vector3 direction = (enemy.transform.position - transform.position).normalized;
         Quaternion rotation = Quaternion.LookRotation(new Vector3(direction.x, 0f, direction.z));
-        transform.GetChild(0).rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * 3f);
+        transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * 3f);
+        if (Quaternion.Angle(transform.rotation,rotation)<1) ret = true;
+        return ret;
     }
 
     public void SwitchRunWalk()
@@ -250,6 +321,7 @@ public class PlayerController : MonoBehaviour {
 
     }
 
+    
     public bool isRunning()
     {
         bool ret = (moveSpeed == runSpeed) ? true: false;

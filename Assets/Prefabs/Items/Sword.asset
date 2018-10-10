@@ -18,8 +18,13 @@ MonoBehaviour:
   countInSlot: 1
   maxCountInSlot: 1
   type: 0
-  equipSlot: 5
   equipSlot2: 7
+  equipSlot: 5
   attackType: 1
   armorModifier: 0
-  damageModifier: 5
+  damageModifier: 25
+  attackDistance: 1.5
+  attackRate: 2
+  speed: 0
+  audioClip: {fileID: 0}
+  muzzleEffect: {fileID: 0}

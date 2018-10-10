@@ -10,10 +10,10 @@ public class EnemySample : Interactable {
     public string enemyName = "Enemy1";
     
     public override void inRange()
-    {
+    {   
         if (isInRange)
         {
-            MenuScript.instance.AddEnemy(this);
+            if(!stats.dead) MenuScript.instance.AddEnemy(this);
         }
         else
         {

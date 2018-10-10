@@ -11,6 +11,7 @@ public class HPBar : MonoBehaviour {
 
 	void Awake() {
         slider = GetComponent<Slider>();
+        stats = GetComponent<CharacterStats>();
 	}
 
     public void UpdateBar(CharacterStats newStats) {

@@ -7,10 +7,12 @@ public class Item : ScriptableObject{
 
     public Sprite icon = null;
     public bool isDefaultItem = false;
-    //[HideInInspector]
+    [HideInInspector]
     public int countInSlot = 1;
     public int maxCountInSlot=1;
     public ItemType type;
+
+    public EquipmentSlot equipSlot2;
 
     public enum ItemType {Equip,Metall,Oxygen };
 
@@ -35,6 +37,7 @@ public class Item : ScriptableObject{
         itm.countInSlot = countInSlot;
         itm.maxCountInSlot = maxCountInSlot;
         itm.type=type;
+        itm.equipSlot2 = equipSlot2;
 
         return itm;
     }

@@ -1,11 +1,16 @@
 ﻿using UnityEngine;
 
 public class CharacterStats : MonoBehaviour {
-    public int maxHealth=100;
-    public int currentHealth { get; private set; }
+    public float maxHealth=100;
+    public float currentHealth { get; private set; }
 
     public Stat damage;
+    public Stat attackRate;
+    public Stat attackDist;
     public Stat armor;
+    public Stat speed;
+
+    public bool dead=false;
 
     void Awake()
     {
@@ -13,15 +18,15 @@ public class CharacterStats : MonoBehaviour {
     }
     
 
-    public void TakeDamage(int damage)
+    public virtual void TakeDamage(float damage)
     {
         damage -= armor.GetValue();
         damage = Mathf.Clamp(damage,0,int.MaxValue);
 
         currentHealth -= damage;
-       // Debug.Log(transform.name + " take " + damage + "damage");
+        GameObject.FindGameObjectWithTag("Canvas").GetComponent<DamageIndicator>().showIndicator("-"+damage, transform.position + Vector3.up * 1.5f);
 
-        if(currentHealth <= 0)
+        if (currentHealth <= 0)
         {
             Die();
         }
@@ -32,10 +37,10 @@ public class CharacterStats : MonoBehaviour {
             if (enSample.onEnemyHPChange != null) enSample.onEnemyHPChange.Invoke();
         }
     }
-
     public virtual void Die()
     {
-        Debug.Log(transform.name + " died");
+        //if(!dead) GetComponent<Animator>().SetTrigger("Die");
+        dead = true;
     }
 
 }

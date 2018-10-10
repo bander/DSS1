@@ -21,10 +21,8 @@ public class Invs : MonoBehaviour {
 
         if (slots == null)
         {
-           // slots = GetComponentsInChildren<InvSlot>();
+           //slots = GetComponentsInChildren<InvSlot>();
         }
-
-       // activateBackpackSlots();
     }
     public void SetNum(int number)
     {

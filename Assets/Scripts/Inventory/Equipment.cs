@@ -6,11 +6,16 @@ using UnityEngine;
 public class Equipment : Item {
 
     public EquipmentSlot equipSlot;
-    public EquipmentSlot equipSlot2;
     public WeaponAttackType attackType;
 
     public int armorModifier;
     public int damageModifier;
+    public float attackDistance;
+    public float attackRate;
+    public float speed;
+
+    public AudioClip audioClip;
+    public GameObject muzzleEffect;
 
     public override void Use()
     {
@@ -35,6 +40,12 @@ public class Equipment : Item {
         itm.attackType = attackType;
         itm.armorModifier = armorModifier;
         itm.damageModifier = damageModifier;
+
+        itm.attackDistance = attackDistance;
+        itm.attackRate = attackRate;
+        itm.speed = speed;
+        itm.audioClip = audioClip;
+        itm.muzzleEffect = muzzleEffect;
 
         return itm;
     }
