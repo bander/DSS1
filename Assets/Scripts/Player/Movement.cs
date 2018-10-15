@@ -88,6 +88,7 @@ public class Movement : MonoBehaviour {
     Vector3 keyDir;
 
     float rot=0;
+    float rotationSpeed=160;
     string currentClip;
     int moveType;
 
@@ -111,6 +112,11 @@ public class Movement : MonoBehaviour {
         onUpdate += MoveDefault;
     }
 
+    public void SetCrouch(bool newCrouch)
+    {
+        activateCombat(3);
+        anim.SetBool("Crouch", newCrouch);
+    }
     public void activateCombat(int type=0)
     {
         if (type == 2) type = 1;
@@ -125,12 +131,17 @@ public class Movement : MonoBehaviour {
             onUpdate = MoveInCombat;
             anim.SetBool("InCombat", true);
         }
-        else
+        else if (type==2)
         {
             onUpdate = MoveNavigation;
             anim.SetBool("InCombat", true);
 
             agent.destination = target.transform.position;
+        }
+        else if (type == 3)
+        {
+            onUpdate = MoveCrouch;
+            anim.SetBool("InCombat", false);
         }
         moveType = type;
     }
@@ -165,6 +176,12 @@ public class Movement : MonoBehaviour {
         anim.SetFloat("Z", strafeDirection.z);
 
         anim.SetBool("Shooting", RotateToEnemy());
+    }
+    void MoveCrouch()
+    {
+        Quaternion rotateTo = Quaternion.LookRotation(jDir);
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, rotateTo, Time.deltaTime * rotationSpeed);
+        anim.SetFloat("InputMagnitude", jDir.magnitude);
     }
     void MoveNavigation()
     {

@@ -92,7 +92,6 @@ public class MenuScript : MonoBehaviour
     {
         if (enemies.Count == 0)
         {
-            Debug.Log(" IN ");
             attack.Activate();
             CanvasController.instance.StarttrackEnemy();
         }
@@ -103,7 +102,6 @@ public class MenuScript : MonoBehaviour
         enemies.Remove(enemy);
         if (enemies.Count == 0)
         {
-            Debug.Log(" OUT ");
             attack.Activate(false);
             CanvasController.instance.StarttrackEnemy(false);
         }

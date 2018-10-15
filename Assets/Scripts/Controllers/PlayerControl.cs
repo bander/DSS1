@@ -23,6 +23,17 @@ public class PlayerControl : MonoBehaviour {
 
     public GameObject[] weapons;
 
+    bool crouch = false;
+    public bool Crouch
+    {
+        get { return crouch; }
+        set {
+            crouch = value;
+            movem.SetCrouch(crouch);
+        }
+    }
+
+
     void Update()
     {
         if (onUpdate != null) onUpdate.Invoke();
