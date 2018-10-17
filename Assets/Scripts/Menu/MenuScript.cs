@@ -15,7 +15,8 @@ public class MenuScript : MonoBehaviour
 
     #endregion
 
-    PlayerController pController;
+    //PlayerController pController;
+    PlayerControl pControl;
 
     public Sprite runIcon;
     public Sprite walkIcon;
@@ -30,12 +31,15 @@ public class MenuScript : MonoBehaviour
 
     void Start()
     {
-        pController = PlayerController.instance;
-        pController.onMainUIUpdate += UpdateUI;
+ //       pController = PlayerController.instance;
+ //       pController.onMainUIUpdate += UpdateUI;
+
+        pControl = PlayerControl.instance;
+
     }
     void UpdateUI()
     {
-        RunWalkButton.GetComponent<Image>().sprite = (pController.isRunning()) ? runIcon : walkIcon;
+//        RunWalkButton.GetComponent<Image>().sprite = (pController.isRunning()) ? runIcon : walkIcon;
     }
 
 
@@ -58,10 +62,10 @@ public class MenuScript : MonoBehaviour
     Interactable findNearestItemToPlayer()
     {
         Interactable inter = inters[0];
-        float dist = (pController.transform.position - inters[0].transform.position).magnitude;
+        float dist = (pControl.transform.position - inters[0].transform.position).magnitude;
         for (int i = 1; i < inters.Count; i++)
         {
-            float newDist = (pController.transform.position - inters[1].transform.position).magnitude;
+            float newDist = (pControl.transform.position - inters[1].transform.position).magnitude;
             if (dist > newDist)
             {
                 inter = inters[i];
@@ -84,7 +88,9 @@ public class MenuScript : MonoBehaviour
             {
                 inter = findNearestItemToPlayer();
             }
-            pController.PickTarget(inter);
+            pControl.PickTarget(inter);
+
+
         }
     }
     
@@ -117,10 +123,10 @@ public class MenuScript : MonoBehaviour
             return enemies[0];
         }
         Interactable inter = enemies[0];
-        float dist = (pController.transform.position - enemies[0].transform.position).magnitude;
+        float dist = (pControl.transform.position - enemies[0].transform.position).magnitude;
         for (int i = 1; i < enemies.Count; i++)
         {
-            float newDist = (pController.transform.position - enemies[i].transform.position).magnitude;
+            float newDist = (pControl.transform.position - enemies[i].transform.position).magnitude;
             if (dist > newDist)
             {
                 inter = enemies[i];

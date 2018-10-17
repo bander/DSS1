@@ -4490,6 +4490,21 @@ Prefab:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: Click
       objectReference: {fileID: 0}
+    - target: {fileID: 114179974162375706, guid: 548cc7866b971bc438a328ed51628044,
+        type: 2}
+      propertyPath: offset.x
+      value: -3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114179974162375706, guid: 548cc7866b971bc438a328ed51628044,
+        type: 2}
+      propertyPath: offset.y
+      value: -3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114179974162375706, guid: 548cc7866b971bc438a328ed51628044,
+        type: 2}
+      propertyPath: offset.z
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 548cc7866b971bc438a328ed51628044, type: 2}
   m_IsPrefabAsset: 0

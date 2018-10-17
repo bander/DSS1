@@ -3,6 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerControl : MonoBehaviour {
+    #region Singleton
+    public static PlayerControl instance;
+    void Awake()
+    {
+        instance = this;
+    }
+    #endregion
+
     delegate void OnAttack();
     OnAttack onAttack;
     delegate void OnAttackBegin();
@@ -31,6 +39,10 @@ public class PlayerControl : MonoBehaviour {
             crouch = value;
             movem.SetCrouch(crouch);
         }
+    }
+    public void PickTarget(Interactable inter)
+    {
+
     }
 
 
@@ -141,7 +153,6 @@ public class PlayerControl : MonoBehaviour {
             pistolResetter = true;
         }
     }
-
     void MeleeOnce()
     {
         if (enemyLow)
@@ -165,7 +176,6 @@ public class PlayerControl : MonoBehaviour {
             pistolResetter = true;
         }
     }
-
     void ShootOnce()
     {
         movem.activateCombat(1);
@@ -180,6 +190,7 @@ public class PlayerControl : MonoBehaviour {
 
             //anim.SetBool("InCombat", true);
     }
+
     float timer;
     bool pistolResetter = false;
     void ResetCombatModeafterPistolShoot()
