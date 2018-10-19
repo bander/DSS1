@@ -29,6 +29,8 @@ public class MenuScript : MonoBehaviour
     List<Interactable> inters = new List<Interactable>();
     List<Interactable> enemies = new List<Interactable>();
 
+    public List<Interactable> GetInters() { return inters; }
+
     void Start()
     {
  //       pController = PlayerController.instance;
@@ -88,9 +90,8 @@ public class MenuScript : MonoBehaviour
             {
                 inter = findNearestItemToPlayer();
             }
-            pControl.PickTarget(inter);
-
-
+            //pControl.PickTarget(inter);
+            
         }
     }
     

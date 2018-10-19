@@ -40,11 +40,6 @@ public class PlayerControl : MonoBehaviour {
             movem.SetCrouch(crouch);
         }
     }
-    public void PickTarget(Interactable inter)
-    {
-
-    }
-
 
     void Update()
     {
@@ -59,6 +54,13 @@ public class PlayerControl : MonoBehaviour {
         if (Input.GetKeyUp(KeyCode.Space))
         {
             AttackStop();
+        }
+
+
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            PickupTarget();
+
         }
     }
 
@@ -249,6 +251,50 @@ public class PlayerControl : MonoBehaviour {
     void _AnimHit()
     {
         shootScript.Fire(enemy);
+    }
+
+
+    public List<Interactable> trash;
+    public Interactable currentPickup;
+    public void PickupTarget()// Interactable inter)
+    {
+        float angle = 361;
+        float dist = 20;
+        foreach (Interactable pick in trash)
+        {
+            float newDist = (pick.transform.position - transform.position).magnitude;
+            if (newDist < dist)
+            {
+                dist = newDist;
+                if (dist > 0.7f)
+                {
+                    currentPickup = pick;
+                }
+            }
+            if (newDist < 0.7f)
+            {
+                float newAngle = Vector3.Angle(transform.forward, pick.transform.position - transform.position);
+                if (newAngle < angle)
+                {
+                    currentPickup = pick;
+                    angle = newAngle;
+                }
+            }
+        }
+
+        movem.SetTarget=currentPickup.gameObject;
+        movem.activateCombat(4);
+    }
+    public void _AnimPickup()
+    {
+        if (currentPickup != null)
+        {
+            if (trash.Contains(currentPickup))
+            {
+                trash.Remove(currentPickup);
+            }
+            currentPickup.Interact();
+        }
     }
 
 
