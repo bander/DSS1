@@ -69,8 +69,6 @@ public class EnemyMovement : MonoBehaviour
     }
     void Arrive()
     {
-        Debug.Log("  A R R I V E ");
-
         onUpdate = null;
         anim.SetBool("Walk Forward", false);
         anim.SetBool("Attack", true);

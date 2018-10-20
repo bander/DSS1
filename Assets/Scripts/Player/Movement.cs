@@ -208,12 +208,7 @@ public class Movement : MonoBehaviour {
     }
 
 
-
-
-
-
-
-
+    
 
 
 
@@ -306,7 +301,6 @@ public class Movement : MonoBehaviour {
     }
     protected bool AgentStopping()
     {
-        //Debug.Log(agent.remainingDistance+"  ---  "+ agent.stoppingDistance);
         return agent.remainingDistance <= agent.stoppingDistance;
     }
 
