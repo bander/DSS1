@@ -35,7 +35,7 @@ Transform:
   m_GameObject: {fileID: 1224143767005184}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -29.73, y: 0.5, z: -35.16}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.6, y: 0.6, z: 0.6}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -62,6 +62,10 @@ MonoBehaviour:
     type: 2}
   wallConstructFill: {fileID: 1570595464749934, guid: 441bf37bdc28eb240b31e3d05964bafb,
     type: 2}
+  stairConstruct: {fileID: 1277081024450634, guid: 75e1d081cc52df24da286477c82d5dff,
+    type: 2}
+  stairConstructFill: {fileID: 1356667911238254, guid: 61c36a3638b24b54aac5fa525740f428,
+    type: 2}
   floor: {fileID: 190414, guid: c49c5a75d21a74e3ea9f79537dd8ed21, type: 2}
   door: {fileID: 120396, guid: bb7f6d413e1b9461f9b318e97aeea0a5, type: 2}
   Wall: {fileID: 185304, guid: f05d87476f4254e2584f62410cf7c767, type: 2}
@@ -70,3 +74,4 @@ MonoBehaviour:
   Wall6: {fileID: 1113238188051444, guid: 684b6dbc718622448b4894850757ad96, type: 2}
   inCorner: {fileID: 127336, guid: bc5d91e180d9e40549982ae6c317cfb6, type: 2}
   outCorner: {fileID: 131922, guid: 5ae9ac9c2760a4167b79a9a49a5ce260, type: 2}
+  stair: {fileID: 111526, guid: 28923284c29994f0b8879123f593e4af, type: 2}

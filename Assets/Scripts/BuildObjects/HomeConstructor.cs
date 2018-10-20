@@ -9,6 +9,7 @@ public class HomeConstructor : MonoBehaviour {
     Dictionary<Vector2, int> fl = new Dictionary<Vector2, int>();
     Dictionary<Vector3, int> wl = new Dictionary<Vector3, int>();
     Dictionary<Vector3, int> cr = new Dictionary<Vector3, int>();
+    Dictionary<Vector3, int> st = new Dictionary<Vector3, int>();
 
     Dictionary<Vector3, int> wlCuts = new Dictionary<Vector3, int>();
 
@@ -20,6 +21,7 @@ public class HomeConstructor : MonoBehaviour {
     Dictionary<Vector2, GameObject> flComplete = new Dictionary<Vector2, GameObject>();
     Dictionary<Vector3, GameObject> wlComplete = new Dictionary<Vector3, GameObject>();
     Dictionary<Vector3, GameObject> crComplete = new Dictionary<Vector3, GameObject>();
+    Dictionary<Vector3, GameObject> stComplete = new Dictionary<Vector3, GameObject>();
 
     public float scaleFactor = 0.75f;
 
@@ -28,6 +30,8 @@ public class HomeConstructor : MonoBehaviour {
     public GameObject floorConstructRed;
     public GameObject wallConstruct;
     public GameObject wallConstructFill;
+    public GameObject stairConstruct;
+    public GameObject stairConstructFill;
 
     public GameObject floor;
     public GameObject door;
@@ -37,6 +41,7 @@ public class HomeConstructor : MonoBehaviour {
     public GameObject Wall6;
     public GameObject inCorner;
     public GameObject outCorner;
+    public GameObject stair;
 
     GameObject currentPrefab;
     GameObject currentFillPrefab;
@@ -201,6 +206,24 @@ public class HomeConstructor : MonoBehaviour {
             }
         } 
     }
+    void ShowAvailableStairs(int level)
+    {
+        RemoveAllPoints();
+
+        for (int i = 0; i < 4; i++)
+        {
+            for (int j = 0; j < 4; j++)
+            {
+                if (fl[new Vector2(i, j)] == 1)
+                {
+                    GameObject construct = Instantiate(stairConstruct, transform.position + new Vector3(i * 6 * scaleFactor, 0, j * 6 * scaleFactor), Quaternion.identity, transform);
+                    construct.transform.parent = transform;
+                    constructs.Add(construct);
+                }
+            }
+        }
+    }
+
     void CreateWallConstruct(int i, int j, int turn)
     {
         GameObject construct = Instantiate(wallConstruct, transform.position + new Vector3((i) * 6 * scaleFactor, 0, (j) * 6 * scaleFactor), Quaternion.Euler(0, turn, 0), transform);
@@ -219,6 +242,13 @@ public class HomeConstructor : MonoBehaviour {
 
 	void Update ()
     {
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            ShowAvailableStairs(0);
+            selectObj = SelectStair;
+            clearObj = ClearStair;
+            setObj = SetStair;
+        }
         if (Input.GetKeyDown(KeyCode.C))
         {
             ShowAvailableDoors(0);
@@ -363,136 +393,141 @@ public class HomeConstructor : MonoBehaviour {
 
         if (wallc.z == 0)
         {
-            key = new Vector3(wallc.x+1,wallc.y+1,90);
+            key = new Vector3(wallc.x, wallc.y, 270);
             if (wl.ContainsKey(key) && wl[key] > 0)
             {
-                CreateOutCorner(new Vector3(key.x , key.y-1,0));
+                wallSkaler += 1;
+                CreateInCorner(new Vector3(key.x + 1, key.y, 90));
+                UpdateWallSkaler(key, 2);
             }
             else
             {
-                key = new Vector3(wallc.x , wallc.y, 270);
+                key = new Vector3(wallc.x + 1, wallc.y + 1, 90);
                 if (wl.ContainsKey(key) && wl[key] > 0)
                 {
-                    wallSkaler += 1;
-                    CreateInCorner(new Vector3(key.x+1, key.y, 0));
-                    UpdateWallSkaler(key,2);
+                    CreateOutCorner(new Vector3(key.x, key.y - 1, 0));
                 }
             }
-            key = new Vector3(wallc.x+1 , wallc.y - 1,270);
+
+            key = new Vector3(wallc.x, wallc.y, 90);
             if (wl.ContainsKey(key) && wl[key] > 0)
             {
-                CreateOutCorner(new Vector3(key.x, key.y, 270));
+                wallSkaler += 2;
+                CreateInCorner(new Vector3(key.x + 1, key.y - 1, 180));
+                UpdateWallSkaler(key, 1);
             }
             else
             {
-                key = new Vector3(wallc.x, wallc.y, 90);
+                key = new Vector3(wallc.x + 1, wallc.y - 1, 270);
                 if (wl.ContainsKey(key) && wl[key] > 0)
                 {
-                    wallSkaler += 2;
-                    CreateInCorner(new Vector3(key.x + 1, key.y-1, 90));
-                    UpdateWallSkaler(key, 1);
+                    CreateOutCorner(new Vector3(key.x, key.y, 270));
                 }
             }
         }
         if (wallc.z == 90)
         {
-            key = new Vector3(wallc.x - 1, wallc.y - 1, 0);
+            key = new Vector3(wallc.x, wallc.y, 180);
             if (wl.ContainsKey(key) && wl[key] > 0)
             {
-                CreateOutCorner(new Vector3(key.x+1, key.y, 0));
+                wallSkaler += 2;
+                CreateInCorner(new Vector3(key.x, key.y - 1, 270));
+                UpdateWallSkaler(key, 1);
             }
             else
             {
-                key = new Vector3(wallc.x, wallc.y, 180);
+                key = new Vector3(wallc.x - 1, wallc.y - 1, 0);
                 if (wl.ContainsKey(key) && wl[key] > 0)
                 {
-                    wallSkaler += 2;
-                    CreateInCorner(new Vector3(key.x, key.y - 1, 180));
-                    UpdateWallSkaler(key, 1);
+                    CreateOutCorner(new Vector3(key.x + 1, key.y, 0));
                 }
             }
-
-            key = new Vector3(wallc.x + 1, wallc.y - 1, 180);
+            
+            key = new Vector3(wallc.x, wallc.y, 0);
             if (wl.ContainsKey(key) && wl[key] > 0)
             {
-                CreateOutCorner(new Vector3(key.x, key.y, 90));
+                wallSkaler += 1;
+                CreateInCorner(new Vector3(key.x + 1, key.y - 1, 180));
+                UpdateWallSkaler(key, 2);
             }
             else
             {
-                key = new Vector3(wallc.x, wallc.y, 0);
+                key = new Vector3(wallc.x + 1, wallc.y - 1, 180);
                 if (wl.ContainsKey(key) && wl[key] > 0)
                 {
-                    wallSkaler += 1;
-                    CreateInCorner(new Vector3(key.x + 1, key.y - 1, 90));
-                    UpdateWallSkaler(key, 2);
+                    CreateOutCorner(new Vector3(key.x, key.y, 90));
                 }
             }
         }
 
         if (wallc.z == 180)
         {
-            key = new Vector3(wallc.x -1, wallc.y + 1, 90);
+            key = new Vector3(wallc.x, wallc.y, 270);
             if (wl.ContainsKey(key) && wl[key] > 0)
             {
-                CreateOutCorner(new Vector3(key.x + 1, key.y-1, 90));
+                wallSkaler += 2;
+                CreateInCorner(new Vector3(key.x, key.y, 0));
+                UpdateWallSkaler(key, 1);
             }
             else
             {
-                key = new Vector3(wallc.x, wallc.y, 270);
+                key = new Vector3(wallc.x - 1, wallc.y + 1, 90);
                 if (wl.ContainsKey(key) && wl[key] > 0)
                 {
-                    wallSkaler += 2;
-                    CreateInCorner(new Vector3(key.x, key.y , 270));
-                    UpdateWallSkaler(key, 1);
+                    CreateOutCorner(new Vector3(key.x + 1, key.y - 1, 90));
                 }
             }
-            key = new Vector3(wallc.x - 1, wallc.y - 1, 270);
+            
+            key = new Vector3(wallc.x, wallc.y, 90);
             if (wl.ContainsKey(key) && wl[key] > 0)
             {
-                CreateOutCorner(new Vector3(key.x+1, key.y, 180));
+                wallSkaler += 1;
+                CreateInCorner(new Vector3(key.x, key.y - 1, 270));
+                UpdateWallSkaler(key, 2);
             }
             else
             {
-                key = new Vector3(wallc.x, wallc.y, 90);
+                key = new Vector3(wallc.x - 1, wallc.y - 1, 270);
                 if (wl.ContainsKey(key) && wl[key] > 0)
                 {
-                    wallSkaler += 1;
-                    CreateInCorner(new Vector3(key.x, key.y - 1, 180));
-                    UpdateWallSkaler(key, 2);
+                    CreateOutCorner(new Vector3(key.x + 1, key.y, 180));
                 }
             }
         }
         if (wallc.z == 270)
         {
-            key = new Vector3(wallc.x - 1, wallc.y + 1, 0);
+            key = new Vector3(wallc.x, wallc.y, 180);
             if (wl.ContainsKey(key) && wl[key] > 0)
             {
-                CreateOutCorner(new Vector3(key.x+1, key.y - 1, 270));
+                wallSkaler += 1;
+                CreateInCorner(new Vector3(key.x, key.y, 0));
+                UpdateWallSkaler(key, 2);
             }
             else
             {
-                key = new Vector3(wallc.x, wallc.y, 180);
+                key = new Vector3(wallc.x - 1, wallc.y + 1, 0);
                 if (wl.ContainsKey(key) && wl[key] > 0)
                 {
-                    wallSkaler += 1;
-                    CreateInCorner(new Vector3(key.x, key.y, 270));
-                    UpdateWallSkaler(key, 2);
+                    CreateOutCorner(new Vector3(key.x + 1, key.y - 1, 270));
                 }
             }
-            key = new Vector3(wallc.x + 1, wallc.y + 1, 180);
+
+            key = new Vector3(wallc.x, wallc.y, 0);
             if (wl.ContainsKey(key) && wl[key] > 0)
             {
-                CreateOutCorner(new Vector3(key.x , key.y-1, 180));
+                wallSkaler += 2;
+                CreateInCorner(new Vector3(key.x + 1, key.y, 90));
+                UpdateWallSkaler(key, 1);
             }
             else
             {
-                key = new Vector3(wallc.x, wallc.y, 0);
+                key = new Vector3(wallc.x + 1, wallc.y + 1, 180);
+                 if (wl.ContainsKey(key)) Debug.Log("keys "+ wl[key]);
                 if (wl.ContainsKey(key) && wl[key] > 0)
                 {
-                    wallSkaler += 2;
-                    CreateInCorner(new Vector3(key.x+1, key.y, 0));
-                    UpdateWallSkaler(key, 1);
+                    CreateOutCorner(new Vector3(key.x, key.y - 1, 180));
                 }
+                
             }
         }
 
@@ -523,7 +558,7 @@ public class HomeConstructor : MonoBehaviour {
     }
     void UpdateWallSkaler(Vector3 wallc,int skaler)
     {
-        if(wlComplete.ContainsKey(wallc)) Debug.Log("wall comp "+wlComplete[wallc]);
+//        if(wlComplete.ContainsKey(wallc)) Debug.Log("wall comp "+wlComplete[wallc]);
         if (wlComplete.ContainsKey(wallc) && wlComplete[wallc]!=null)
         {
              GameObject obj = wlComplete[wallc];
@@ -561,6 +596,27 @@ public class HomeConstructor : MonoBehaviour {
 
     void CreateOutCorner(Vector3 key)
     {
+        Debug.Log("corn create " + key + " .. " + cr.ContainsKey(key));
+        if (cr.ContainsKey(key)) Debug.Log("corn 22 " + cr[key]);
+
+        Vector2 checkKey2 = new Vector2();
+        if (key.z==0)
+        {
+            checkKey2 = new Vector2(key.x-1,key.y+1);
+        }else if (key.z == 90)
+        {
+            checkKey2 = new Vector2(key.x, key.y + 1);
+        }
+        else if (key.z == 180)
+        {
+            checkKey2 = new Vector2(key.x, key.y);
+        }
+        else if (key.z == 270)
+        {
+            checkKey2 = new Vector2(key.x-1, key.y);
+        }
+        if (fl.ContainsKey(checkKey2) && fl[checkKey2] > 0) return;
+
         if (!(cr.ContainsKey(key) && cr[key]==1))
         {
             cr.Add(key, 1);
@@ -688,6 +744,37 @@ public class HomeConstructor : MonoBehaviour {
         
     }
 
-    
+    ///////               STAIRS 
+    void SelectStair(GameObject target)
+    {
+        if (selected != null) ClearStair();
+
+        constructs.Remove(target);
+        GameObject construct = Instantiate(stairConstructFill, target.transform.position, target.transform.rotation, transform);
+        Destroy(target);
+        selected = construct;
+    }
+    void ClearStair()
+    {
+        GameObject construct = Instantiate(stairConstruct, selected.transform.position, selected.transform.rotation, transform);
+        constructs.Add(construct);
+        Destroy(selected);
+        selected = null;
+    }
+    void SetStair()
+    {
+        int i = (int)selected.transform.localPosition.x / 6;
+        int j = (int)selected.transform.localPosition.z / 6;
+        Vector2 key = new Vector2(i, j);
+
+        GameObject obj = Instantiate(stair, transform.position + new Vector3(i * 6 * scaleFactor, 0, j * 6 * scaleFactor), selected.transform.rotation, transform);
+        obj.transform.parent = transform;
+
+        st[key] = 1;
+        stComplete.Add(key, obj);
+
+        Destroy(selected);
+        selected = null;
+    }
 }
 
