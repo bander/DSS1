@@ -19,7 +19,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4823265258044480}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Wall_Simple_Long_01_1M
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -35,7 +35,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4362387320445894}
   - component: {fileID: 65707863053042318}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Collision (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -51,7 +51,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4366424335634224}
   - component: {fileID: 65876579540533384}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Collision (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -68,7 +68,7 @@ GameObject:
   - component: {fileID: 4389137688493656}
   - component: {fileID: 33408903564288650}
   - component: {fileID: 23626151291098014}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Wall_Simple_Long_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -84,7 +84,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4056959511730902}
   - component: {fileID: 65962772065461798}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Collision (7)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -100,7 +100,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4419360696945442}
   - component: {fileID: 65024074226165264}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Collision (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -116,7 +116,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4038925366254140}
   - component: {fileID: 65737778792401966}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Collision (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -132,7 +132,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4483104532017344}
   - component: {fileID: 65348695896372964}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Collision (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -148,7 +148,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4974654311791924}
   - component: {fileID: 65214673635118328}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Collision (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

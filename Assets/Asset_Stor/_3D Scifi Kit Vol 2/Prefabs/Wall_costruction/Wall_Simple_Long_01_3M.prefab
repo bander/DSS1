@@ -9,7 +9,7 @@ GameObject:
   m_Component:
   - component: {fileID: 416952}
   - component: {fileID: 6523636}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Collision (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25,7 +25,7 @@ GameObject:
   m_Component:
   - component: {fileID: 497492}
   - component: {fileID: 6544862}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Collision (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -41,7 +41,7 @@ GameObject:
   m_Component:
   - component: {fileID: 458626}
   - component: {fileID: 6598760}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Collision (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -57,7 +57,7 @@ GameObject:
   m_Component:
   - component: {fileID: 492078}
   - component: {fileID: 6595948}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Collision (7)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -73,7 +73,7 @@ GameObject:
   m_Component:
   - component: {fileID: 487832}
   - component: {fileID: 6565824}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Collision (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -89,7 +89,7 @@ GameObject:
   m_Component:
   - component: {fileID: 486604}
   - component: {fileID: 6502468}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Collision (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -106,7 +106,7 @@ GameObject:
   - component: {fileID: 478612}
   - component: {fileID: 3388992}
   - component: {fileID: 2327618}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Wall_Simple_Long_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -122,7 +122,7 @@ GameObject:
   m_Component:
   - component: {fileID: 415934}
   - component: {fileID: 6593162}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Collision (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -137,7 +137,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 420390}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Wall_Simple_Long_01_3M
   m_TagString: Untagged
   m_Icon: {fileID: 0}

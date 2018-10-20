@@ -1,11 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class HomeConstructor : MonoBehaviour {
 
     //List<Vector3> availablePoints = new List<Vector3>();
    
+    public NavMeshSurface surface;
+    public NavMeshModifierVolume modifier;
+
     Dictionary<Vector2, int> fl = new Dictionary<Vector2, int>();
     Dictionary<Vector3, int> wl = new Dictionary<Vector3, int>();
     Dictionary<Vector3, int> cr = new Dictionary<Vector3, int>();
@@ -60,6 +64,8 @@ public class HomeConstructor : MonoBehaviour {
         SetAvailablePoints(4,4,-2,-1);
 
         ShowAvailableFloors(0);
+
+        Destroy(modifier);
 	}
 
     void SetAvailablePoints(int x,int y,int startX,int startY)
@@ -332,6 +338,8 @@ public class HomeConstructor : MonoBehaviour {
 
         Destroy(selected);
         selected = null;
+
+        surface.BuildNavMesh();
     }
     
     /// ////////                 WALLS
@@ -385,6 +393,8 @@ public class HomeConstructor : MonoBehaviour {
         selected = null;
 
         ConstructCorners(key,obj);
+
+        surface.BuildNavMesh();
     }
     void ConstructCorners(Vector3 wallc, GameObject  obj)
     {
@@ -682,6 +692,8 @@ public class HomeConstructor : MonoBehaviour {
         selected = null;
 
         ConstructCornersDoors(key, obj);
+
+        surface.BuildNavMesh();
     }
     void ConstructCornersDoors(Vector3 wallc, GameObject obj)
     {
@@ -775,6 +787,8 @@ public class HomeConstructor : MonoBehaviour {
 
         Destroy(selected);
         selected = null;
+
+        surface.BuildNavMesh();
     }
 }
 
