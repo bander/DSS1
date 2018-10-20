@@ -1,0 +1,72 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 1224143767005184}
+  m_IsPrefabAsset: 1
+--- !u!1 &1224143767005184
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4545736303572924}
+  - component: {fileID: 114808797586852480}
+  m_Layer: 0
+  m_Name: House
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4545736303572924
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1224143767005184}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -29.73, y: 0.5, z: -35.16}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114808797586852480
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1224143767005184}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58a5cbbc9f6ab1e46a3107a5ad0d2f6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scaleFactor: 0.5
+  floorConstruct: {fileID: 1332132588941348, guid: 029ffd8b07a24b744bca6fc3cce2cd32,
+    type: 2}
+  floorConstructFill: {fileID: 1317044998773836, guid: 9520608c90dd182469c6a62c22f0d7a6,
+    type: 2}
+  floorConstructRed: {fileID: 1695146177552760, guid: 4fe7b980b32a313468ce3cd1c17c283d,
+    type: 2}
+  wallConstruct: {fileID: 1230243048397696, guid: 56063f7720069c948b3f55d38f4059cf,
+    type: 2}
+  wallConstructFill: {fileID: 1570595464749934, guid: 441bf37bdc28eb240b31e3d05964bafb,
+    type: 2}
+  floor: {fileID: 190414, guid: c49c5a75d21a74e3ea9f79537dd8ed21, type: 2}
+  door: {fileID: 120396, guid: bb7f6d413e1b9461f9b318e97aeea0a5, type: 2}
+  Wall: {fileID: 185304, guid: f05d87476f4254e2584f62410cf7c767, type: 2}
+  Wall3: {fileID: 1490856071737708, guid: 6baa4d2ea5b411c4e993c96e380493cb, type: 2}
+  Wall3r: {fileID: 1490856071737708, guid: 48ce50548738d3b4bbd267abdda7d8d9, type: 2}
+  Wall6: {fileID: 1113238188051444, guid: 684b6dbc718622448b4894850757ad96, type: 2}
+  inCorner: {fileID: 127336, guid: bc5d91e180d9e40549982ae6c317cfb6, type: 2}
+  outCorner: {fileID: 131922, guid: 5ae9ac9c2760a4167b79a9a49a5ce260, type: 2}
