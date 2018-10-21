@@ -459,6 +459,7 @@ GameObject:
   - component: {fileID: 114046998527800666}
   - component: {fileID: 114675403171885492}
   - component: {fileID: 114186288185027842}
+  - component: {fileID: 114071474766340990}
   m_Layer: 5
   m_Name: RunWalk
   m_TagString: Untagged
@@ -2826,6 +2827,7 @@ GameObject:
   - component: {fileID: 114728641774874246}
   - component: {fileID: 114618196044022720}
   - component: {fileID: 114180063717343926}
+  - component: {fileID: 114022099347851680}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -3602,6 +3604,7 @@ GameObject:
   - component: {fileID: 114552705824737170}
   - component: {fileID: 114769574552480294}
   - component: {fileID: 114937202822224726}
+  - component: {fileID: 114872807248577060}
   m_Layer: 10
   m_Name: Astronaut_Blue
   m_TagString: Player
@@ -6090,8 +6093,8 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1660488184541880}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -21.99, y: 0.179, z: -30.6}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4049851484358058}
@@ -6266,7 +6269,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1758662649218054}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -22, y: 0.23, z: -35}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4430508574624928}
@@ -7226,6 +7229,25 @@ MonoBehaviour:
   invIndex: 0
   slotIndex: 0
   slotType: 0
+--- !u!114 &114022099347851680
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1529641461716294}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07a2ee40a13cb234c91cd8692c23bf64, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Camera: {fileID: 20103744220037416}
+  FadeOutSeconds: 1
+  FadeInSeconds: 1
+  RayRadius: 0.5
+  FinalAlpha: 0.5
+  LayerMask:
+    serializedVersion: 2
+    m_Bits: 823
 --- !u!114 &114032516875011384
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -7733,6 +7755,17 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114071474766340990
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1091182433747242}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89b31e2ee7fc4634795f8001b1b2b7ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114072995199960242
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -9544,7 +9577,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 4430508574624928}
-  offset: {x: -5, y: -5, z: 5}
+  offset: {x: -6, y: -8, z: 6}
 --- !u!114 &114180063717343926
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -15390,6 +15423,7 @@ MonoBehaviour:
   tm: {fileID: 11400000, guid: 0bc96dd653fd2fd46bd7bb5c8a388b47, type: 2}
   tm2: {fileID: 11400000, guid: 0bc96dd653fd2fd46bd7bb5c8a388b47, type: 2}
   invents: []
+  trashPrefab: {fileID: 11400000, guid: 1f8535004a4bc17498d29827b7fcd750, type: 2}
 --- !u!114 &114619335696300812
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -15975,7 +16009,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 114186288185027842}
+      - m_Target: {fileID: 114071474766340990}
         m_MethodName: Click
         m_Mode: 1
         m_Arguments:
@@ -16971,6 +17005,11 @@ MonoBehaviour:
   - {fileID: 1747980713931336}
   - {fileID: 1148069411084324}
   - {fileID: 1941365396173356}
+  trash:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  currentPickup: {fileID: 0}
 --- !u!114 &114771327999117130
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -18133,6 +18172,17 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114872807248577060
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1660488184541880}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b17f3054addf4a4885eb6ec39473dee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114881193368312794
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -24303,7 +24353,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 302, y: 48.700012}
+  m_AnchoredPosition: {x: 302, y: 48.69995}
   m_SizeDelta: {x: -955.3, y: 66.91199}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224527212233724232

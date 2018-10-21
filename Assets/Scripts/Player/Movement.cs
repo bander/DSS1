@@ -108,7 +108,8 @@ public class Movement : MonoBehaviour {
         joystick = FindObjectOfType<Joystick>();
         agent = GetComponent<NavMeshAgent>();
         agent.updateRotation = false;
-        
+        agent.updatePosition = true;
+
         onUpdate += MoveDefault;
     }
 
