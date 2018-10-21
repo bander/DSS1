@@ -49,6 +49,7 @@ public class HomeConstructor : MonoBehaviour {
 
     GameObject currentPrefab;
     GameObject currentFillPrefab;
+    int currentRotation;
     
     GameObject selected;
 
@@ -64,6 +65,9 @@ public class HomeConstructor : MonoBehaviour {
         SetAvailablePoints(4,4,-2,-1);
 
         ShowAvailableFloors(0);
+        selectObj = SelectFloor;
+        clearObj = ClearFloor;
+        setObj = SetFloor;
 
         Destroy(modifier);
 	}
@@ -220,14 +224,43 @@ public class HomeConstructor : MonoBehaviour {
         {
             for (int j = 0; j < 4; j++)
             {
-                if (fl[new Vector2(i, j)] == 1)
+                Vector2[] keys = GetStairKeys(i, j);
+                
+                bool act = true;
+                if (!(fl.ContainsKey(keys[0]) && fl[keys[0]] == 1)) act=false;
+                if (!(fl.ContainsKey(keys[1]) && fl[keys[1]] == 1)) act = false;
+
+                if (act)
                 {
-                    GameObject construct = Instantiate(stairConstruct, transform.position + new Vector3(i * 6 * scaleFactor, 0, j * 6 * scaleFactor), Quaternion.identity, transform);
+                    GameObject construct = Instantiate(stairConstruct, transform.position + new Vector3(i * 6 * scaleFactor, 0, j * 6 * scaleFactor), Quaternion.Euler(0,currentRotation,0), transform);
                     construct.transform.parent = transform;
                     constructs.Add(construct);
                 }
             }
         }
+    }
+    Vector2[] GetStairKeys(int i, int j)
+    {
+        Vector2 key = new Vector2(i, j);
+        Vector2 key2 = new Vector2(i - 1, j);
+        int rot = currentRotation / 90;
+        Debug.Log("rot "+rot);
+        switch (rot)
+        {
+            case 1:
+                key = new Vector2(i - 1, j);
+                key2 = new Vector2(i - 1, j + 1);
+                break;
+            case 2:
+                key = new Vector2(i - 1, j + 1);
+                key2 = new Vector2(i, j + 1);
+                break;
+            case 3:
+                key = new Vector2(i, j + 1);
+                key2 = new Vector2(i, j);
+                break;
+        }
+        return new Vector2[2]{key, key2};
     }
 
     void CreateWallConstruct(int i, int j, int turn)
@@ -281,17 +314,42 @@ public class HomeConstructor : MonoBehaviour {
             if (selected != null)
             {
                 setObj.Invoke();
-
             }
         }
         if (Input.GetKeyDown(KeyCode.N))
         {
-            
+            RotatePositive();
+            ShowAvailableStairs(0);
+            selectObj = SelectStair;
+            clearObj = ClearStair;
+            setObj = SetStair;
+        }
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            RotatePositive(false);
+            ShowAvailableStairs(0);
+            selectObj = SelectStair;
+            clearObj = ClearStair;
+            setObj = SetStair;
         }
 
         if (Input.GetMouseButtonDown(0))
         {
             GetCLickObject();
+        }
+    }
+
+    void RotatePositive(bool plus=true)
+    {
+        if (plus)
+        {
+            currentRotation += 90;
+            if (currentRotation > 270) currentRotation = 0;
+        }
+        else
+        {
+            currentRotation -= 90;
+            if (currentRotation < 0) currentRotation = 270;
         }
     }
 
@@ -326,20 +384,23 @@ public class HomeConstructor : MonoBehaviour {
     }
     void SetFloor()
     {
-        int i = (int)selected.transform.localPosition.x/6;
-        int j = (int)selected.transform.localPosition.z/6;
+        int i = (int)Mathf.Round(selected.transform.localPosition.x/6);
+        int j = (int)Mathf.Round(selected.transform.localPosition.z/6);
         Vector2 key = new Vector2(i,j);
 
         GameObject obj = Instantiate(floor, transform.position+ new Vector3(i*6*scaleFactor,0, j * 6 * scaleFactor), selected.transform.rotation, transform);
         obj.transform.parent = transform;
 
         fl[key] = 1;
-        flComplete.Add(key, obj);
+        if (flComplete.ContainsKey(key))
+            flComplete[key] = obj;
+        else
+            flComplete.Add(key, obj);
 
         Destroy(selected);
         selected = null;
 
-        surface.BuildNavMesh();
+        //surface.BuildNavMesh();
     }
     
     /// ////////                 WALLS
@@ -775,11 +836,11 @@ public class HomeConstructor : MonoBehaviour {
     }
     void SetStair()
     {
-        int i = (int)selected.transform.localPosition.x / 6;
-        int j = (int)selected.transform.localPosition.z / 6;
-        Vector2 key = new Vector2(i, j);
+        int i = (int)Mathf.Round(selected.transform.localPosition.x / 6);
+        int j = (int)Mathf.Round(selected.transform.localPosition.z / 6);
+       Vector2 key = new Vector2(i, j);
 
-        GameObject obj = Instantiate(stair, transform.position + new Vector3(i * 6 * scaleFactor, 0, j * 6 * scaleFactor), selected.transform.rotation, transform);
+        GameObject obj = Instantiate(stair, transform.position + new Vector3(i * 6 * scaleFactor, 0, j* 6 * scaleFactor), selected.transform.rotation, transform);
         obj.transform.parent = transform;
 
         st[key] = 1;
