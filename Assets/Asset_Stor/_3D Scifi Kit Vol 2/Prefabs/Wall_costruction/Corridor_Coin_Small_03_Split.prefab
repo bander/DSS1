@@ -19,6 +19,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4406972394112990}
+  - component: {fileID: 114086351947431690}
   m_Layer: 0
   m_Name: Corridor_Coin_Small_03_Split
   m_TagString: Untagged
@@ -125,3 +126,14 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 2.0000012, y: 2.000001, z: 4.000138}
   m_Center: {x: 0.99999934, y: 1, z: 1.999932}
+--- !u!114 &114086351947431690
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1304915353796350}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d61cde570e20ca4499c99ee5800f362, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

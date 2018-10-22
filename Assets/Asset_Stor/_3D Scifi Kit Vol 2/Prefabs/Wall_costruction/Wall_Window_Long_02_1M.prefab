@@ -67,6 +67,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4969601155532118}
+  - component: {fileID: 114867538889679006}
   m_Layer: 0
   m_Name: Wall_Window_Long_02_1M
   m_TagString: Untagged
@@ -407,3 +408,14 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.51422024, y: 3.993027, z: 1.9909868}
   m_Center: {x: -1.7472382, y: 1.9979626, z: -1.0047784}
+--- !u!114 &114867538889679006
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1187776704099924}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d61cde570e20ca4499c99ee5800f362, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

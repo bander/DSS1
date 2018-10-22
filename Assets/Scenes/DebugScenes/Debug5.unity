@@ -226,9 +226,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_AgentTypeID: 0
-  m_StartPoint: {x: 0, y: 0, z: -0.06}
-  m_EndPoint: {x: 0, y: 0, z: 0.06}
-  m_Width: 12
+  m_StartPoint: {x: 0, y: 0, z: -0.1}
+  m_EndPoint: {x: 0, y: 0, z: 0.1}
+  m_Width: 9
   m_CostModifier: 144
   m_Bidirectional: 1
   m_AutoUpdatePosition: 0
@@ -760,7 +760,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4627251691322420, guid: 548cc7866b971bc438a328ed51628044, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -2.67
+      value: 3.49
       objectReference: {fileID: 0}
     - target: {fileID: 4627251691322420, guid: 548cc7866b971bc438a328ed51628044, type: 2}
       propertyPath: m_LocalPosition.y
