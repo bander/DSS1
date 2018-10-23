@@ -44,6 +44,8 @@ public class CanvasController : MonoBehaviour {
 
     int currentBuild = 0;
 
+    public HomeConstrPanel homeConstPanel;
+
     void Start()
     {
         buttonsControl(false, false, false);
@@ -106,11 +108,12 @@ public class CanvasController : MonoBehaviour {
         closeButton.SetActive(true);
         UpdateGetAllButton();
     }
-    public void ShowBuild()
+    public void ShowHomeConstructor()
     {
         closeAll();
-        BuildUI.SetActive(true);
-        updateBuildButtonsActivity();
+        //BuildUI.SetActive(true);
+        //updateBuildButtonsActivity();
+        homeConstPanel.Show();
     }
 
 

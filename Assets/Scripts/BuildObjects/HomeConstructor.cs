@@ -27,7 +27,8 @@ public class HomeConstructor : MonoBehaviour {
     public Dictionary<Vector3, WallObject>[] wl = new Dictionary<Vector3, WallObject>[3] { new Dictionary<Vector3, WallObject>(),new Dictionary<Vector3, WallObject>(),new Dictionary<Vector3, WallObject>()};
     //Dictionary<Vector3, int>[] wl = new Dictionary<Vector3, int>[3] { new Dictionary<Vector3, int>(),new Dictionary<Vector3, int>(),new Dictionary<Vector3, int>()};
     Dictionary<Vector3, int>[] cr = new Dictionary<Vector3, int>[3] { new Dictionary<Vector3, int>(),new Dictionary<Vector3, int>(),new Dictionary<Vector3, int>() };
-    Dictionary<Vector3, int>[] st = new Dictionary<Vector3, int>[3]{ new Dictionary<Vector3, int>(),new Dictionary<Vector3, int>(), new Dictionary<Vector3, int>() };
+    public Dictionary<Vector3, StairObject>[] st = new Dictionary<Vector3, StairObject>[3]{ new Dictionary<Vector3, StairObject>(),new Dictionary<Vector3, StairObject>(), new Dictionary<Vector3, StairObject>() };
+    //Dictionary<Vector3, int>[] st = new Dictionary<Vector3, int>[3]{ new Dictionary<Vector3, int>(),new Dictionary<Vector3, int>(), new Dictionary<Vector3, int>() };
     Dictionary<Vector3, int>[] wlCuts = new Dictionary<Vector3, int>[3] { new Dictionary<Vector3, int>(),new Dictionary<Vector3, int>(),new Dictionary<Vector3, int>()};
 
     public List<Building>[] buildings = new List<Building>[3] { new List<Building>(),new List<Building>(),new List<Building>(), };
@@ -72,6 +73,10 @@ public class HomeConstructor : MonoBehaviour {
     SetObj setObj;
     delegate void ClearObj();
     ClearObj clearObj;
+
+
+    public delegate void SelectComplete();
+    public SelectComplete selectComplete;
 
     void Start () {
 
@@ -286,6 +291,15 @@ public class HomeConstructor : MonoBehaviour {
     void ShowAvailableStairs()
     {
         RemoveAllPoints();
+        foreach (StairObject str in st[currentLevel].Values)
+        {
+            if (str.IsEmpty() && str.key.z==currentRotation)
+            {
+                str.Show();
+            }
+        }
+        /*
+        RemoveAllPoints();
 
         for (int i = 0; i < 4; i++)
         {
@@ -307,6 +321,7 @@ public class HomeConstructor : MonoBehaviour {
                 }
             }
         }
+        //*/
     }
     Vector2[] GetStairKeys(int i, int j)
     {
@@ -359,7 +374,7 @@ public class HomeConstructor : MonoBehaviour {
         //*/
     }
 
-    void SetBuildType(int n)
+    public void SetBuildType(int n,int objectType)
     {
         if (currentLevel == 0)
         {
@@ -425,23 +440,24 @@ public class HomeConstructor : MonoBehaviour {
         }
         buildType = n;
     }
-	void Update ()
+
+    void Update ()
     {
         if (Input.GetKeyDown(KeyCode.X))
         {
-            SetBuildType(3);
+            SetBuildType(3,0);
         }
         if (Input.GetKeyDown(KeyCode.C))
         {
-            SetBuildType(2);
+            SetBuildType(2, 0);
         }
         if (Input.GetKeyDown(KeyCode.V))
         {
-            SetBuildType(1);
+            SetBuildType(1, 0);
         }
         if (Input.GetKeyDown(KeyCode.B))
         {
-            SetBuildType(0);
+            SetBuildType(0, 0);
         }
         if (Input.GetKeyDown(KeyCode.Space))
         {
@@ -466,17 +482,17 @@ public class HomeConstructor : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.Q))
         {
             currentLevel = 0;
-            SetBuildType(buildType);
+            SetBuildType(buildType, 0);
         }
         if (Input.GetKeyDown(KeyCode.W))
         {
             currentLevel = 1;
-            SetBuildType(buildType);
+            SetBuildType(buildType, 0);
         }
         if (Input.GetKeyDown(KeyCode.E))
         {
             currentLevel = 2;
-            SetBuildType(buildType);
+            SetBuildType(buildType, 0);
         }
 
 
@@ -486,7 +502,7 @@ public class HomeConstructor : MonoBehaviour {
         }
     }
 
-    void BuildObject()
+    public void BuildObject()
     {
         if (select != null)
         {
@@ -498,7 +514,7 @@ public class HomeConstructor : MonoBehaviour {
         }
     }
 
-    void RotatePositive(bool plus=true)
+    public void RotatePositive(bool plus=true)
     {
         if (plus)
         {
@@ -510,6 +526,23 @@ public class HomeConstructor : MonoBehaviour {
             currentRotation -= 90;
             if (currentRotation < 0) currentRotation = 270;
         }
+
+        switch (buildType)
+        {
+            case 0:
+                ShowAvailableFloors();
+                break;
+            case 1:
+                ShowAvailableWalls();
+
+                break;
+            case 2:
+                ShowAvailableDoors();
+                break;
+            case 3:
+                ShowAvailableStairs();
+                break;
+        }
     }
 
     void GetCLickObject()
@@ -520,15 +553,17 @@ public class HomeConstructor : MonoBehaviour {
             ConstructElement parent = hit.collider.transform.parent.GetComponent<ConstructElement>();
             if(parent==null) if(hit.collider.transform.parent.parent!=null) parent = hit.collider.transform.parent.parent.GetComponent<ConstructElement>();
             if (parent == null) return;
+            if (parent.construct == null) return;
 
-                if (parent.construct.state==0)
-                {
+            if (parent.construct.state == 0)
+            {
                 if (select != null)
                 {
                     select.Show();
                 }
                 parent.construct.Select();
                 select = parent.construct;
+                if (selectComplete != null) selectComplete.Invoke();
             }
         }
     }
@@ -1087,7 +1122,7 @@ public class HomeConstructor : MonoBehaviour {
         GameObject obj = null;// Instantiate(stair, transform.position + new Vector3(i * 6 * scaleFactor, currentLevel * 4 * scaleFactor, j* 6 * scaleFactor), selected.transform.rotation, transform);
         obj.transform.parent = transform;
 
-        st[currentLevel][key] = 1;
+        //st[currentLevel][key].state = 1;
         ob[currentLevel][keys[0]] = 1;
         stComplete[currentLevel][key] = obj;
 
@@ -1171,6 +1206,8 @@ public class ConstructObject
     {
         UpdateMesh(n);
         state = n-2;
+
+        CheckDoorsAllBuildings();
     }
     public virtual void UpdateMesh(int n)
     {
@@ -1193,6 +1230,13 @@ public class ConstructObject
         UpdateMesh(2);
         state = -1;
         home.tempObjects.Add(this);
+    }
+
+    public void CheckDoorsAllBuildings()
+    {
+        foreach(Building b in home.buildings[level]){
+            b.CheckDoors();
+        }
     }
 }
 
@@ -1294,17 +1338,18 @@ public class TileObject:ConstructObject
 
 public class WallObject:ConstructObject
 {
+    public int wallScaler;
     public bool canBeDoor { get; protected set;}
     public bool isDoor { get; protected set; }
     public List<CornerObject> walls = new List<CornerObject>();
-
+    
 
     public WallObject(Vector3 inKey, int inLevel, GameObject gObj = null) : base(inKey, inLevel, gObj)
     {
         prefs = home.tempFabs[1];
         CheckCanBeDoor();
     }
-    void CheckCanBeDoor()
+    public void CheckCanBeDoor()
     {
         Vector3 testKey = new Vector3(key.x, key.y, rotate(key.z, 1));
         Vector3 testKey2 = new Vector3(key.x, key.y, rotate(key.z, -1));
@@ -1325,8 +1370,6 @@ public class WallObject:ConstructObject
     {
         if (home.wl[level].ContainsKey(testKey) && home.wl[level][testKey].state>0)
         {
-            home.wl[level][testKey].canBeDoor = false;
-
             return true;
         }
         return false;
@@ -1353,7 +1396,7 @@ public class WallObject:ConstructObject
             isDoor = true;
             disableTilesNearDoor();
         }
-        building.CheckDoors();
+
         BuildCornersIn();
     }
 
@@ -1377,18 +1420,88 @@ public class WallObject:ConstructObject
     }
     void BuildCornersIn()
     {
+        BuildCornersOut();
+        if (isDoor) return;
+
+        int localScaler = 0;
         Vector3 testKey = new Vector3(key.x, key.y, rotate(key.z, 1));
         Vector3 testKey2 = new Vector3(key.x, key.y, rotate(key.z, -1));
         if (CheckCompleted(testKey))
         {
+            Debug.Log(key + " 11 " + testKey);
             CornerObject corn = new CornerObject(testKey, false);
+            home.wl[level][testKey].UpdateMeshByScaler(2);
+            localScaler += 1;
         }
         if (CheckCompleted(testKey2))
         {
+            Debug.Log(key + " 22 " + testKey);
             CornerObject corn = new CornerObject(key, false);
+            home.wl[level][testKey2].UpdateMeshByScaler(1);
+            localScaler += 2;
+        }
+        UpdateMeshByScaler(localScaler);
+
+
+    }
+
+    void BuildCornersOut()
+    {
+        Vector3 key1 = new Vector3();
+        Vector3 key2 = new Vector3();
+        Vector3 key3 = new Vector3();
+        Vector3 key4 = new Vector3();
+        int z = (int)(key.z / 90);
+        switch (z)
+        {
+            case 0:
+                key1 = new Vector3(key.x+1,key.y+1,90);
+                key2 = new Vector3(key.x + 1, key.y - 1, 270);
+                key3 = new Vector3(key.x, key.y + 1, 90);
+                key4 = new Vector3(key.x , key.y - 1, 0);
+                break;
+            case 1:
+                key1 = new Vector3(key.x +1, key.y - 1, 180);
+                key2 = new Vector3(key.x -1, key.y - 1, 0);
+                key3 = new Vector3(key.x+1, key.y, 180);
+                key4 = new Vector3(key.x-1, key.y, 90);
+                break;
+            case 2:
+                key1 = new Vector3(key.x - 1, key.y + 1, 90);
+                key2 = new Vector3(key.x - 1, key.y - 1, 270);
+                key3 = new Vector3(key.x, key.y + 1, 180);
+                key4 = new Vector3(key.x, key.y - 1, 270);
+                break;
+            case 3:
+                key1 = new Vector3(key.x + 1, key.y + 1, 180);
+                key2 = new Vector3(key.x - 1, key.y + 1, 0);
+                key3 = new Vector3(key.x+1, key.y, 270);
+                key4 = new Vector3(key.x-1, key.y , 0);
+                break;
+        }
+        Debug.Log(key+" "+key1+" "+key2);
+        Debug.Log("== " +CheckCompleted(key1) );
+        if (CheckCompleted(key1))
+        {
+            Debug.Log("1111");
+            CornerObject corn = new CornerObject(key3, true);
+        }
+        Debug.Log("--- " + CheckCompleted(key2));
+        if (CheckCompleted(key2))
+        {
+            Debug.Log("2222");
+            CornerObject corn = new CornerObject(key4, true);
         }
     }
 
+    public void UpdateMeshByScaler(int num)
+    {
+        wallScaler += num;
+        if (num > 0 )
+        {
+            UpdateMesh(wallScaler+4);
+        }
+    }
     public override void UpdateMesh(int n)
     {
         base.UpdateMesh(n);
@@ -1423,12 +1536,35 @@ public class CornerObject
         obj.transform.parent = home.gameObject.transform;
         obj.transform.GetChild(0).transform.rotation = Quaternion.Euler(0, key.z, 0);
     }
+}
 
+public class StairObject : ConstructObject
+{
+    public StairObject(Vector3 inKey, int inLevel, GameObject gObj = null) : base(inKey, inLevel, gObj)
+    {
+        prefs = home.tempFabs[2];
+    }
+
+    int rotate(float angle, int dir)
+    {
+        angle += dir * 90;
+        if (angle < 0) angle = 270;
+        if (angle > 270) angle = 0;
+        return (int)angle;
+    }
+    public override void UpdateMesh(int n)
+    {
+        base.UpdateMesh(n);
+        obj.transform.GetChild(0).transform.rotation = Quaternion.Euler(0, key.z, 0);
+    }
 }
 
 
 public class Building
 {
+    HomeConstructor home;
+
+    int level;
     public bool isolated{ get; private set; }
     public bool hasDoor{ get; private set; }
     public WallObject lastDoor { get; private set; }
@@ -1440,7 +1576,9 @@ public class Building
 
     public Building(ConstructObject t)
     {
+        home = HomeConstructor.instance;
         color = Random.ColorHSV();
+        level = t.level;
         Add(t);
     }
     public void Add(ConstructObject t)
@@ -1452,12 +1590,12 @@ public class Building
     {
         walls.Add(t);
         t.SetBuilding(this);
-        CheckDoors();
+        HomeConstructor.instance.wl[level][t.key] = t as WallObject;
     }
     public void RemoveWall(ConstructObject t)
     {
         walls.Remove(t);
-        CheckDoors();
+        HomeConstructor.instance.wl[level].Remove(t.key);
     }
     public List<ConstructObject> GetTiles()
     {
@@ -1486,8 +1624,10 @@ public class Building
         int canBeDoorsCount = 0;
         int emptyWalls = 0;
         WallObject lastDoor2=null;
+        int i = 0;
         foreach (WallObject w in walls)
         {
+            w.CheckCanBeDoor();
             if(w.state <1)
             {
                 if (w.canBeDoor)
@@ -1496,10 +1636,15 @@ public class Building
                     lastDoor2 = w;
                 }
                 emptyWalls++;
-            }
-            if (w.isDoor) hasDoor = true;
+            }else
+                if (w.isDoor) hasDoor = true;
+            Debug.Log(i+"// "+ w.canBeDoor);
+            i++;
         }
+
         if (emptyWalls == 0) Isolate();
+
+        Debug.Log("count "+canBeDoorsCount);
 
         if (!hasDoor)
         {
@@ -1509,24 +1654,88 @@ public class Building
                 if (HomeConstructor.instance.buildType == 1) lastDoor.SetRed();
             }
             else
-                lastDoor = null;
+                if (lastDoor != null)
+                {
+                    lastDoor.Show();
+                    lastDoor = null;
+                }
         }
         else
-            lastDoor = null;
+        {
+            if (lastDoor != null)
+            {
+                lastDoor.Show();
+                lastDoor = null;
+            }
+        }
+            
 
     }
 
     void Isolate()
     {
-        isolated = true;
-        color = Color.red;
-        foreach (ConstructObject w in walls)
+        if (!isolated)
         {
-            w.SetBuilding(this);
+            isolated = true;
+            CreateNextLevelFloorPositions();
+            CreateStairPositions();
         }
-        foreach (ConstructObject w in tiles)
+    }
+    void CreateNextLevelFloorPositions()
+    {
+        foreach (TileObject t in home.fl[level].Values)
         {
-            w.SetBuilding(this);
+            if (t.state == 1) home.fl[level + 1].Add(t.key,new TileObject(t.key,level+1));
+        }
+    }
+    void CreateStairPositions()
+    {
+        foreach (TileObject t in home.fl[level].Values)
+        {
+            Vector3[] key2 = new Vector3[4] { new Vector3(t.key.x+1,t.key.y,0),
+                                              new Vector3(t.key.x,t.key.y-1,90),
+                                              new Vector3(t.key.x-1,t.key.y,180),
+                                              new Vector3(t.key.x,t.key.y+1,270)
+                                              };
+            Vector3[] key3 = new Vector3[4] { new Vector3(t.key.x-1,t.key.y,0),
+                                              new Vector3(t.key.x,t.key.y+1,90),
+                                              new Vector3(t.key.x+1,t.key.y,180),
+                                              new Vector3(t.key.x,t.key.y-1,270)
+                                              };
+
+            if (t.state == 1)
+            {
+                int i = 0;
+                for(i=0; i < 4; i++)
+                {
+                    Vector3 keyz2 = key2[i];
+                    keyz2.z = 0;
+                    Vector3 keyz3 = key3[i];
+                    keyz3.z = 0;
+                    Vector3 keyStair = t.key;
+                    keyStair.z = key2[i].z;
+                    if (home.fl[level].ContainsKey(keyz2) && home.fl[level][keyz2].state == 1)
+                        if (home.fl[level].ContainsKey(keyz3) && home.fl[level][keyz3].state == 1)
+                            home.st[level].Add(keyStair, new StairObject(keyStair, level));
+                }
+            }
+            /*
+                foreach (Vector3 k in key2)
+                {
+                    Vector3 keyz = k;
+                    keyz.z = 0;
+                    Vector3 keyStair = t.key;
+                    keyStair.z = k.z;
+                    if (home.fl[level].ContainsKey(keyz) && home.fl[level][keyz].state == 1)
+                        if (home.fl[level].ContainsKey(keyz) && home.fl[level][keyz].state == 1)
+                            home.st[level].Add(keyStair, new StairObject(keyStair, level));
+                }
+                //*/
+        }
+        foreach (WallObject w in home.wl[level].Values)
+        {
+            if (w.state == 1 && w.isDoor == false && w.canBeDoor == true)
+                home.st[level].Add(w.key, new StairObject(w.key, level));
         }
     }
 }
