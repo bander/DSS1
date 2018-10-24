@@ -7,6 +7,7 @@ public class HomeConstrPanel : MonoBehaviour {
 
     public GameObject panelBuild;
     public GameObject panelObjects;
+    public GameObject panelLevels;
 
     public GameObject rotateButton;
     public GameObject acceptButton;
@@ -57,5 +58,10 @@ public class HomeConstrPanel : MonoBehaviour {
     public void CloseButton()
     {
         panels[currentPanel].GetComponent<SubPanelBase>().CloseClick();
+    }
+
+    public void ChangeFloor(bool up=true)
+    {
+        home.ChangeFloor(up);
     }
 }

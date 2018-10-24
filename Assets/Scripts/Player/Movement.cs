@@ -171,6 +171,7 @@ public class Movement : MonoBehaviour {
 
     void Update() {
         Vector3 cameraForward = new Vector3(Camera.main.transform.forward.x, 0, Camera.main.transform.forward.z).normalized;
+        
         jDir = cameraForward * joystick.Vertical + Camera.main.transform.right * joystick.Horizontal;
         keyDir = cameraForward * Input.GetAxis("Vertical") + Camera.main.transform.right * Input.GetAxis("Horizontal");
         
