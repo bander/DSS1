@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class HomeConstrPanel : MonoBehaviour {
     HomeConstructor home;
@@ -12,8 +13,12 @@ public class HomeConstrPanel : MonoBehaviour {
     public GameObject rotateButton;
     public GameObject acceptButton;
 
+    public GameObject floorText;
+
     public int currentPanel;
     List<GameObject> panels=new List<GameObject>();
+
+    public CameraContainer camContainer;
 
     void Start()
     {
@@ -57,11 +62,13 @@ public class HomeConstrPanel : MonoBehaviour {
     }
     public void CloseButton()
     {
-        panels[currentPanel].GetComponent<SubPanelBase>().CloseClick();
+        CanvasController.instance.ShowMain();
     }
 
     public void ChangeFloor(bool up=true)
     {
         home.ChangeFloor(up);
+        floorText.GetComponent<TMP_Text>().text = ""+(home.currentLevel + 1);
+        camContainer.SetLevel(home.currentLevel);
     }
 }

@@ -147,7 +147,7 @@ public class Building
     {
         foreach (TileObject t in home.fl[level].Values)
         {
-            if (t.state == 1) home.fl[level + 1].Add(t.key, new TileObject(t.key, level + 1));
+            if (t.state >0) home.fl[level + 1].Add(t.key, new TileObject(t.key, level + 1));
         }
     }
     void CreateStairPositions()

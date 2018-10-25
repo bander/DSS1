@@ -213,7 +213,14 @@ public class WallObject : ConstructObject
 
     public override void Hide(bool revert = true)
     {
-        base.Hide(revert);
+        //base.Hide(revert);
+        bool act = !revert;
+        if (obj == null) return;
+            obj.transform.GetChild(0).GetChild(0).GetComponentInChildren<MeshRenderer>().enabled = act;//.SetActive(act);
+        if (!isDoor) return;
+       obj.transform.GetChild(0).GetChild(0).GetChild(0).GetChild(0).GetComponent<Renderer>().enabled = act;//.SetActive(act);
+       obj.transform.GetChild(0).GetChild(0).GetChild(0).GetChild(1).GetComponent<Renderer>().enabled = act;//.SetActive(act);
+
     }
     public override void HideHalf(bool revert = true)
     {

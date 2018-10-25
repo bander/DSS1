@@ -34,4 +34,7 @@ public class StairObject : ConstructObject
         base.UpdateMesh(n);
         obj.transform.GetChild(0).transform.rotation = Quaternion.Euler(0, key.z, 0);
     }
+    
+    
+    
 }

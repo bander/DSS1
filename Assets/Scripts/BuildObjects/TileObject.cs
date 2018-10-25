@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TileObject : ConstructObject
 {
-    GameObject roof;
+    public GameObject roof;
     public bool isLadderHole { get; protected set; }
     public bool isLadderExit { get; protected set; }
     public bool busy { get; protected set; }
@@ -169,7 +169,7 @@ public class TileObject : ConstructObject
     {
         base.Hide(revert);
         bool act = !revert;
-        if (roof != null) roof.SetActive(act);
+        if (roof != null) roof.GetComponentInChildren<MeshRenderer>().enabled=act;
     }
 
 }

@@ -30,17 +30,30 @@ public class CornerObject
         obj.transform.GetChild(0).transform.rotation = Quaternion.Euler(0, key.z, 0);
     }
 
+    bool hided;
+    public virtual void Hide(bool revert = true)
+    {
+        hided = revert;
+        bool act = !revert;
+        if (obj != null) obj.transform.GetChild(0).GetChild(0).GetComponentInChildren<Renderer>().enabled = act;//.SetActive(act);
+        obj.transform.GetChild(0).GetChild(1).GetComponentInChildren<Renderer>().enabled = act;
+    }
+
     public void HideHalf(bool revert = true)
     {
         if (key.z != 270) return;
 
         bool act = !revert;
-
         if (obj == null) return;
-        if (obj.transform.GetChild(0) == null) return;
-        if (obj.transform.GetChild(0).GetChild(0) == null) return;
-        obj.transform.GetChild(0).GetChild(0).gameObject.SetActive(act);
-        if (obj.transform.GetChild(0).GetChild(1) == null) return;
-        obj.transform.GetChild(0).GetChild(1).gameObject.SetActive(!act);
+        obj.transform.GetChild(0).GetChild(0).GetComponentInChildren<Renderer>().enabled = act;//.gameObject.SetActive(act);
+        obj.transform.GetChild(0).GetChild(1).GetComponentInChildren<Renderer>().enabled = !act;//.gameObject.SetActive(!act);
+
+        //if (obj == null) return;
+        //if (obj.transform.GetChild(0) == null) return;
+        //if (obj.transform.GetChild(0).GetChild(0) == null) return;
+        //obj.transform.GetChild(0).GetChild(0).GetComponentInChildren<Renderer>().enabled = act;//.gameObject.SetActive(act);
+        //if (obj.transform.GetChild(0).GetChild(1) == null) return;
+        //obj.transform.GetChild(0).GetChild(1).GetComponentInChildren<Renderer>().enabled = !act;//.gameObject.SetActive(!act);
     }
+    
 }

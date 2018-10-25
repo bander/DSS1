@@ -44,6 +44,8 @@ public class CanvasController : MonoBehaviour {
 
     int currentBuild = 0;
 
+    public CameraContainer camContainer;
+
     public HomeConstrPanel homeConstPanel;
 
     void Start()
@@ -113,6 +115,9 @@ public class CanvasController : MonoBehaviour {
         closeAll();
         //BuildUI.SetActive(true);
         //updateBuildButtonsActivity();
+
+        //Camera.main.GetComponent<CameraController>().SetCameraMode(1);
+        camContainer.SetConstructMode();
         homeConstPanel.Show();
     }
 
@@ -126,6 +131,7 @@ public class CanvasController : MonoBehaviour {
     }
     void closeAll()
     {
+        //Camera.main.GetComponent<CameraController>().SetCameraMode(0);
         inventoryUI.SetActive(false);
         equipUI.SetActive(false);
         closeButton.SetActive(false);
@@ -133,6 +139,8 @@ public class CanvasController : MonoBehaviour {
         LootUI.SetActive(false);
         BuildUI.SetActive(false);
         showBuildPanel(false);
+
+        camContainer.SetPlayerMode();
     }
 
     public void RemoveSelectedItem()
@@ -174,6 +182,7 @@ public class CanvasController : MonoBehaviour {
 
     void updateBuildButtonsActivity()
     {
+        /*
         SetActiveBuildButton(BuildUI.transform.GetChild(1).gameObject, false);
         SetActiveBuildButton(BuildUI.transform.GetChild(2).gameObject, false);
         SetActiveBuildButton(BuildUI.transform.GetChild(3).gameObject, false);
@@ -188,6 +197,7 @@ public class CanvasController : MonoBehaviour {
         {
             SetActiveBuildButton(BuildUI.transform.GetChild(3).gameObject, true);
         }
+        //*/
     }
     void SetActiveBuildButton(GameObject button,bool act=true)
     {

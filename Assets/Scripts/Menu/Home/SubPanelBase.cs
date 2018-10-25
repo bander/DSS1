@@ -23,7 +23,7 @@ public class SubPanelBase : MonoBehaviour {
     {
         DeactivateAll();
         ActSubButton(buttons[type]);
-        home.SetBuildType(buildType,objectType);
+        home.SetBuildType(buildType, objectType);
     }
 
     public virtual void Selected() {
@@ -45,5 +45,5 @@ public class SubPanelBase : MonoBehaviour {
 
     public virtual void AcceptClick() { }
     public virtual void RotateClick() { }
-    public virtual void CloseClick() { }
+    public virtual void CloseClick(){}
 }

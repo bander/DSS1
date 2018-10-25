@@ -68,6 +68,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4969601155532118}
   - component: {fileID: 114867538889679006}
+  - component: {fileID: 114876017503050538}
   m_Layer: 0
   m_Name: Wall_Window_Long_02_1M
   m_TagString: Untagged
@@ -417,5 +418,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9d61cde570e20ca4499c99ee5800f362, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114876017503050538
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1187776704099924}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11860926615a46d4c81c2e39b31fc85a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

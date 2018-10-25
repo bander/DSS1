@@ -38,12 +38,12 @@ public class ConstructObject
         if (building != null) return true;
         return false;
     }
-
-    // Отключить индикацию здания
+    
     public void SetBuilding(Building b)
     {
         building = b;
 
+        if (true) return;
         if (obj != null)
         {
             GameObject child = obj.gameObject.transform.GetChild(0).gameObject;
@@ -74,10 +74,14 @@ public class ConstructObject
             }
         }
     }
-    public void Select(bool b = true)
+    public bool Select(bool b = true)
     {
-        if (state == 0)
+        if (state == 0 && obj!=null && obj.activeSelf)
+        {
             UpdateMesh(1);
+            return true;
+        }
+        return false;
     }
     public virtual void Build(int n = 3)
     {
@@ -119,18 +123,22 @@ public class ConstructObject
     public virtual void Hide(bool revert = true)
     {
         bool act = !revert;
-        if (obj != null) obj.SetActive(act);
+        if (obj != null) obj.transform.GetChild(0).GetComponentInChildren<MeshRenderer>().enabled = act;//.SetActive(act);
+        
     }
 
     public virtual void HideHalf(bool revert = true)
     {
         bool act = !revert;
 
-        if (obj == null) return;
+        if (obj == null)
+            return;
+        else obj.SetActive(true);
+        
         if (obj.transform.GetChild(0) == null) return;
         if (obj.transform.GetChild(0).GetChild(0) == null) return;
-        obj.transform.GetChild(0).GetChild(0).gameObject.SetActive(act);
+        obj.transform.GetChild(0).GetChild(0).GetComponentInChildren<Renderer>().enabled = act;//gameObject.SetActive(act);
         if (obj.transform.GetChild(0).GetChild(1) == null) return;
-        obj.transform.GetChild(0).GetChild(1).gameObject.SetActive(!act);
+        obj.transform.GetChild(0).GetChild(1).GetComponentInChildren<Renderer>().enabled = !act;//.gameObject.SetActive(!act);
     }
 }

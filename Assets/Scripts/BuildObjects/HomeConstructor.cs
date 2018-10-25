@@ -93,6 +93,41 @@ public class HomeConstructor : MonoBehaviour {
         TestBuilding();
 	}
 
+    void TestBuildingLow()
+    {
+        fl[0][new Vector2(0, 0)].Build(2);
+        fl[0][new Vector2(1, 0)].Build(2);
+        fl[0][new Vector2(0, 1)].Build(2);
+        fl[0][new Vector2(1, 1)].Build(2);
+
+        buildType = 1;
+        wl[0][new Vector3(0, -1, 270)].Build();
+        wl[0][new Vector3(1, -1, 270)].Build();
+
+        wl[0][new Vector3(-1, 0, 0)].Build();
+        wl[0][new Vector3(-1, 1, 0)].Build();
+
+        wl[0][new Vector3(0, 2, 90)].Build();
+        wl[0][new Vector3(1, 2, 90)].Build();
+
+        wl[0][new Vector3(2, 0, 180)].Build();
+        //wl[0][new Vector3(2, 0, 180)].HideHalf();
+        buildType = 2;
+        wl[0][new Vector3(2, 1, 180)].Build();
+        
+        currentLevel = 1;
+
+        fl[1][new Vector2(0, 0)].Build(2);
+       // fl[1][new Vector2(1, 0)].Build(2);
+       // fl[1][new Vector2(0, 1)].Build(2);
+        //fl[1][new Vector2(1, 1)].Build(2);
+
+        buildType = 1;
+        wl[1][new Vector3(0, -1, 270)].Build();
+        wl[1][new Vector3(-1, 0, 0)].Build();
+
+        //cr[1][new Vector3(3, -1, 270)].HideHalf();
+    }
     void TestBuilding()
     {
         fl[0][new Vector2(0, 0)].Build(2);
@@ -124,11 +159,58 @@ public class HomeConstructor : MonoBehaviour {
         wl[0][new Vector3(3,1,180)].Build();
         
         st[0][new Vector3(1, 1, 180)].Build();
-        //currentLevel = 1;
-       // fl[1][new Vector2(2, 2)].Build();
-       // fl[1][new Vector2(2, 1)].Build();
+        currentLevel = 1;
+
+        //fl[1][new Vector2(0, 1)].Build();
+        //fl[1][new Vector2(2, 2)].Build();
         //wl[1][new Vector3(1, 2, 0)].Build();
 
+
+        fl[1][new Vector2(0, 0)].Build(2);
+        fl[1][new Vector2(1, 0)].Build(2);
+        fl[1][new Vector2(0, 1)].Build(2);
+       // fl[1][new Vector2(1, 1)].Build(2);
+        fl[1][new Vector2(0, 2)].Build(2);
+        fl[1][new Vector2(1, 2)].Build(2);
+        //fl[1][new Vector2(2, 2)].Build(2);
+        //fl[1][new Vector2(2, 1)].Build(2);
+        fl[1][new Vector2(2, 0)].Build(2);
+
+        buildType = 1;
+        wl[1][new Vector3(0, -1, 270)].Build();
+        wl[1][new Vector3(1, -1, 270)].Build();
+        wl[1][new Vector3(2, -1, 270)].Build();
+        
+
+        wl[1][new Vector3(-1, 0, 0)].Build();
+        wl[1][new Vector3(-1, 1, 0)].Build();
+        wl[1][new Vector3(-1, 2, 0)].Build();
+
+        wl[1][new Vector3(0, 3, 90)].Build();
+        wl[1][new Vector3(1, 3, 90)].Build();
+        wl[1][new Vector3(2, 1, 90)].Build();
+
+        wl[1][new Vector3(3, 0, 180)].Build();
+        wl[1][new Vector3(2, 1, 180)].Build();
+        buildType = 2;
+        wl[1][new Vector3(2, 2, 180)].Build();
+
+        /*foreach (StairObject stt in st[1].Values)
+        {
+            Debug.Log(stt.key);
+        }
+        //*/
+        st[1][new Vector3(1, 0, 0)].Build();
+
+        currentLevel = 2;
+
+        buildType = 0;
+        fl[2][new Vector2(0, 0)].Build(2);
+        buildType = 1;
+
+        wl[2][new Vector3(0, -1, 270)].Build();
+
+        wl[2][new Vector3(-1, 0, 0)].Build();
     }
 
     void SetAvailablePoints(int x,int y,int startX,int startY)
@@ -416,9 +498,78 @@ public class HomeConstructor : MonoBehaviour {
     int oldLevel;
     void ChangeLevel()
     {
-        if (oldLevel == currentLevel) return;
+        //if (oldLevel == currentLevel) return;
         oldLevel = currentLevel;
 
+        int i = 0;
+        while (i< fl.Length)
+        {
+            if (i < oldLevel)
+            {
+                foreach (TileObject t in fl[i].Values)
+                {
+                    t.Hide(false);
+                }
+                foreach (WallObject w in wl[i].Values)
+                {
+                    w.HideHalf(false);
+                }
+                foreach (CornerObject c in cr[i].Values)
+                {
+                    c.Hide(false);
+                    c.HideHalf(false);
+                }
+                foreach (StairObject s in st[i].Values)
+                {
+                    s.Hide(false);
+                }
+            }
+            else if(i==oldLevel)
+            {
+                foreach (TileObject t in fl[i].Values)
+                {
+                    t.Hide(false);
+                }
+                foreach (WallObject w in wl[i].Values)
+                {
+                    w.Hide(false);
+                    w.HideHalf();
+                }
+                foreach (CornerObject c in cr[i].Values)
+                {
+                    c.Hide(false);
+                    c.HideHalf();
+                }
+                foreach (StairObject s in st[i].Values)
+                {
+                    s.Hide(false);
+                }
+            }
+            else
+            {
+                foreach (TileObject t in fl[i].Values)
+                {
+                    t.Hide();
+                }
+                foreach (WallObject w in wl[i].Values)
+                {
+                    w.HideHalf(false);
+                    w.Hide();
+                }
+                foreach (CornerObject c in cr[i].Values)
+                {
+                    Debug.Log("HIDE " + c.key);
+                    c.Hide();
+                }
+                foreach (StairObject s in st[i].Values)
+                {
+                    s.Hide();
+                }
+            }
+            i++;
+        }
+
+        /*
         if (currentLevel == 0)
         {
             foreach (TileObject t in fl[1].Values)
@@ -457,6 +608,7 @@ public class HomeConstructor : MonoBehaviour {
                 c.HideHalf(false);
             }
         }
+        //*/
     }
     public void SetBuildType(int n,int objectType)
     {
@@ -547,6 +699,14 @@ public class HomeConstructor : MonoBehaviour {
 
     void Update ()
     {
+        if (Input.GetKeyDown(KeyCode.U))
+        {
+            wl[1][new Vector3(0, -1, 270)].HideHalf();
+        }
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            wl[1][new Vector3(0, -1, 270)].HideHalf(false);
+        }
         if (Input.GetKeyDown(KeyCode.X))
         {
             SetBuildType(3,0);
@@ -583,20 +743,26 @@ public class HomeConstructor : MonoBehaviour {
             clearObj = ClearStair;
             setObj = SetStair;
         }
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetKeyDown(KeyCode.R))
         {
             currentLevel = 0;
-            SetBuildType(buildType, 0);
+            ChangeLevel();
+            clearObj();
+            //SetBuildType(buildType, 0);
         }
-        if (Input.GetKeyDown(KeyCode.W))
+        if (Input.GetKeyDown(KeyCode.T))
         {
             currentLevel = 1;
-            SetBuildType(buildType, 0);
+            ChangeLevel();
+            clearObj();
+            //SetBuildType(buildType, 0);
         }
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.Y))
         {
             currentLevel = 2;
-            SetBuildType(buildType, 0);
+            ChangeLevel();
+            clearObj();
+            //SetBuildType(buildType, 0);
         }
 
 
@@ -666,16 +832,18 @@ public class HomeConstructor : MonoBehaviour {
                 {
                     select.Show();
                 }
-                parent.construct.Select();
-                select = parent.construct;
-                if (selectComplete != null) selectComplete.Invoke();
+                if (parent.construct.Select())
+                {
+                    select = parent.construct;
+                    if (selectComplete != null) selectComplete.Invoke();
+                }
             }
         }
     }
 
     public void ChangeFloor(bool up=true)
     {
-        if (up && currentLevel < 3) currentLevel++;
+        if (up && currentLevel < 2) currentLevel++;
         if (!up && currentLevel > 0) currentLevel--;
 
         SetBuildType(buildType,0);
