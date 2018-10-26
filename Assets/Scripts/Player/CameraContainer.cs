@@ -42,7 +42,13 @@ public class CameraContainer : MonoBehaviour {
 
     public void SetLevel(int level)
     {
+        plane.constructMode = false;
         camControl.offset = new Vector3(5,5,-5)+level* Vector3.up * 4;
-        camControl.transform.DOMove(camControl.target.position + camControl.offset, 1);
+        camControl.transform.DOMove(camControl.target.position + camControl.offset, 1).OnComplete(ChangeLevelComplete);
+    }
+    void ChangeLevelComplete()
+    {
+        //constructMode = true;
+        plane.constructMode = true;
     }
 }

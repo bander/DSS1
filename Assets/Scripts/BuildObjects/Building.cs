@@ -113,7 +113,7 @@ public class Building
             if (canBeDoorsCount == 1)
             {
                 lastDoor = lastDoor2;
-                if (HomeConstructor.instance.buildType == 1) lastDoor.SetRed();
+                if (home.wallType == WallType.Wall) lastDoor.SetRed();
             }
             else
                 if (lastDoor != null)
@@ -136,6 +136,7 @@ public class Building
 
     void Isolate()
     {
+        Debug.Log(" bui " + this.GetHashCode() + " " + isolated);
         if (!isolated)
         {
             isolated = true;
@@ -145,14 +146,20 @@ public class Building
     }
     void CreateNextLevelFloorPositions()
     {
-        foreach (TileObject t in home.fl[level].Values)
+        Debug.Log("rr  isolate="+GetHashCode() );
+        foreach (TileObject t in tiles)//home.fl[level].Values)
         {
-            if (t.state >0) home.fl[level + 1].Add(t.key, new TileObject(t.key, level + 1));
+            if (t.state > 0)
+            {
+                TileObject to = new TileObject(t.key, level + 1);
+                home.fl[level + 1].Add(t.key, to);
+
+            }
         }
     }
     void CreateStairPositions()
     {
-        foreach (TileObject t in home.fl[level].Values)
+        foreach (TileObject t in tiles)//home.fl[level].Values)
         {
             Vector3[] key2 = new Vector3[4] { new Vector3(t.key.x+1,t.key.y,0),
                                               new Vector3(t.key.x,t.key.y-1,90),
@@ -176,23 +183,40 @@ public class Building
                     keyz3.z = 0;
                     Vector3 keyStair = t.key;
                     keyStair.z = key2[i].z;
-                    if (home.fl[level].ContainsKey(keyz2) && home.fl[level][keyz2].state == 1)
-                        if (home.fl[level].ContainsKey(keyz3) && home.fl[level][keyz3].state == 1)
+                    //if (home.fl[level].ContainsKey(keyz2) && home.fl[level][keyz2].state == 1)
+                    int num = ContainsKey(tiles, keyz2);
+                    if (num != -1 && tiles[num].state == 1)
+                    {
+                        num = ContainsKey(tiles, keyz3);
+                        if (num != -1 && tiles[num].state == 1)
                         {
                             StairObject sObj = new StairObject(keyStair, level);
-                            //sObj.SetBuilding(this);
+                            sObj.SetBuilding(this);
                             AddStair(sObj);
                             home.st[level][keyStair] = sObj;
                         }
-
+                    }
                 }
             }
         }
-        foreach (WallObject w in home.wl[level].Values)
+        foreach (WallObject w in walls)//home.wl[level].Values)
         {
             if (w.state == 1 && w.isDoor == false && w.canBeDoor == true)
-                home.st[level].Add(w.key, new StairObject(w.key, level));
+            {
+                StairObject stair = new StairObject(w.key, level);
+                home.st[level].Add(w.key, stair);
+                AddStair(stair);
+            }
         }
     }
-    
+    int ContainsKey(List<ConstructObject> list,Vector3 key)
+    {
+        int i= 0;
+        foreach (ConstructObject co in list)
+        {
+            if (co.key == key) return i;
+            i++;
+        }
+        return -1;
+    }
 }

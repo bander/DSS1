@@ -83,12 +83,14 @@ public class ConstructObject
         }
         return false;
     }
-    public virtual void Build(int n = 3)
+    public virtual void Build(int meshNUm = 3)
     {
-        UpdateMesh(n);
-        state = n - 2;
+        UpdateMesh(meshNUm);
+        state = 1;// meshNUm - 2;
 
-        CheckDoorsAllBuildings();
+        if(building !=null)
+            building.CheckDoors();
+        //CheckDoorsAllBuildings();
     }
     public virtual void UpdateMesh(int n)
     {
@@ -114,10 +116,12 @@ public class ConstructObject
 
     public void CheckDoorsAllBuildings()
     {
-        foreach (Building b in home.buildings[level])
+        //building.CheckDoors();
+        /*foreach (Building b in home.buildings[level])
         {
             b.CheckDoors();
         }
+        //*/
     }
 
     public virtual void Hide(bool revert = true)

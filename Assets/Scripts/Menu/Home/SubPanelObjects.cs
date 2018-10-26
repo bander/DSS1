@@ -3,19 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class SubPanelObjects : SubPanelBase {
-    public void ActivateLedder()
+    public void ActivateStair()
     {
         type = 0;
-        buildType = 3;
-        objectType = 0;
+        buildType = BuildType.OnFloor;
+        tileType = TileType.Stair;
         SubClick();
         rotateButton.SetActive(true);
     }
     public void ActivateTurret()
     {
         type = 1;
-        buildType = 4;
-        objectType = 0;
+        buildType = BuildType.OnFloor;
+        tileType = TileType.Turret;
         SubClick();
     }
 }

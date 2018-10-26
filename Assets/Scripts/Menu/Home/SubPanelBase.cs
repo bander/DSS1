@@ -9,8 +9,9 @@ public class SubPanelBase : MonoBehaviour {
     public GameObject rotateButton;
     public GameObject acceptButton;
     protected int type;
-    protected int buildType;
-    protected int objectType;
+    protected BuildType buildType;
+    protected WallType wallType;
+    protected TileType tileType;
 
 
     void Start()
@@ -23,7 +24,7 @@ public class SubPanelBase : MonoBehaviour {
     {
         DeactivateAll();
         ActSubButton(buttons[type]);
-        home.SetBuildType(buildType, objectType);
+        home.SetBuildType(buildType, wallType,tileType);// objectType);
     }
 
     public virtual void Selected() {

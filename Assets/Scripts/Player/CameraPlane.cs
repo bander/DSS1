@@ -14,35 +14,39 @@ public class CameraPlane : MonoBehaviour {
 
     void OnMouseDragX()
     {
-        if (!constructMode) return;
+        if (!constructMode)
+            return;
 
         RaycastHit hit;
         Ray r = mainCamera.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(r, out hit, 100f, LayerMask.GetMask("CamCube")))
+        if (Physics.Raycast(r, out hit, 10000f, LayerMask.GetMask("CamCube")))
         {
             Vector3 delta = hit.point - prevposition;
-            fakeTarget.position += delta / 2;
+            fakeTarget.position += delta /10;
             prevposition = hit.point;
         }
     }
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            if (!constructMode) return;
-            RaycastHit hit;
-            if (Physics.Raycast(mainCamera.ScreenPointToRay(Input.mousePosition), out hit, 100f, LayerMask.GetMask("CamCube")))
-            {
-                prevposition = hit.point;
-                mb = OnMouseDragX;
-            }
-        }
         if (Input.GetMouseButtonUp(0))
         {
             mb = null;
         }
         if (mb != null) mb.Invoke();
 
-        //transform.rotation = Quaternion.identity;
+
+        if (!constructMode)
+            transform.rotation = Quaternion.identity;
+        
+        if (Input.GetMouseButtonDown(0))
+        {
+            if (!constructMode) return;
+            RaycastHit hit;
+            if (Physics.Raycast(mainCamera.ScreenPointToRay(Input.mousePosition), out hit, 10000f, LayerMask.GetMask("CamCube")))
+            {
+                prevposition = hit.point;
+                mb = OnMouseDragX;
+            }
+        }
     }
 }

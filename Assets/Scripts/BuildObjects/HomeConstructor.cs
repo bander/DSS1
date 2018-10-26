@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.EventSystems;
 
 public class HomeConstructor : MonoBehaviour {
     #region Singleton
@@ -18,6 +19,7 @@ public class HomeConstructor : MonoBehaviour {
     public TempPrefabsArray[] tempFabs;
 
     public List<ConstructObject> tempObjects=new List<ConstructObject>();
+    public List<ConstructObject> toBeDestroyedObjects=new List<ConstructObject>();
 
     public NavMeshSurface surface;
     public NavMeshModifierVolume modifier;
@@ -28,6 +30,7 @@ public class HomeConstructor : MonoBehaviour {
     //Dictionary<Vector3, int>[] wl = new Dictionary<Vector3, int>[3] { new Dictionary<Vector3, int>(),new Dictionary<Vector3, int>(),new Dictionary<Vector3, int>()};
     public Dictionary<Vector3, CornerObject>[] cr = new Dictionary<Vector3, CornerObject>[3] { new Dictionary<Vector3, CornerObject>(),new Dictionary<Vector3, CornerObject>(),new Dictionary<Vector3, CornerObject>() };
     public Dictionary<Vector3, StairObject>[] st = new Dictionary<Vector3, StairObject>[3]{ new Dictionary<Vector3, StairObject>(),new Dictionary<Vector3, StairObject>(), new Dictionary<Vector3, StairObject>() };
+    public Dictionary<Vector3, StairObject>[] tr = new Dictionary<Vector3, StairObject>[3]{ new Dictionary<Vector3, StairObject>(),new Dictionary<Vector3, StairObject>(), new Dictionary<Vector3, StairObject>() };
     //Dictionary<Vector3, int>[] st = new Dictionary<Vector3, int>[3]{ new Dictionary<Vector3, int>(),new Dictionary<Vector3, int>(), new Dictionary<Vector3, int>() };
     Dictionary<Vector3, int>[] wlCuts = new Dictionary<Vector3, int>[3] { new Dictionary<Vector3, int>(),new Dictionary<Vector3, int>(),new Dictionary<Vector3, int>()};
 
@@ -64,7 +67,9 @@ public class HomeConstructor : MonoBehaviour {
     int currentRotation;
     
     ConstructObject select;
-    public int buildType { get; protected set; }
+    public BuildType buildType { get; protected set; }
+    public WallType wallType { get; protected set; }
+    public TileType tileType { get; protected set; }
     public int currentLevel { get; protected set; }
 
     delegate void SelectObj(GameObject target);
@@ -81,7 +86,7 @@ public class HomeConstructor : MonoBehaviour {
     void Start () {
 
         transform.localScale = new Vector3(scaleFactor, scaleFactor, scaleFactor);
-        SetAvailablePoints(4,4,-2,-1);
+        SetAvailablePoints(8,5,-2,-1);
 
         selectObj = SelectFloor;
         clearObj = ClearFloor;
@@ -100,7 +105,7 @@ public class HomeConstructor : MonoBehaviour {
         fl[0][new Vector2(0, 1)].Build(2);
         fl[0][new Vector2(1, 1)].Build(2);
 
-        buildType = 1;
+        buildType = BuildType.Wall;
         wl[0][new Vector3(0, -1, 270)].Build();
         wl[0][new Vector3(1, -1, 270)].Build();
 
@@ -112,7 +117,8 @@ public class HomeConstructor : MonoBehaviour {
 
         wl[0][new Vector3(2, 0, 180)].Build();
         //wl[0][new Vector3(2, 0, 180)].HideHalf();
-        buildType = 2;
+        buildType = BuildType.Wall;
+        wallType = WallType.Door;
         wl[0][new Vector3(2, 1, 180)].Build();
         
         currentLevel = 1;
@@ -122,7 +128,8 @@ public class HomeConstructor : MonoBehaviour {
        // fl[1][new Vector2(0, 1)].Build(2);
         //fl[1][new Vector2(1, 1)].Build(2);
 
-        buildType = 1;
+        buildType = BuildType.Wall;
+        wallType = WallType.Wall;
         wl[1][new Vector3(0, -1, 270)].Build();
         wl[1][new Vector3(-1, 0, 0)].Build();
 
@@ -140,7 +147,8 @@ public class HomeConstructor : MonoBehaviour {
         fl[0][new Vector2(2, 1)].Build(2);
         fl[0][new Vector2(2, 0)].Build(2);
 
-        buildType = 1;
+        buildType = BuildType.Wall;
+        wallType = WallType.Wall;
         wl[0][new Vector3(0,-1,270)].Build();
         wl[0][new Vector3(1,-1,270)].Build();
         wl[0][new Vector3(2,-1,270)].Build();
@@ -155,7 +163,8 @@ public class HomeConstructor : MonoBehaviour {
 
         wl[0][new Vector3(3,0,180)].Build();
         wl[0][new Vector3(3,2,180)].Build();
-        buildType = 2;
+        buildType = BuildType.Wall;
+        wallType = WallType.Door;
         wl[0][new Vector3(3,1,180)].Build();
         
         st[0][new Vector3(1, 1, 180)].Build();
@@ -166,6 +175,7 @@ public class HomeConstructor : MonoBehaviour {
         //wl[1][new Vector3(1, 2, 0)].Build();
 
 
+        buildType = BuildType.Floor;
         fl[1][new Vector2(0, 0)].Build(2);
         fl[1][new Vector2(1, 0)].Build(2);
         fl[1][new Vector2(0, 1)].Build(2);
@@ -176,7 +186,8 @@ public class HomeConstructor : MonoBehaviour {
         //fl[1][new Vector2(2, 1)].Build(2);
         fl[1][new Vector2(2, 0)].Build(2);
 
-        buildType = 1;
+        buildType = BuildType.Wall;
+        wallType = WallType.Wall;
         wl[1][new Vector3(0, -1, 270)].Build();
         wl[1][new Vector3(1, -1, 270)].Build();
         wl[1][new Vector3(2, -1, 270)].Build();
@@ -192,14 +203,11 @@ public class HomeConstructor : MonoBehaviour {
 
         wl[1][new Vector3(3, 0, 180)].Build();
         wl[1][new Vector3(2, 1, 180)].Build();
-        buildType = 2;
+        buildType = BuildType.Wall;
+        wallType = WallType.Door;
         wl[1][new Vector3(2, 2, 180)].Build();
 
-        /*foreach (StairObject stt in st[1].Values)
-        {
-            Debug.Log(stt.key);
-        }
-        //*/
+        /*
         st[1][new Vector3(1, 0, 0)].Build();
 
         currentLevel = 2;
@@ -211,6 +219,9 @@ public class HomeConstructor : MonoBehaviour {
         wl[2][new Vector3(0, -1, 270)].Build();
 
         wl[2][new Vector3(-1, 0, 0)].Build();
+        //*/
+        currentLevel = 0;
+        ChangeLevel();
     }
 
     void SetAvailablePoints(int x,int y,int startX,int startY)
@@ -409,6 +420,21 @@ public class HomeConstructor : MonoBehaviour {
         } 
         //*/
     }
+
+    void ShowAvailableTurrets()
+    {
+        RemoveAllPoints();
+        foreach (TileObject fl in fl[currentLevel].Values)
+        {
+            if (fl.IsEmpty())
+            {
+                StairObject turret = new StairObject(fl.key, currentLevel);
+                turret.Show();
+                tempObjects.Add(turret);
+                toBeDestroyedObjects.Add(turret);
+            }
+        }
+    }
     void ShowAvailableStairs()
     {
         RemoveAllPoints();
@@ -476,6 +502,12 @@ public class HomeConstructor : MonoBehaviour {
 
     void RemoveAllPoints()
     {
+        foreach (ConstructObject dest in toBeDestroyedObjects)
+        {
+            GameObject.Destroy(dest.obj);
+        }
+        toBeDestroyedObjects.Clear();
+
         foreach (ConstructObject c in tempObjects)
         {
            c.Show(false);
@@ -558,7 +590,6 @@ public class HomeConstructor : MonoBehaviour {
                 }
                 foreach (CornerObject c in cr[i].Values)
                 {
-                    Debug.Log("HIDE " + c.key);
                     c.Hide();
                 }
                 foreach (StairObject s in st[i].Values)
@@ -610,25 +641,42 @@ public class HomeConstructor : MonoBehaviour {
         }
         //*/
     }
-    public void SetBuildType(int n,int objectType)
+    public void SetBuildType(BuildType _buildType,WallType _wallType=WallType.Wall,TileType _tyleType=TileType.Floor)
     {
         ChangeLevel();
 
-        buildType = n;
-        switch (n)
+        buildType = _buildType;
+        wallType = _wallType;
+        tileType = _tyleType;
+
+        switch (_buildType)
         {
-            case 0:
+            case BuildType.Floor:
                 ShowAvailableFloors();
                 break;
-            case 1:
-                ShowAvailableWalls();
+            case BuildType.Wall:
+                switch (wallType)
+                {
+                    case WallType.Door:
+                        ShowAvailableDoors();
+                        break;
+                    default:
+                        ShowAvailableWalls();
+                        break;
+                }
 
                 break;
-            case 2:
-                ShowAvailableDoors();
-                break;
-            case 3:
-                ShowAvailableStairs();
+            case BuildType.OnFloor:
+                switch (tileType) {
+                    case TileType.Stair:
+                        ShowAvailableStairs();
+                        break;
+                    case TileType.Turret:
+                        ShowAvailableTurrets();
+                        break;
+                }
+
+
                 break;
         }
         /*
@@ -709,19 +757,20 @@ public class HomeConstructor : MonoBehaviour {
         }
         if (Input.GetKeyDown(KeyCode.X))
         {
-            SetBuildType(3,0);
+
+            SetBuildType(BuildType.OnFloor, 0);
         }
         if (Input.GetKeyDown(KeyCode.C))
         {
-            SetBuildType(2, 0);
+            SetBuildType(BuildType.Wall, 0);
         }
         if (Input.GetKeyDown(KeyCode.V))
         {
-            SetBuildType(1, 0);
+            SetBuildType(BuildType.Wall, 0);
         }
         if (Input.GetKeyDown(KeyCode.B))
         {
-            SetBuildType(0, 0);
+            SetBuildType(BuildType.Floor, 0);
         }
         if (Input.GetKeyDown(KeyCode.Space))
         {
@@ -768,9 +817,21 @@ public class HomeConstructor : MonoBehaviour {
 
         if (Input.GetMouseButtonDown(0))
         {
+            if (EventSystem.current.IsPointerOverGameObject()) return;
+            buttonDownPosition = Input.mousePosition;
+            buttonDownTime = Time.time;
+        }
+        if (Input.GetMouseButtonUp(0))
+        {
+            if ((buttonDownPosition - Input.mousePosition).magnitude > 4f) return;
+            if (Time.time - buttonDownTime > 0.5f) return;
+            buttonDownTime = 0;
+            buttonDownPosition = new Vector3(-10000, -10000, -10000);
             GetCLickObject();
         }
     }
+    float buttonDownTime;
+    Vector3 buttonDownPosition;
 
     public void BuildObject()
     {
@@ -799,36 +860,48 @@ public class HomeConstructor : MonoBehaviour {
 
         switch (buildType)
         {
-            case 0:
+            case BuildType.Floor:
                 ShowAvailableFloors();
                 break;
-            case 1:
-                ShowAvailableWalls();
+            case BuildType.Wall:
+                switch (wallType)
+                {
+                    case WallType.Door:
+                        ShowAvailableDoors();
 
+                        break;
+                    default:
+                        ShowAvailableWalls();
+                        break;
+                }
                 break;
-            case 2:
-                ShowAvailableDoors();
-                break;
-            case 3:
+            case BuildType.OnFloor:
                 ShowAvailableStairs();
                 break;
         }
+
     }
 
     void GetCLickObject()
     {
+        
         RaycastHit hit;
-        if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 100))
+        if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 100,LayerMask.GetMask("House")))
         {
             ConstructElement parent = hit.collider.transform.parent.GetComponent<ConstructElement>();
-            
-            if(parent==null) if(hit.collider.transform.parent.parent!=null) parent = hit.collider.transform.parent.parent.GetComponent<ConstructElement>();
+            //Debug.Log("Click " + parent+" // "+ hit.collider+" __ "+ hit.collider.transform.parent);
+            if (parent == null)
+            {
+                if (hit.collider.transform.parent.parent!=null)
+                parent = hit.collider.transform.parent.parent.GetComponent<ConstructElement>();
+            }
+            //Debug.Log("22  " + parent);
             if (parent == null) return;
             if (parent.construct == null) return;
-            
+            //Debug.Log(" not return ");
             if (parent.construct.state == 0)
             {
-                if (select != null)
+                /*if (select != null)
                 {
                     select.Show();
                 }
@@ -837,6 +910,8 @@ public class HomeConstructor : MonoBehaviour {
                     select = parent.construct;
                     if (selectComplete != null) selectComplete.Invoke();
                 }
+                //*/
+                parent.construct.Build();
             }
         }
     }
@@ -2191,6 +2266,11 @@ public class Building
 }
 
 //*/
+
+
+public enum BuildType { Floor,Wall,OnFloor};
+public enum WallType { Wall,SmallWindow,BigWindow,Door};
+public enum TileType { Floor,Stair,Turret};
 
 [System.Serializable]
 public class TempPrefabsArray

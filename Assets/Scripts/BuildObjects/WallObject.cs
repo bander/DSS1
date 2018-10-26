@@ -16,6 +16,7 @@ public class WallObject : ConstructObject
 
     public List<CornerObject> walls = new List<CornerObject>();
 
+    protected WallType wallType;
 
     public WallObject(Vector3 inKey, int inLevel, GameObject gObj = null) : base(inKey, inLevel, gObj)
     {
@@ -28,11 +29,10 @@ public class WallObject : ConstructObject
         base.Show(b);
 
         if (!b) return;
-        if (home.buildType == 2)
+        if (home.buildType == BuildType.Wall && home.wallType==WallType.Door)
         {
             if (neverCanBeDoor)
                 Show(false);
-                //SetRed();
             return;
         }
         if (canBeDoorOnly) SetRed();
@@ -86,16 +86,34 @@ public class WallObject : ConstructObject
         return false;
     }
 
-    public override void Build(int n = 2)
+    public override void Build(int meshNum=3)
     {
-        int bType = home.buildType;
-        base.Build(bType + 2);
+        wallType = home.wallType;
+        switch (wallType)
+        {
+            case WallType.Wall:
+                meshNum = 3;
+                break;
+            case WallType.SmallWindow:
+                meshNum = 4;
+                break;
+            case WallType.BigWindow:
+                meshNum = 5;
+                break;
+            case WallType.Door:
+                meshNum = 6;
+                break;
+        }
+
+        base.Build(meshNum);
+        //base.Build((int)bType + 2);
+
         SetBuilding(building);
 
         Vector3 floorKey = new Vector3(key.x, key.y, 0);
         if (home.fl[level].ContainsKey(floorKey)) home.fl[level][floorKey].Busy = true;
 
-        if (bType == 2)
+        if (home.wallType == WallType.Door)
         {
             isDoor = true;
             disableTilesNearDoor();
@@ -202,7 +220,7 @@ public class WallObject : ConstructObject
         wallScaler += num;
         if (num > 0)
         {
-            UpdateMesh(wallScaler + 4);
+            UpdateMesh(wallScaler + 6+3*(int)wallType);
         }
     }
     public override void UpdateMesh(int n)
