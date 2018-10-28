@@ -1,0 +1,565 @@
+fileFormatVersion: 2
+guid: 446c344d9de1c6e45bda84a723cd72bc
+ModelImporter:
+  serializedVersion: 16
+  fileIDToRecycleName:
+    100000: B_FLAP_01
+    100002: B_FLAP_02
+    100004: B_FLAP_03
+    100006: B_FLAP_04
+    100008: BOTTOM_FLAPS_HUB
+    100010: //RootNode
+    100012: FLAPS_RIG
+    100014: POD_FLAPS_SKINNED_GEO
+    100016: T_FLAP_01
+    100018: T_FLAP_02
+    100020: T_FLAP_03
+    100022: T_FLAP_04
+    100024: TOP_FLAPS_HUB
+    400000: B_FLAP_01
+    400002: B_FLAP_02
+    400004: B_FLAP_03
+    400006: B_FLAP_04
+    400008: BOTTOM_FLAPS_HUB
+    400010: //RootNode
+    400012: FLAPS_RIG
+    400014: POD_FLAPS_SKINNED_GEO
+    400016: T_FLAP_01
+    400018: T_FLAP_02
+    400020: T_FLAP_03
+    400022: T_FLAP_04
+    400024: TOP_FLAPS_HUB
+    4300000: POD_FLAPS_SKINNED_GEO
+    7400000: TOP_FLAPS_OPEN_v2
+    7400002: fancy_openclose
+    7400004: TOP_FLAPS_OPEN
+    7400006: TOP_FLAPS_CLOSE
+    7400008: BOTTOM_FLAPS_OPEN
+    7400010: BOTTOM_FLAPS_CLOSE
+    7400012: TOP_FLAPS_CLOSE_v2
+    7400014: BOTTOM_FLAPS_OPEN_v2
+    7400016: BOTTOM_FLAPS_CLOSE_v2
+    9500000: //RootNode
+    13700000: POD_FLAPS_SKINNED_GEO
+  materials:
+    importMaterials: 0
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: fancy_openclose
+      takeName: Take 001
+      firstFrame: 241
+      lastFrame: 490
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: FLAPS_RIG
+        weight: 1
+      - path: FLAPS_RIG/BOTTOM_FLAPS_HUB
+        weight: 1
+      - path: FLAPS_RIG/BOTTOM_FLAPS_HUB/B_FLAP_01
+        weight: 1
+      - path: FLAPS_RIG/BOTTOM_FLAPS_HUB/B_FLAP_02
+        weight: 1
+      - path: FLAPS_RIG/BOTTOM_FLAPS_HUB/B_FLAP_03
+        weight: 1
+      - path: FLAPS_RIG/BOTTOM_FLAPS_HUB/B_FLAP_04
+        weight: 1
+      - path: FLAPS_RIG/TOP_FLAPS_HUB
+        weight: 1
+      - path: FLAPS_RIG/TOP_FLAPS_HUB/T_FLAP_01
+        weight: 1
+      - path: FLAPS_RIG/TOP_FLAPS_HUB/T_FLAP_02
+        weight: 1
+      - path: FLAPS_RIG/TOP_FLAPS_HUB/T_FLAP_03
+        weight: 1
+      - path: FLAPS_RIG/TOP_FLAPS_HUB/T_FLAP_04
+        weight: 1
+      - path: POD_FLAPS_SKINNED_GEO
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: TOP_FLAPS_OPEN
+      takeName: Take 001
+      firstFrame: 1
+      lastFrame: 60
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: FLAPS_RIG
+        weight: 1
+      - path: FLAPS_RIG/BOTTOM_FLAPS_HUB
+        weight: 1
+      - path: FLAPS_RIG/BOTTOM_FLAPS_HUB/B_FLAP_01
+        weight: 1
+      - path: FLAPS_RIG/BOTTOM_FLAPS_HUB/B_FLAP_02
+        weight: 1
+      - path: FLAPS_RIG/BOTTOM_FLAPS_HUB/B_FLAP_03
+        weight: 1
+      - path: FLAPS_RIG/BOTTOM_FLAPS_HUB/B_FLAP_04
+        weight: 1
+      - path: FLAPS_RIG/TOP_FLAPS_HUB
+        weight: 1
+      - path: FLAPS_RIG/TOP_FLAPS_HUB/T_FLAP_01
+        weight: 1
+      - path: FLAPS_RIG/TOP_FLAPS_HUB/T_FLAP_02
+        weight: 1
+      - path: FLAPS_RIG/TOP_FLAPS_HUB/T_FLAP_03
+        weight: 1
+      - path: FLAPS_RIG/TOP_FLAPS_HUB/T_FLAP_04
+        weight: 1
+      - path: POD_FLAPS_SKINNED_GEO
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: TOP_FLAPS_CLOSE
+      takeName: Take 001
+      firstFrame: 60
+      lastFrame: 120
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: FLAPS_RIG
+        weight: 1
+      - path: FLAPS_RIG/BOTTOM_FLAPS_HUB
+        weight: 1
+      - path: FLAPS_RIG/BOTTOM_FLAPS_HUB/B_FLAP_01
+        weight: 1
+      - path: FLAPS_RIG/BOTTOM_FLAPS_HUB/B_FLAP_02
+        weight: 1
+      - path: FLAPS_RIG/BOTTOM_FLAPS_HUB/B_FLAP_03
+        weight: 1
+      - path: FLAPS_RIG/BOTTOM_FLAPS_HUB/B_FLAP_04
+        weight: 1
+      - path: FLAPS_RIG/TOP_FLAPS_HUB
+        weight: 1
+      - path: FLAPS_RIG/TOP_FLAPS_HUB/T_FLAP_01
+        weight: 1
+      - path: FLAPS_RIG/TOP_FLAPS_HUB/T_FLAP_02
+        weight: 1
+      - path: FLAPS_RIG/TOP_FLAPS_HUB/T_FLAP_03
+        weight: 1
+      - path: FLAPS_RIG/TOP_FLAPS_HUB/T_FLAP_04
+        weight: 1
+      - path: POD_FLAPS_SKINNED_GEO
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: BOTTOM_FLAPS_OPEN
+      takeName: Take 001
+      firstFrame: 120
+      lastFrame: 180
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: FLAPS_RIG
+        weight: 1
+      - path: FLAPS_RIG/BOTTOM_FLAPS_HUB
+        weight: 1
+      - path: FLAPS_RIG/BOTTOM_FLAPS_HUB/B_FLAP_01
+        weight: 1
+      - path: FLAPS_RIG/BOTTOM_FLAPS_HUB/B_FLAP_02
+        weight: 1
+      - path: FLAPS_RIG/BOTTOM_FLAPS_HUB/B_FLAP_03
+        weight: 1
+      - path: FLAPS_RIG/BOTTOM_FLAPS_HUB/B_FLAP_04
+        weight: 1
+      - path: FLAPS_RIG/TOP_FLAPS_HUB
+        weight: 1
+      - path: FLAPS_RIG/TOP_FLAPS_HUB/T_FLAP_01
+        weight: 1
+      - path: FLAPS_RIG/TOP_FLAPS_HUB/T_FLAP_02
+        weight: 1
+      - path: FLAPS_RIG/TOP_FLAPS_HUB/T_FLAP_03
+        weight: 1
+      - path: FLAPS_RIG/TOP_FLAPS_HUB/T_FLAP_04
+        weight: 1
+      - path: POD_FLAPS_SKINNED_GEO
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: BOTTOM_FLAPS_CLOSE
+      takeName: Take 001
+      firstFrame: 180
+      lastFrame: 240
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: FLAPS_RIG
+        weight: 1
+      - path: FLAPS_RIG/BOTTOM_FLAPS_HUB
+        weight: 1
+      - path: FLAPS_RIG/BOTTOM_FLAPS_HUB/B_FLAP_01
+        weight: 1
+      - path: FLAPS_RIG/BOTTOM_FLAPS_HUB/B_FLAP_02
+        weight: 1
+      - path: FLAPS_RIG/BOTTOM_FLAPS_HUB/B_FLAP_03
+        weight: 1
+      - path: FLAPS_RIG/BOTTOM_FLAPS_HUB/B_FLAP_04
+        weight: 1
+      - path: FLAPS_RIG/TOP_FLAPS_HUB
+        weight: 1
+      - path: FLAPS_RIG/TOP_FLAPS_HUB/T_FLAP_01
+        weight: 1
+      - path: FLAPS_RIG/TOP_FLAPS_HUB/T_FLAP_02
+        weight: 1
+      - path: FLAPS_RIG/TOP_FLAPS_HUB/T_FLAP_03
+        weight: 1
+      - path: FLAPS_RIG/TOP_FLAPS_HUB/T_FLAP_04
+        weight: 1
+      - path: POD_FLAPS_SKINNED_GEO
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: TOP_FLAPS_OPEN_v2
+      takeName: Take 001
+      firstFrame: 241
+      lastFrame: 305
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: FLAPS_RIG
+        weight: 1
+      - path: FLAPS_RIG/BOTTOM_FLAPS_HUB
+        weight: 1
+      - path: FLAPS_RIG/BOTTOM_FLAPS_HUB/B_FLAP_01
+        weight: 1
+      - path: FLAPS_RIG/BOTTOM_FLAPS_HUB/B_FLAP_02
+        weight: 1
+      - path: FLAPS_RIG/BOTTOM_FLAPS_HUB/B_FLAP_03
+        weight: 1
+      - path: FLAPS_RIG/BOTTOM_FLAPS_HUB/B_FLAP_04
+        weight: 1
+      - path: FLAPS_RIG/TOP_FLAPS_HUB
+        weight: 1
+      - path: FLAPS_RIG/TOP_FLAPS_HUB/T_FLAP_01
+        weight: 1
+      - path: FLAPS_RIG/TOP_FLAPS_HUB/T_FLAP_02
+        weight: 1
+      - path: FLAPS_RIG/TOP_FLAPS_HUB/T_FLAP_03
+        weight: 1
+      - path: FLAPS_RIG/TOP_FLAPS_HUB/T_FLAP_04
+        weight: 1
+      - path: POD_FLAPS_SKINNED_GEO
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: TOP_FLAPS_CLOSE_v2
+      takeName: Take 001
+      firstFrame: 310
+      lastFrame: 370
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: FLAPS_RIG
+        weight: 1
+      - path: FLAPS_RIG/BOTTOM_FLAPS_HUB
+        weight: 1
+      - path: FLAPS_RIG/BOTTOM_FLAPS_HUB/B_FLAP_01
+        weight: 1
+      - path: FLAPS_RIG/BOTTOM_FLAPS_HUB/B_FLAP_02
+        weight: 1
+      - path: FLAPS_RIG/BOTTOM_FLAPS_HUB/B_FLAP_03
+        weight: 1
+      - path: FLAPS_RIG/BOTTOM_FLAPS_HUB/B_FLAP_04
+        weight: 1
+      - path: FLAPS_RIG/TOP_FLAPS_HUB
+        weight: 1
+      - path: FLAPS_RIG/TOP_FLAPS_HUB/T_FLAP_01
+        weight: 1
+      - path: FLAPS_RIG/TOP_FLAPS_HUB/T_FLAP_02
+        weight: 1
+      - path: FLAPS_RIG/TOP_FLAPS_HUB/T_FLAP_03
+        weight: 1
+      - path: FLAPS_RIG/TOP_FLAPS_HUB/T_FLAP_04
+        weight: 1
+      - path: POD_FLAPS_SKINNED_GEO
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: BOTTOM_FLAPS_OPEN_v2
+      takeName: Take 001
+      firstFrame: 371
+      lastFrame: 430
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: FLAPS_RIG
+        weight: 1
+      - path: FLAPS_RIG/BOTTOM_FLAPS_HUB
+        weight: 1
+      - path: FLAPS_RIG/BOTTOM_FLAPS_HUB/B_FLAP_01
+        weight: 1
+      - path: FLAPS_RIG/BOTTOM_FLAPS_HUB/B_FLAP_02
+        weight: 1
+      - path: FLAPS_RIG/BOTTOM_FLAPS_HUB/B_FLAP_03
+        weight: 1
+      - path: FLAPS_RIG/BOTTOM_FLAPS_HUB/B_FLAP_04
+        weight: 1
+      - path: FLAPS_RIG/TOP_FLAPS_HUB
+        weight: 1
+      - path: FLAPS_RIG/TOP_FLAPS_HUB/T_FLAP_01
+        weight: 1
+      - path: FLAPS_RIG/TOP_FLAPS_HUB/T_FLAP_02
+        weight: 1
+      - path: FLAPS_RIG/TOP_FLAPS_HUB/T_FLAP_03
+        weight: 1
+      - path: FLAPS_RIG/TOP_FLAPS_HUB/T_FLAP_04
+        weight: 1
+      - path: POD_FLAPS_SKINNED_GEO
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: BOTTOM_FLAPS_CLOSE_v2
+      takeName: Take 001
+      firstFrame: 435
+      lastFrame: 490
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: FLAPS_RIG
+        weight: 1
+      - path: FLAPS_RIG/BOTTOM_FLAPS_HUB
+        weight: 1
+      - path: FLAPS_RIG/BOTTOM_FLAPS_HUB/B_FLAP_01
+        weight: 1
+      - path: FLAPS_RIG/BOTTOM_FLAPS_HUB/B_FLAP_02
+        weight: 1
+      - path: FLAPS_RIG/BOTTOM_FLAPS_HUB/B_FLAP_03
+        weight: 1
+      - path: FLAPS_RIG/BOTTOM_FLAPS_HUB/B_FLAP_04
+        weight: 1
+      - path: FLAPS_RIG/TOP_FLAPS_HUB
+        weight: 1
+      - path: FLAPS_RIG/TOP_FLAPS_HUB/T_FLAP_01
+        weight: 1
+      - path: FLAPS_RIG/TOP_FLAPS_HUB/T_FLAP_02
+        weight: 1
+      - path: FLAPS_RIG/TOP_FLAPS_HUB/T_FLAP_03
+        weight: 1
+      - path: FLAPS_RIG/TOP_FLAPS_HUB/T_FLAP_04
+        weight: 1
+      - path: POD_FLAPS_SKINNED_GEO
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  additionalBone: 0
+  userData: 
