@@ -26,8 +26,14 @@ public class TurretController : MonoBehaviour {
     void Start () {
 
 	}
-	
+    bool trash = true;
 	void Update () {;
+
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            trash = false;
+        }
+        if (trash) return;
 
         Quaternion dop = transform.rotation;
         dop.y = -dop.y;
@@ -57,6 +63,7 @@ public class TurretController : MonoBehaviour {
                 Shot();
             }
         }
+
     }
     void playRotAudio()
     {
@@ -75,7 +82,7 @@ public class TurretController : MonoBehaviour {
 
         GameObject trailx = Instantiate(trail, muzzles[n].position, muzzles[n].rotation);
         GameObject bulletx = Instantiate(bullet, muzzles[n].position, muzzles[n].rotation);
-        bulletx.transform.LookAt(target.transform);
+        bulletx.transform.LookAt(target.transform.position+Vector3.up);
         bulletx.transform.rotation = bulletx.transform.rotation * Quaternion.Euler(0, 90, 0);
 
 

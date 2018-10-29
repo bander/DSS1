@@ -51,8 +51,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8848756701488064ba4d3d8665370a8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 15
   child: {fileID: 0}
   exp: {fileID: 0}
   target: {fileID: 0}
   expAudio: {fileID: 8300000, guid: c9f71e0c37e8ab94e8ce95db39a06768, type: 3}
   bot: {fileID: 0}
+  n: 2
+  frameRate: 60

@@ -186,7 +186,7 @@ public class Building
                     //if (home.fl[level].ContainsKey(keyz2) && home.fl[level][keyz2].state == 1)
                     int num = ContainsKey(tiles, keyz2);
                     if (num != -1 && tiles[num].state == 1)
-                    {
+                   {
                         num = ContainsKey(tiles, keyz3);
                         if (num != -1 && tiles[num].state == 1)
                         {
@@ -201,7 +201,7 @@ public class Building
         }
         foreach (WallObject w in walls)//home.wl[level].Values)
         {
-            if (w.state == 1 && w.isDoor == false && w.canBeDoor == true)
+            if (w.state == 1 && w.isDoor == false)// && w.canBeDoor == true)
             {
                 StairObject stair = new StairObject(w.key, level);
                 home.st[level].Add(w.key, stair);

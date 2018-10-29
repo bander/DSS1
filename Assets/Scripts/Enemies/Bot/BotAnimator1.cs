@@ -5,6 +5,7 @@ using UnityEngine.AI;
 
 public class BotAnimator1 : MonoBehaviour {
     public Transform target;
+    public Transform target2;
     public Transform targetShoot;
     NavMeshAgent agent;
     Animator anim;
@@ -32,12 +33,32 @@ public class BotAnimator1 : MonoBehaviour {
         anim = GetComponent<Animator>();
         source =GetComponent<AudioSource>();
 
-        agent.SetDestination(target.position);
+        //agent.SetDestination(target.position);
         agent.updateRotation = false;
         
 	}
-	
+
+    bool act = false;
+    bool fire = false;
 	void Update () {
+
+        if (Input.GetKeyDown(KeyCode.H))
+        {
+            act = true;
+            agent.SetDestination(target.position);
+        }
+        if (Input.GetKeyDown(KeyCode.J))
+        {
+            fire = true;
+            target = target2;
+            agent.SetDestination(target.position);
+        }
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+
+        }
+        if (!act) return;
+
         transform.LookAt(targetShoot);
 
         Vector3 velocity = agent.desiredVelocity;
@@ -51,6 +72,8 @@ public class BotAnimator1 : MonoBehaviour {
         {
             Shot();
         }
+
+        if (!fire) return;
         timeFire += Time.deltaTime;
         if (timeFire>fireInterval)
         {

@@ -83,6 +83,28 @@ public class HomeConstructor : MonoBehaviour {
     public delegate void SelectComplete();
     public SelectComplete selectComplete;
 
+    /// <summary>
+    /// //////////////  temp block
+    /// </summary>
+    public GameObject t1;
+    public GameObject t2;
+    void SetTurrets()
+    {
+        t1.transform.parent = transform;
+        t2.transform.parent = transform;        //t1.transform.localPosition = new Vector3(2*6*scaleFactor, 4 * scaleFactor, 2*6 * scaleFactor);
+        t1.transform.localPosition = new Vector3(2*6-3, 4 , 2 *6  +3);
+       //t2.transform.localPosition = new Vector3(1*6*scaleFactor, 2*4 * scaleFactor, 2*6 * scaleFactor);
+        t2.transform.localPosition = new Vector3(9 - 3, 2*4 , 9 + 3);
+        t1.transform.parent = transform;
+        t2.transform.parent = transform;
+
+        transform.rotation *= Quaternion.Euler(0, 0, 0);
+    }
+    /// <summary>
+    /// //////////////  temp block
+    /// </summary>
+
+
     void Start () {
 
         transform.localScale = new Vector3(scaleFactor, scaleFactor, scaleFactor);
@@ -167,7 +189,7 @@ public class HomeConstructor : MonoBehaviour {
         wallType = WallType.Door;
         wl[0][new Vector3(3,1,180)].Build();
         
-        st[0][new Vector3(1, 1, 180)].Build();
+        st[0][new Vector3(1, 2, 180)].Build();
         currentLevel = 1;
 
         //fl[1][new Vector2(0, 1)].Build();
@@ -177,20 +199,20 @@ public class HomeConstructor : MonoBehaviour {
 
         buildType = BuildType.Floor;
         fl[1][new Vector2(0, 0)].Build(2);
-        fl[1][new Vector2(1, 0)].Build(2);
+ //       fl[1][new Vector2(1, 0)].Build(2);
         fl[1][new Vector2(0, 1)].Build(2);
        // fl[1][new Vector2(1, 1)].Build(2);
         fl[1][new Vector2(0, 2)].Build(2);
-        fl[1][new Vector2(1, 2)].Build(2);
+        fl[1][new Vector2(1, 1)].Build(2);
         //fl[1][new Vector2(2, 2)].Build(2);
         //fl[1][new Vector2(2, 1)].Build(2);
-        fl[1][new Vector2(2, 0)].Build(2);
+ //       fl[1][new Vector2(2, 0)].Build(2);
 
         buildType = BuildType.Wall;
         wallType = WallType.Wall;
         wl[1][new Vector3(0, -1, 270)].Build();
-        wl[1][new Vector3(1, -1, 270)].Build();
-        wl[1][new Vector3(2, -1, 270)].Build();
+        wl[1][new Vector3(1, 0, 270)].Build();
+ //       wl[1][new Vector3(2, -1, 270)].Build();
         
 
         wl[1][new Vector3(-1, 0, 0)].Build();
@@ -199,14 +221,16 @@ public class HomeConstructor : MonoBehaviour {
 
         wl[1][new Vector3(0, 3, 90)].Build();
         wl[1][new Vector3(1, 3, 90)].Build();
-        wl[1][new Vector3(2, 1, 90)].Build();
+//        wl[1][new Vector3(1, 0, 270)].Build();
 
-        wl[1][new Vector3(3, 0, 180)].Build();
-        wl[1][new Vector3(2, 1, 180)].Build();
+        wl[1][new Vector3(1, 0, 180)].Build();
+        wl[1][new Vector3(2, 2, 180)].Build();
         buildType = BuildType.Wall;
         wallType = WallType.Door;
-        wl[1][new Vector3(2, 2, 180)].Build();
+        wl[1][new Vector3(2, 1, 180)].Build();
 
+        st[1][new Vector3(1, 0, 180)].Build();
+        st[1][new Vector3(1, 0, 180)].obj.transform.position = st[1][new Vector3(1, 0, 180)].obj.transform.position
         /*
         st[1][new Vector3(1, 0, 0)].Build();
 
@@ -222,6 +246,8 @@ public class HomeConstructor : MonoBehaviour {
         //*/
         currentLevel = 0;
         ChangeLevel();
+
+        SetTurrets();
     }
 
     void SetAvailablePoints(int x,int y,int startX,int startY)

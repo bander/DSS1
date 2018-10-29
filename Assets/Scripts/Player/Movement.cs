@@ -218,8 +218,9 @@ public class Movement : MonoBehaviour {
     {
         float ang = GetJoystickAngleRelativeToChar();
         SmoothRotation(ang);
+        transform.rotation = Quaternion.LookRotation(jDir);// Euler(0, ang, 0);
         anim.SetFloat("InputMagnitude", jDir.magnitude);
-        anim.SetFloat("InputAngle", rot);
+        //anim.SetFloat("InputAngle", rot);
         anim.SetFloat("RawInputAngle", ang);
     }
     void MoveInCombat()
