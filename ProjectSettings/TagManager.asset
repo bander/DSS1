@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Ground
   - Floor
+  - Enemy
+  - Canvas
+  - Menu
   layers:
   - Default
   - TransparentFX
@@ -17,9 +20,9 @@ TagManager:
   - 
   - PostProcessing
   - Ground
-  - 
-  - 
-  - 
+  - House
+  - Menu
+  - CamCube
   - 
   - 
   - 

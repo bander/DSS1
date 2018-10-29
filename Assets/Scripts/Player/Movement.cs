@@ -88,6 +88,7 @@ public class Movement : MonoBehaviour {
     Vector3 keyDir;
 
     float rot=0;
+    float rotationSpeed=160;
     string currentClip;
     int moveType;
 
@@ -107,36 +108,70 @@ public class Movement : MonoBehaviour {
         joystick = FindObjectOfType<Joystick>();
         agent = GetComponent<NavMeshAgent>();
         agent.updateRotation = false;
+        agent.updatePosition = true;
 
         onUpdate += MoveDefault;
     }
 
+    public void SetCrouch(bool newCrouch)
+    {
+        activateCombat(3);
+        anim.SetBool("Crouch", newCrouch);
+    }
     public void activateCombat(int type=0)
     {
         if (type == 2) type = 1;
 
         if (type==0)
         {
-            onUpdate = MoveDefault;
             anim.SetBool("InCombat", false);
+            onUpdate = MoveDefault;
         }
         else if(type==1)
         {
+            anim.SetBool("InCombat", true);
             onUpdate = MoveInCombat;
-            anim.SetBool("InCombat", true);
         }
-        else
+        else if (type==2)
         {
-            onUpdate = MoveNavigation;
             anim.SetBool("InCombat", true);
+            onUpdate = MoveNavigation;
 
             agent.destination = target.transform.position;
+        }
+        else if (type == 3)
+        {
+            anim.SetBool("InCombat", false);
+            onUpdate = MoveCrouch;
+        }
+        else if (type == 4)
+        {
+            float dist = (transform.position - target.transform.position).magnitude;
+            Debug.Log("dist "+dist);
+            if (dist < 0.7f)
+            {
+                float angle = Vector3.Angle(transform.forward, target.transform.position - transform.position);
+                Vector3 cross = Vector3.Cross(transform.forward, target.transform.position - transform.position);
+                if (cross.y < 0) angle = -angle;
+
+                anim.SetFloat("PickupAngle", angle);
+                anim.CrossFadeInFixedTime("TurnPickUp", 0.1f, 0, 0);
+                anim.Update(0);
+            }
+            else
+            {
+                anim.SetBool("InCombat", false);
+                agent.destination = target.transform.position;
+                agent.stoppingDistance = 0.5f;
+                onUpdate = MoveToPickup;
+            }
         }
         moveType = type;
     }
 
     void Update() {
         Vector3 cameraForward = new Vector3(Camera.main.transform.forward.x, 0, Camera.main.transform.forward.z).normalized;
+        
         jDir = cameraForward * joystick.Vertical + Camera.main.transform.right * joystick.Horizontal;
         keyDir = cameraForward * Input.GetAxis("Vertical") + Camera.main.transform.right * Input.GetAxis("Horizontal");
         
@@ -146,13 +181,46 @@ public class Movement : MonoBehaviour {
 
        if (onUpdate != null) onUpdate.Invoke();
     }
+    
+    void MoveToPickup()
+    {
+        Vector3 velocity = new Vector3(0, 0, 0);
+        
+        if (AgentStopping())
+        {
+            onUpdate = null;
+
+            anim.SetFloat("InputMagnitude", 0);
+            anim.SetFloat("PickupAngle", 0);
+            anim.CrossFadeInFixedTime("TurnPickUp", 0.1f, 0, 0);
+            anim.Update(0);
+            return;
+        }
+        
+
+
+        float angle = Vector3.Angle(transform.forward, agent.desiredVelocity);// jDir);
+        Vector3 cross = Vector3.Cross(transform.forward, agent.desiredVelocity);// jDir);
+        if (cross.y < 0) angle = -angle;
+
+        SmoothRotation(angle);
+        anim.SetFloat("InputMagnitude", Mathf.Min(agent.desiredVelocity.magnitude, 0.69f));// 0.69f);
+        anim.SetFloat("InputAngle", rot);
+        anim.SetFloat("RawInputAngle", angle);
+    }
+
+
+    
+
+
 
     void MoveDefault()
     {
         float ang = GetJoystickAngleRelativeToChar();
         SmoothRotation(ang);
+        transform.rotation = Quaternion.LookRotation(jDir);// Euler(0, ang, 0);
         anim.SetFloat("InputMagnitude", jDir.magnitude);
-        anim.SetFloat("InputAngle", rot);
+        //anim.SetFloat("InputAngle", rot);
         anim.SetFloat("RawInputAngle", ang);
     }
     void MoveInCombat()
@@ -165,6 +233,12 @@ public class Movement : MonoBehaviour {
         anim.SetFloat("Z", strafeDirection.z);
 
         anim.SetBool("Shooting", RotateToEnemy());
+    }
+    void MoveCrouch()
+    {
+        Quaternion rotateTo = Quaternion.LookRotation(jDir);
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, rotateTo, Time.deltaTime * rotationSpeed);
+        anim.SetFloat("InputMagnitude", jDir.magnitude);
     }
     void MoveNavigation()
     {
@@ -206,8 +280,8 @@ public class Movement : MonoBehaviour {
     }
     void CheckAnimStates(float ang)
     {
-        AnimatorStateInfo nexttate = anim.GetNextAnimatorStateInfo(0);
-        if (nexttate.IsName("RunFwdStart"))
+        AnimatorStateInfo nextState = anim.GetNextAnimatorStateInfo(0);
+        if (nextState.IsName("RunFwdStart"))
         {
 
         }
@@ -230,9 +304,7 @@ public class Movement : MonoBehaviour {
     }
     protected bool AgentStopping()
     {
-        //Debug.Log(agent.remainingDistance+"  ---  "+ agent.stoppingDistance);
         return agent.remainingDistance <= agent.stoppingDistance;
-        
     }
 
     void RotationNavigate()

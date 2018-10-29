@@ -55,13 +55,12 @@ public class ShootScript : MonoBehaviour {
         if (effect != null) Instantiate(effect, muzzle.transform);
         if(clip!=null) audio.PlayOneShot(clip);
         if (enemy != null && CheckDistToEnemy(enemy)) enemy.GetComponent<EnemyStats>().TakeDamage(GetComponent<PlayerStats>().damage.GetValue());
-        Debug.Log("HIT " + CheckDistToEnemy(enemy));
+        
     } 
     bool CheckDistToEnemy(GameObject enemy)
     {
         float dist = (transform.position - enemy.transform.position).magnitude;
         CharacterStats enemyStats = enemy.GetComponent<CharacterStats>();
-        Debug.Log("ff "+ dist +" "+(fireDist + 0.5f)+" "+ !enemyStats.dead);
         if (dist < (fireDist+0.5f) && !enemyStats.dead) return true;
         return false;
     }

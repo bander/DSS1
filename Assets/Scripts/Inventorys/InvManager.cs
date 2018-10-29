@@ -22,10 +22,11 @@ public class InvManager : MonoBehaviour {
     public Item tm2;
 
     public List<Invent> invents = new List<Invent>();
-
-
+    
     public delegate void OnInvChanged();
     public OnInvChanged OnInvChangedCallback;
+
+    public Item trashPrefab;
 
     void Start()
     {
@@ -48,6 +49,9 @@ public class InvManager : MonoBehaviour {
         playerInvs.SetNum(0);
         EquipInvs.SetNum(1);
         lootInvs.SetNum(2);
+
+        trashPrefab.countInSlot = 16;
+        invents[0].Add(trashPrefab);
     }
     public void SetBackpack(bool act = true)
     {

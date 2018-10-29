@@ -84,6 +84,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4965216285500640}
+  - component: {fileID: 114959354009372784}
+  - component: {fileID: 114176202556893524}
   m_Layer: 0
   m_Name: Wall_Window_Long_04_1M_Split
   m_TagString: Untagged
@@ -407,3 +409,25 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.91381264, y: 0.25464678, z: 1.9909868}
   m_Center: {x: -1.2026956, y: 0.1287725, z: -1.0047784}
+--- !u!114 &114176202556893524
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1332462934176428}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11860926615a46d4c81c2e39b31fc85a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114959354009372784
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1332462934176428}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d61cde570e20ca4499c99ee5800f362, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
