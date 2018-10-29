@@ -230,7 +230,7 @@ public class HomeConstructor : MonoBehaviour {
         wl[1][new Vector3(2, 1, 180)].Build();
 
         st[1][new Vector3(1, 0, 180)].Build();
-        st[1][new Vector3(1, 0, 180)].obj.transform.position = st[1][new Vector3(1, 0, 180)].obj.transform.position
+       // st[1][new Vector3(1, 0, 180)].obj.transform.position = st[1][new Vector3(1, 0, 180)].obj.transform.position
         /*
         st[1][new Vector3(1, 0, 0)].Build();
 
