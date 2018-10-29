@@ -9,7 +9,7 @@ public class BotAnimator1 : MonoBehaviour {
     NavMeshAgent agent;
     Animator anim;
 
-    public AudioSource source;
+    AudioSource source;
     public AudioClip[] steps;
     public AudioClip shots;
     bool currentStep;
@@ -20,8 +20,12 @@ public class BotAnimator1 : MonoBehaviour {
 
     public Transform[] muzzleTransform;
 
-    float fireInterval = 0.2f;
+    float fireInterval = 1.5f;
+    float fireInterval2 = 0.1f;
     float timeFire;
+    float timeFire2;
+    int shotsInTime = 7;
+    int shotsIn;
 
     void Start () {
         agent = GetComponent<NavMeshAgent>();
@@ -51,9 +55,22 @@ public class BotAnimator1 : MonoBehaviour {
         if (timeFire>fireInterval)
         {
             timeFire = 0;
+            ShotPre();
+            //Shot();
+        }
+        timeFire2 += Time.deltaTime;
+        if(shotsIn<shotsInTime)
+        if (timeFire2 > fireInterval2 )
+        {
+            timeFire2 = 0;
             Shot();
         }
-	}
+
+        muzzleTransform[0].LookAt(targetShoot);
+        Quaternion q = muzzleTransform[0].rotation * Quaternion.Euler(13-shotsIn*2.5f, 0, 0);
+        Vector3 dir = q*Vector3.forward;
+        //Debug.DrawLine(muzzleTransform[0].position, muzzleTransform[0].position + dir* 10);
+    }
 
     public void _AudioStep()
     {
@@ -62,11 +79,30 @@ public class BotAnimator1 : MonoBehaviour {
         source.PlayOneShot(steps[step]);
     }
 
-    void Shot()
+    void ShotPre()
     {
         currentShot = !currentShot;
+        shotsIn = 0;
+    }
+    void Shot()
+    {
+        shotsIn++;
         int n = (currentShot) ? 0 : 1;
         Instantiate(muzzles, muzzleTransform[n].position, muzzleTransform[n].rotation);
+
+
+        muzzleTransform[0].LookAt(targetShoot);
+        Quaternion q = muzzleTransform[0].rotation * Quaternion.Euler(9 - shotsIn * 1.5f, 0, 0);
+        Vector3 dir = q * Vector3.forward;
+        //Debug.DrawLine(muzzleTransform[0].position, muzzleTransform[0].position + dir * 10);
+        Ray r = new Ray(muzzleTransform[0].position,dir);
+        RaycastHit hit;
+        if (Physics.Raycast(r, out hit, 100))
+        {
+            Instantiate(impacts, hit.point, Quaternion.Euler(-90, 0, 0));
+        }
+
+
         /*
         GameObject trail=Instantiate(trails, muzzleTransform[n].position, muzzleTransform[n].rotation);
         GameObject bullet = Instantiate(bulletPrefab, muzzleTransform[n].position, muzzleTransform[n].rotation);
