@@ -86,19 +86,20 @@ public class HomeConstructor : MonoBehaviour {
     /// <summary>
     /// //////////////  temp block
     /// </summary>
-    public GameObject t1;
-    public GameObject t2;
-    void SetTurrets()
-    {
-        t1.transform.parent = transform;
-        t2.transform.parent = transform;        //t1.transform.localPosition = new Vector3(2*6*scaleFactor, 4 * scaleFactor, 2*6 * scaleFactor);
-        t1.transform.localPosition = new Vector3(2*6-3, 4 , 2 *6  +3);
-       //t2.transform.localPosition = new Vector3(1*6*scaleFactor, 2*4 * scaleFactor, 2*6 * scaleFactor);
-        t2.transform.localPosition = new Vector3(9 - 3, 2*4 , 9 + 3);
-        t1.transform.parent = transform;
-        t2.transform.parent = transform;
+     public GameObject t1;
+     public GameObject t2;
+     void SetTurrets()
+     {
+        /*  t1.transform.parent = transform;
+          t2.transform.parent = transform;        //t1.transform.localPosition = new Vector3(2*6*scaleFactor, 4 * scaleFactor, 2*6 * scaleFactor);
+          t1.transform.localPosition = new Vector3(2*6-3, 4 , 2 *6  +3);
+         //t2.transform.localPosition = new Vector3(1*6*scaleFactor, 2*4 * scaleFactor, 2*6 * scaleFactor);
+          t2.transform.localPosition = new Vector3(9 - 3, 2*4 , 9 + 3);
+          t1.transform.parent = transform;
+          t2.transform.parent = transform;
 
-        transform.rotation *= Quaternion.Euler(0, 0, 0);
+          transform.rotation *= Quaternion.Euler(0, 0, 0);
+      //*/
     }
     /// <summary>
     /// //////////////  temp block

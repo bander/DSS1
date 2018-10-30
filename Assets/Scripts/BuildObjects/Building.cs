@@ -136,7 +136,6 @@ public class Building
 
     void Isolate()
     {
-        Debug.Log(" bui " + this.GetHashCode() + " " + isolated);
         if (!isolated)
         {
             isolated = true;
@@ -146,7 +145,6 @@ public class Building
     }
     void CreateNextLevelFloorPositions()
     {
-        Debug.Log("rr  isolate="+GetHashCode() );
         foreach (TileObject t in tiles)//home.fl[level].Values)
         {
             if (t.state > 0)

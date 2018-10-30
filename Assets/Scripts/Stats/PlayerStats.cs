@@ -9,7 +9,7 @@ public class PlayerStats : CharacterStats {
 
     public delegate void OnStatsUpdate();
     public OnStatsUpdate onStatsUpdate;
-    int weaponNum;
+    int weaponNum=-1;
     Equipment weapon;
     public int WepaonNum { get { return weaponNum; } }
     public Equipment Wepaon { get { return weapon; } }
