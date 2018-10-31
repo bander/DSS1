@@ -97,6 +97,8 @@ public class CanvasController : MonoBehaviour {
 
     public void ShowInventory()
     {
+        if (PlayerManager.instance.demo) return;
+
         closeAll();
         inventoryUI.SetActive(true);
         equipUI.SetActive(true);
@@ -112,6 +114,8 @@ public class CanvasController : MonoBehaviour {
     }
     public void ShowHomeConstructor()
     {
+        if (PlayerManager.instance.demo) return;
+
         closeAll();
         //BuildUI.SetActive(true);
         //updateBuildButtonsActivity();

@@ -53,6 +53,9 @@ public class StairObject : ConstructObject
             case TileType.Turret:
                 buildMesh = 7;
                 break;
+            case TileType.StairWall:
+                buildMesh = 8;
+                break;
         }
 
         base.Build(buildMesh);

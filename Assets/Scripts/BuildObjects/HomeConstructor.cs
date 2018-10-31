@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.EventSystems;
+using DG.Tweening;
 
 public class HomeConstructor : MonoBehaviour {
     #region Singleton
@@ -18,30 +19,30 @@ public class HomeConstructor : MonoBehaviour {
     //List<Vector3> availablePoints = new List<Vector3>();
     public TempPrefabsArray[] tempFabs;
 
-    public List<ConstructObject> tempObjects=new List<ConstructObject>();
-    public List<ConstructObject> toBeDestroyedObjects=new List<ConstructObject>();
+    public List<ConstructObject> tempObjects = new List<ConstructObject>();
+    public List<ConstructObject> toBeDestroyedObjects = new List<ConstructObject>();
 
     public NavMeshSurface surface;
     public NavMeshModifierVolume modifier;
-    
-    Dictionary<Vector2, int>[] ob = new Dictionary<Vector2, int>[3] { new Dictionary<Vector2, int>(), new Dictionary<Vector2, int>(), new Dictionary<Vector2, int>()};
+
+    Dictionary<Vector2, int>[] ob = new Dictionary<Vector2, int>[3] { new Dictionary<Vector2, int>(), new Dictionary<Vector2, int>(), new Dictionary<Vector2, int>() };
     public Dictionary<Vector2, TileObject>[] fl = new Dictionary<Vector2, TileObject>[3] { new Dictionary<Vector2, TileObject>(), new Dictionary<Vector2, TileObject>(), new Dictionary<Vector2, TileObject>() };
-    public Dictionary<Vector3, WallObject>[] wl = new Dictionary<Vector3, WallObject>[3] { new Dictionary<Vector3, WallObject>(),new Dictionary<Vector3, WallObject>(),new Dictionary<Vector3, WallObject>()};
+    public Dictionary<Vector3, WallObject>[] wl = new Dictionary<Vector3, WallObject>[3] { new Dictionary<Vector3, WallObject>(), new Dictionary<Vector3, WallObject>(), new Dictionary<Vector3, WallObject>() };
     //Dictionary<Vector3, int>[] wl = new Dictionary<Vector3, int>[3] { new Dictionary<Vector3, int>(),new Dictionary<Vector3, int>(),new Dictionary<Vector3, int>()};
-    public Dictionary<Vector3, CornerObject>[] cr = new Dictionary<Vector3, CornerObject>[3] { new Dictionary<Vector3, CornerObject>(),new Dictionary<Vector3, CornerObject>(),new Dictionary<Vector3, CornerObject>() };
-    public Dictionary<Vector3, StairObject>[] st = new Dictionary<Vector3, StairObject>[3]{ new Dictionary<Vector3, StairObject>(),new Dictionary<Vector3, StairObject>(), new Dictionary<Vector3, StairObject>() };
-    public Dictionary<Vector3, StairObject>[] tr = new Dictionary<Vector3, StairObject>[3]{ new Dictionary<Vector3, StairObject>(),new Dictionary<Vector3, StairObject>(), new Dictionary<Vector3, StairObject>() };
+    public Dictionary<Vector3, CornerObject>[] cr = new Dictionary<Vector3, CornerObject>[3] { new Dictionary<Vector3, CornerObject>(), new Dictionary<Vector3, CornerObject>(), new Dictionary<Vector3, CornerObject>() };
+    public Dictionary<Vector3, StairObject>[] st = new Dictionary<Vector3, StairObject>[3] { new Dictionary<Vector3, StairObject>(), new Dictionary<Vector3, StairObject>(), new Dictionary<Vector3, StairObject>() };
+    public Dictionary<Vector3, StairObject>[] tr = new Dictionary<Vector3, StairObject>[3] { new Dictionary<Vector3, StairObject>(), new Dictionary<Vector3, StairObject>(), new Dictionary<Vector3, StairObject>() };
     //Dictionary<Vector3, int>[] st = new Dictionary<Vector3, int>[3]{ new Dictionary<Vector3, int>(),new Dictionary<Vector3, int>(), new Dictionary<Vector3, int>() };
-    Dictionary<Vector3, int>[] wlCuts = new Dictionary<Vector3, int>[3] { new Dictionary<Vector3, int>(),new Dictionary<Vector3, int>(),new Dictionary<Vector3, int>()};
+    Dictionary<Vector3, int>[] wlCuts = new Dictionary<Vector3, int>[3] { new Dictionary<Vector3, int>(), new Dictionary<Vector3, int>(), new Dictionary<Vector3, int>() };
 
-    public List<Building>[] buildings = new List<Building>[3] { new List<Building>(),new List<Building>(),new List<Building>(), };
+    public List<Building>[] buildings = new List<Building>[3] { new List<Building>(), new List<Building>(), new List<Building>(), };
 
-    Dictionary<Vector3, GameObject>[] wlComplete = new Dictionary<Vector3, GameObject>[3] { new Dictionary<Vector3, GameObject>(),new Dictionary<Vector3, GameObject>(),new Dictionary<Vector3, GameObject>()};
-    Dictionary<Vector3, GameObject>[] crComplete = new Dictionary<Vector3, GameObject>[3] { new Dictionary<Vector3, GameObject>(),new Dictionary<Vector3, GameObject>(),new Dictionary<Vector3, GameObject>() };
+    Dictionary<Vector3, GameObject>[] wlComplete = new Dictionary<Vector3, GameObject>[3] { new Dictionary<Vector3, GameObject>(), new Dictionary<Vector3, GameObject>(), new Dictionary<Vector3, GameObject>() };
+    Dictionary<Vector3, GameObject>[] crComplete = new Dictionary<Vector3, GameObject>[3] { new Dictionary<Vector3, GameObject>(), new Dictionary<Vector3, GameObject>(), new Dictionary<Vector3, GameObject>() };
     Dictionary<Vector3, GameObject>[] stComplete = new Dictionary<Vector3, GameObject>[3] { new Dictionary<Vector3, GameObject>(), new Dictionary<Vector3, GameObject>(), new Dictionary<Vector3, GameObject>() };
-    
+
     List<GameObject> constructs = new List<GameObject>();
-    
+
     public float scaleFactor = 0.75f;
 
     public GameObject floorConstruct;
@@ -65,7 +66,7 @@ public class HomeConstructor : MonoBehaviour {
     GameObject currentPrefab;
     GameObject currentFillPrefab;
     int currentRotation;
-    
+
     ConstructObject select;
     public BuildType buildType { get; protected set; }
     public WallType wallType { get; protected set; }
@@ -86,10 +87,10 @@ public class HomeConstructor : MonoBehaviour {
     /// <summary>
     /// //////////////  temp block
     /// </summary>
-     public GameObject t1;
-     public GameObject t2;
-     void SetTurrets()
-     {
+    public GameObject t1;
+    public GameObject t2;
+    void SetTurrets()
+    {
         /*  t1.transform.parent = transform;
           t2.transform.parent = transform;        //t1.transform.localPosition = new Vector3(2*6*scaleFactor, 4 * scaleFactor, 2*6 * scaleFactor);
           t1.transform.localPosition = new Vector3(2*6-3, 4 , 2 *6  +3);
@@ -106,10 +107,90 @@ public class HomeConstructor : MonoBehaviour {
     /// </summary>
 
 
+    ///////////////////////////////////
+    int step = 0;
+    bool stepping = false;
+    float[] times = new float[75]{1f,1.2f,0.5f, 0.4f, 0.3f,   //5
+                                  0.1f,0.1f,0.1f, 0.1f, 0.1f,   //10
+                                  0.2f,0.2f,0.2f, 0.2f, 0.2f,   //15
+                                  0.1f,0.1f,0.1f, 0.1f, 0.2f,   //20
+                                  0.2f,0.2f,0.2f, 0.2f, 0.2f,   //25
+                                  0.2f,0.2f,0.2f, 0.5f, 0.5f,   //30
+                                  1.5f,1.5f,0.6f, 0.6f, 0.5f,   //35
+                           //       0.1f,0.1f,0.6f, 0.6f, 0.5f,   //35
+                                  1.2f,0.4f,0.1f, 0.1f, 0.1f,   //40
+                                  0.2f,0.2f,0.1f, 0.1f, 0.1f,   //45
+                                  0.2f,0.2f,0.2f, 0.2f, 0.2f,   //50
+                                  0.2f,0.2f,0.2f, 0.2f, 0.2f,   //55
+                                  0.5f,0.4f,0.4f, 0.2f, 0.2f,    //60
+                                  0.5f,0.5f,0.5f, 0.5f, 0.5f,    //65
+                                  0.5f,0.5f,0.5f, 0.5f, 0.5f,   //70
+                                  0.5f,0.5f,0.5f, 0.5f, 1.5f,   //75
+                                  };
+    float timer = 0;
+    public GameObject game2;
+    public bool SCENECONSTRUCT = false;
+    void UpdateScene()
+    {
+        if (!SCENECONSTRUCT) return;
+        
+        game2.transform.position = new Vector3(-3.17f, 0.03f, -40);
+        /////////////
+
+        if (step < times.Length)
+        {
+            timer += Time.deltaTime;
+            if (timer > times[step])
+            {
+                timer = 0;
+                step++;
+                TestBuilding();
+                TestB3();
+            }
+        }
+
+        if (!stepping) return;
+        stepping = false;
+
+        step++;
+        TestBuilding();
+        TestB3();
+    }
+    public CameraControl cc;
+    void cameraMoveTo(Vector3 pos,float time,Ease es)
+    {
+        pos = pos + new Vector3(0, 0, 5);
+        cc.constructMode = true;
+        es = Ease.InOutCubic;
+        cc.transform.DOLocalMove(pos, time).SetEase(es);// Ease.InOutCubic);
+    }
+
+    public GameObject[] bb;
+    public GameObject[] pp;
+    void actbb(int n)
+    {
+        if (n<5)
+        {
+            pp[0].SetActive(true);
+            pp[1].SetActive(false);
+        }
+        else
+        {
+            pp[1].SetActive(true);
+            pp[0].SetActive(false);
+        }
+        foreach (GameObject rr in bb)
+        {
+            rr.SetActive(false);
+        }
+        bb[n].SetActive(true);
+    }
+        ///////////////////////////////////
+
     void Start () {
 
         transform.localScale = new Vector3(scaleFactor, scaleFactor, scaleFactor);
-        SetAvailablePoints(8,5,-2,-1);
+        SetAvailablePoints(4,4,-2,-1);
 
         selectObj = SelectFloor;
         clearObj = ClearFloor;
@@ -119,8 +200,11 @@ public class HomeConstructor : MonoBehaviour {
 
         //ShowAvailableFloors();
         TestBuilding();
-	}
 
+
+    }
+
+    public HomeConstrPanel hcp;
     void TestBuildingLow()
     {
         fl[0][new Vector2(0, 0)].Build(2);
@@ -160,6 +244,239 @@ public class HomeConstructor : MonoBehaviour {
     }
     void TestBuilding()
     {
+        switch (step)
+        {
+            case 1:
+//                cameraMoveTo(new Vector3(11.25f, 14.25f, -7.5f), 0.1f, Ease.Linear);
+                CanvasController.instance.ShowHomeConstructor();
+                ShowAvailableFloors();
+
+                cameraMoveTo(new Vector3(11.25f, 11.25f, 1.5f),0.7f,Ease.InOutExpo);
+                actbb(0);
+                break;
+            case 2:
+//                cameraMoveTo(new Vector3(11.25f, 14.25f, 16.5f), 15f,Ease.Linear);
+                fl[0][new Vector2(0, 0)].Build(2);
+                break;
+            case 3:
+                fl[0][new Vector2(1, 0)].Build(2);
+                break;
+            case 4:
+                fl[0][new Vector2(0, 1)].Build(2);
+                break;
+            case 5:
+                fl[0][new Vector2(1, 1)].Build(2);
+                break;
+            case 6:
+                fl[0][new Vector2(0, 2)].Build(2);
+                break;
+            case 7:
+                fl[0][new Vector2(1, 2)].Build(2);
+                break;
+            case 8:
+                fl[0][new Vector2(2, 2)].Build(2);
+                break;
+            case 9:
+                fl[0][new Vector2(2, 1)].Build(2);
+                break;
+            case 10:
+                fl[0][new Vector2(2, 0)].Build(2);
+                break;
+            case 11:
+                actbb(1);
+                ShowAvailableWalls();
+                buildType = BuildType.Wall;
+                wallType = WallType.Wall;
+                break;
+            case 12:
+                wl[0][new Vector3(-1, 1, 0)].Build();
+                break;
+            case 13:
+                actbb(2);
+                wallType = WallType.SmallWindow;
+                break;
+            case 14:
+                wl[0][new Vector3(-1, 0, 0)].Build();
+                break;
+            case 15:
+                wl[0][new Vector3(-1, 2, 0)].Build();
+                break;
+            case 16:
+                actbb(1);
+                wallType = WallType.Wall;
+                break;
+            case 17:
+                wl[0][new Vector3(0, 3, 90)].Build();
+                break;
+            case 18:
+                wl[0][new Vector3(1, 3, 90)].Build();
+                break;
+            case 19:
+                wl[0][new Vector3(2, 3, 90)].Build();
+                break;
+            case 20:
+                wl[0][new Vector3(0, -1, 270)].Build();
+                break;
+            case 21:
+                actbb(3);
+                wallType = WallType.BigWindow;
+                break;
+            case 22:
+                wl[0][new Vector3(1, -1, 270)].Build();
+                break;
+            case 23:
+                actbb(1);
+                wallType = WallType.Wall;
+                break;
+            case 24:
+                wl[0][new Vector3(2, -1, 270)].Build();
+                break;
+            case 25:
+                actbb(3);
+                wallType = WallType.BigWindow;
+                break;
+            case 26:
+                wl[0][new Vector3(3, 2, 180)].Build();
+                break;
+            case 27:
+                wl[0][new Vector3(3, 0, 180)].Build();
+                break;
+            case 28:
+                actbb(3);
+                wallType = WallType.Door;
+                break;
+            case 29:
+                wl[0][new Vector3(3, 1, 180)].Build();
+                break;
+            case 30:
+                cameraMoveTo(new Vector3(2.25f, 11.25f, -6.5f), 1.2f, Ease.InOutExpo);
+                break;
+            case 31:
+                cameraMoveTo(new Vector3(11.25f, 11.25f, 1.5f), 0.7f, Ease.InOutExpo);
+                break;
+            case 32:
+                currentLevel = 0;
+                ChangeLevel();
+                actbb(4);
+
+                buildType = BuildType.OnFloor;
+                tileType = TileType.Stair;
+
+                ShowAvailableStairs();
+                break;
+            case 33:
+                RotatePositive();
+                break;
+            case 34:
+                RotatePositive();
+                break;
+            case 35:
+                st[0][new Vector3(1, 2, 180)].Build();
+                RemoveAllPoints();
+                break;
+            case 36:
+                currentLevel = 1;
+                ChangeLevel();
+                cameraMoveTo(new Vector3(8.25f, 15.25f, 6.5f), 0.7f, Ease.InOutExpo);
+                break;
+            case 37:
+                actbb(0);
+
+                buildType = BuildType.Floor;
+                tileType = TileType.Floor;
+                ShowAvailableFloors();
+                break;
+            case 38:
+                fl[1][new Vector2(0, 2)].Build(2);
+                break;
+            case 39:
+                fl[1][new Vector2(0, 1)].Build(2);
+                break;
+            case 40:
+                fl[1][new Vector2(1, 1)].Build(2);
+                break;
+            case 41:
+                actbb(2);
+                buildType = BuildType.Wall;
+                wallType = WallType.SmallWindow;
+                ShowAvailableWalls();
+                break;
+            case 42:
+                wl[1][new Vector3(-1, 1, 0)].Build();
+                break;
+            case 43:
+                wl[1][new Vector3(-1, 2, 0)].Build();
+                break;
+            case 44:
+                actbb(1);
+                wallType = WallType.Wall;
+                break;
+            case 45:
+                wl[1][new Vector3(0, 3, 90)].Build();
+                break;
+            case 46:
+                wl[1][new Vector3(1, 3, 90)].Build();
+                break;
+            case 47:
+                actbb(3);
+                wallType = WallType.BigWindow;
+                break;
+            case 48:
+                wl[1][new Vector3(2, 2, 180)].Build();
+                break;
+            case 49:
+                actbb(4);
+                wallType = WallType.Door;
+                break;
+            case 50:
+                wl[1][new Vector3(2, 1, 180)].Build();
+                break;
+            case 51:
+                actbb(3);
+                wallType = WallType.BigWindow;
+                break;
+            case 52:
+                wl[1][new Vector3(1, 0, 270)].Build();
+                break;
+            case 53:
+                actbb(2);
+                wallType = WallType.SmallWindow;
+                break;
+            case 54:
+                wl[1][new Vector3(0, 0, 270)].Build();
+                break;
+            case 55:
+                actbb(5);
+                buildType = BuildType.OnFloor;
+                tileType = TileType.StairWall;
+                ShowAvailableStairs();
+                break;
+            case 56:
+                RotatePositive();
+                break;
+            case 57:
+                st[1][new Vector3(0, 0, 270)].Build();
+                RemoveAllPoints();
+                st[1][new Vector3(0, 0, 270)].obj.transform.position = st[1][new Vector3(0, 0, 270)].obj.transform.position + new Vector3(1, 0, -1.2f);
+                break;
+            case 58:
+                currentLevel = 1;
+                ChangeLevel();
+
+                break;
+            case 64:
+                currentLevel = 0;
+                ChangeLevel();
+                cameraMoveTo(new Vector3(8.25f, 11.25f, 1.5f), 0.7f, Ease.InOutExpo);
+
+                break;
+            case 75:
+                cc.constructMode = false;
+                hcp.CloseButton();
+                break;
+        }
+
+        /*
         fl[0][new Vector2(0, 0)].Build(2);
         fl[0][new Vector2(1, 0)].Build(2);
         fl[0][new Vector2(0, 1)].Build(2);
@@ -192,28 +509,20 @@ public class HomeConstructor : MonoBehaviour {
         
         st[0][new Vector3(1, 2, 180)].Build();
         currentLevel = 1;
-
-        //fl[1][new Vector2(0, 1)].Build();
-        //fl[1][new Vector2(2, 2)].Build();
-        //wl[1][new Vector3(1, 2, 0)].Build();
-
-
+        
         buildType = BuildType.Floor;
         fl[1][new Vector2(0, 0)].Build(2);
- //       fl[1][new Vector2(1, 0)].Build(2);
         fl[1][new Vector2(0, 1)].Build(2);
-       // fl[1][new Vector2(1, 1)].Build(2);
+
         fl[1][new Vector2(0, 2)].Build(2);
         fl[1][new Vector2(1, 1)].Build(2);
-        //fl[1][new Vector2(2, 2)].Build(2);
-        //fl[1][new Vector2(2, 1)].Build(2);
- //       fl[1][new Vector2(2, 0)].Build(2);
+
 
         buildType = BuildType.Wall;
         wallType = WallType.Wall;
         wl[1][new Vector3(0, -1, 270)].Build();
         wl[1][new Vector3(1, 0, 270)].Build();
- //       wl[1][new Vector3(2, -1, 270)].Build();
+
         
 
         wl[1][new Vector3(-1, 0, 0)].Build();
@@ -222,7 +531,7 @@ public class HomeConstructor : MonoBehaviour {
 
         wl[1][new Vector3(0, 3, 90)].Build();
         wl[1][new Vector3(1, 3, 90)].Build();
-//        wl[1][new Vector3(1, 0, 270)].Build();
+
 
         wl[1][new Vector3(1, 0, 180)].Build();
         wl[1][new Vector3(2, 2, 180)].Build();
@@ -231,24 +540,34 @@ public class HomeConstructor : MonoBehaviour {
         wl[1][new Vector3(2, 1, 180)].Build();
 
         st[1][new Vector3(1, 0, 180)].Build();
-       // st[1][new Vector3(1, 0, 180)].obj.transform.position = st[1][new Vector3(1, 0, 180)].obj.transform.position
-        /*
-        st[1][new Vector3(1, 0, 0)].Build();
 
-        currentLevel = 2;
-
-        buildType = 0;
-        fl[2][new Vector2(0, 0)].Build(2);
-        buildType = 1;
-
-        wl[2][new Vector3(0, -1, 270)].Build();
-
-        wl[2][new Vector3(-1, 0, 0)].Build();
-        //*/
         currentLevel = 0;
         ChangeLevel();
+        //*/
 
-        SetTurrets();
+//        SetTurrets();
+    }
+
+    List<GameObject>[] floorsGo = new List<GameObject>[2] { new List<GameObject>(), new List<GameObject>() };
+    public ObjectsToConstruct[] otc;
+    void TestB3()
+    {
+        if (step < 59) return;
+        if (step > 58+otc.Length) return;
+        
+        ObjectsToConstruct o = otc[step - 59];
+        Quaternion q =Quaternion.Euler(o.rot.x, o.rot.y, o.rot.z);
+        o.pos+= new Vector3(0, 0, 5);
+        GameObject gob = Instantiate(o.go,o.pos, q);
+        gob.transform.localScale = o.scal;
+        if (step-59>4) {
+            floorsGo[0].Add(gob);
+        }
+        else
+        {
+            floorsGo[1].Add(gob);
+        }
+        
     }
 
     void SetAvailablePoints(int x,int y,int startX,int startY)
@@ -560,6 +879,22 @@ public class HomeConstructor : MonoBehaviour {
         //if (oldLevel == currentLevel) return;
         oldLevel = currentLevel;
 
+        if (oldLevel == 0)
+        {
+            foreach (GameObject gg in floorsGo[1])
+            {
+                gg.SetActive(false);
+            }
+        }
+        else
+        {
+            foreach (GameObject gg in floorsGo[1])
+            {
+                gg.SetActive(true);
+            }
+        }
+
+
         int i = 0;
         while (i< fl.Length)
         {
@@ -626,7 +961,6 @@ public class HomeConstructor : MonoBehaviour {
             }
             i++;
         }
-
         /*
         if (currentLevel == 0)
         {
@@ -772,8 +1106,28 @@ public class HomeConstructor : MonoBehaviour {
         //*/
     }
 
+    void speedBuild()
+    {
+        for(int i = 0; i < 57; i++)
+        {
+            step++;
+            TestBuilding();
+        }
+    }
     void Update ()
     {
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
+            speedBuild();
+            //BuildObject();
+        }
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            stepping = true;
+            //BuildObject();
+        }
+        UpdateScene();
+
         if (Input.GetKeyDown(KeyCode.U))
         {
             wl[1][new Vector3(0, -1, 270)].HideHalf();
@@ -798,10 +1152,6 @@ public class HomeConstructor : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.B))
         {
             SetBuildType(BuildType.Floor, 0);
-        }
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            BuildObject();
         }
         if (Input.GetKeyDown(KeyCode.N))
         {
@@ -2297,7 +2647,7 @@ public class Building
 
 public enum BuildType { Floor,Wall,OnFloor};
 public enum WallType { Wall,SmallWindow,BigWindow,Door};
-public enum TileType { Floor,Stair,Turret};
+public enum TileType { Floor,Stair,Turret,StairWall};
 
 [System.Serializable]
 public class TempPrefabsArray

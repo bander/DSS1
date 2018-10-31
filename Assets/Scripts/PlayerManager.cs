@@ -16,6 +16,8 @@ public class PlayerManager : MonoBehaviour {
     #endregion 
 
     public GameObject player;
+    public bool demo = true;
+
 
     public void KillPlayer()
     {
