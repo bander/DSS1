@@ -78,8 +78,7 @@ public class Movement : MonoBehaviour {
 
 //*/
 
-
-
+        
     Animator anim;
     Joystick joystick;
     NavMeshAgent agent;
@@ -99,6 +98,9 @@ public class Movement : MonoBehaviour {
     public OnArrived onArrived;
 
     GameObject target;
+
+    public GameObject navLocal;
+
     public GameObject SetTarget {
         set{ target = value; } }
 
@@ -169,7 +171,81 @@ public class Movement : MonoBehaviour {
         moveType = type;
     }
 
+    bool demo = true;
+    bool comb=false;
+    public GameObject[] trashEnemy;
+    int currentE = 0;
+    void TrashForDemo()
+    {
+        if (!demo) return;
+
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            anim.SetFloat("WeaponNumber", 2);
+            anim.SetInteger("WeaponType", 2);
+            activateCombat(1);
+            comb = true;
+        }
+        if (Input.GetKeyUp(KeyCode.LeftShift))
+        {
+            anim.SetFloat("WeaponNumber", -1);
+            anim.SetInteger("WeaponType", -1);
+            activateCombat(0);
+            comb = false;
+        }
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            anim.SetTrigger("Shoot");
+            //trashEnemy[currentE].GetComponent<EnemyDemoScene>().Death();
+            trashShoot();
+
+            if (currentE == trashEnemy.Length)
+            {
+                demo = false;
+                return;
+            }
+            //currentE++;
+        }
+
+        if (!comb) return;
+
+        transform.LookAt(trashEnemy[currentE].transform);
+    }
+
+    public GameObject muzTr;
+    public GameObject bull;
+    public GameObject muz;
+    public GameObject tra;
+    public GameObject imp;
+    public AudioClip aud;
+    public float speed;
+    void trashShoot()
+    {
+        if (muz != null)
+        {
+            Instantiate(muz, muzTr.transform.position, muzTr.transform.rotation);
+        }
+        if (aud != null)
+        {
+            GetComponent<AudioSource>().PlayOneShot(aud);
+        }
+        if(tra!=null || imp != null)
+        {
+            GameObject go = Instantiate(bull, muzTr.transform.position, muzTr.transform.rotation);
+            go.GetComponent<BulletDemo>().SET(speed,trashEnemy[currentE],tra,imp);
+        }
+    }
+
+
     void Update() {
+        TrashForDemo();
+
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            // trash = !trash;
+            // navLocal.SetActive(trash);
+        }
+
         Vector3 cameraForward = new Vector3(Camera.main.transform.forward.x, 0, Camera.main.transform.forward.z).normalized;
         
         jDir = cameraForward * joystick.Vertical + Camera.main.transform.right * joystick.Horizontal;
@@ -181,6 +257,8 @@ public class Movement : MonoBehaviour {
 
        if (onUpdate != null) onUpdate.Invoke();
     }
+
+
     
     void MoveToPickup()
     {
@@ -191,8 +269,8 @@ public class Movement : MonoBehaviour {
             onUpdate = null;
 
             anim.SetFloat("InputMagnitude", 0);
-            anim.SetFloat("PickupAngle", 0);
-            anim.CrossFadeInFixedTime("TurnPickUp", 0.1f, 0, 0);
+            //anim.SetFloat("PickupAngle", 0);
+            //anim.CrossFadeInFixedTime("TurnPickUp", 0.1f, 0, 0);
             anim.Update(0);
             return;
         }
@@ -208,11 +286,7 @@ public class Movement : MonoBehaviour {
         anim.SetFloat("InputAngle", rot);
         anim.SetFloat("RawInputAngle", angle);
     }
-
-
     
-
-
 
     void MoveDefault()
     {

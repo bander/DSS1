@@ -92,6 +92,9 @@ public class PlayerControl : MonoBehaviour {
         stats.onStatsUpdate += UpdateAttackState;
         UpdateAttackState();
 
+
+        Screen.fullScreen=false;
+        Cursor.visible = false;
     }
 	
 	void UpdateAttackState () {
@@ -255,7 +258,7 @@ public class PlayerControl : MonoBehaviour {
 
 
     public List<Interactable> trash;
-    public Interactable currentPickup;
+    Interactable currentPickup;
     public void PickupTarget()// Interactable inter)
     {
         float angle = 361;

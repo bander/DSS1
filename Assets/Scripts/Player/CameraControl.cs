@@ -9,6 +9,8 @@ public class CameraControl : MonoBehaviour {
     public CameraPlane plane;
     public bool constructMode = false;
 
+    public Transform rotator;
+
     void Start()
     {
         transform.position = target.position + offset;
@@ -18,9 +20,11 @@ public class CameraControl : MonoBehaviour {
 
         if (!constructMode)
         {
-            transform.position = target.position + offset;
+            transform.position = Vector3.MoveTowards(transform.position, target.position + offset, Time.deltaTime*10);// - offset;
+            rotator.LookAt(target.transform);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, rotator.rotation, Time.deltaTime * 215);
+            //target.position + offset;
         }
-        transform.LookAt(target.transform);
         //transform.localPosition = offset;
 
         if (Input.GetKeyDown(KeyCode.G))

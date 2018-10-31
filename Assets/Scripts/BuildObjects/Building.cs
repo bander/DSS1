@@ -197,6 +197,7 @@ public class Building
                 }
             }
         }
+        
         foreach (WallObject w in walls)//home.wl[level].Values)
         {
             if (w.state == 1 && w.isDoor == false)// && w.canBeDoor == true)
@@ -206,6 +207,7 @@ public class Building
                 AddStair(stair);
             }
         }
+        //*/
     }
     int ContainsKey(List<ConstructObject> list,Vector3 key)
     {
