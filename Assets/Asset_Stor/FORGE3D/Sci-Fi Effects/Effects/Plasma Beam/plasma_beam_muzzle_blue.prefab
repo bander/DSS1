@@ -71,7 +71,7 @@ Light:
   serializedVersion: 8
   m_Type: 2
   m_Color: {r: 0.6397059, g: 0.88073033, b: 1, a: 1}
-  m_Intensity: 0.84
+  m_Intensity: 0
   m_Range: 250
   m_SpotAngle: 30
   m_CookieSize: 10
@@ -4650,4 +4650,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6196eeb74dc769b4aa09213f89ea47cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lifeTime: 0
+  lifeTime: 1

@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.AI;
 
 public class PlayerAnimator : MonoBehaviour {
+    /*
     const float smoothTime = 2f;
 
     CharacterController controller;
@@ -84,7 +85,7 @@ public class PlayerAnimator : MonoBehaviour {
             ang = Vector3.Angle(transform.forward, end);
             Vector3 cross = Vector3.Cross(transform.forward, end);
             if (cross.y < 0) ang = -ang;
-
+    
             if (prevClip != animator.GetCurrentAnimatorClipInfo(0)[0].clip.name)
             {
                 clip = animator.GetCurrentAnimatorClipInfo(0)[0].clip.name;
@@ -108,9 +109,9 @@ public class PlayerAnimator : MonoBehaviour {
             }
         }
 
-        animator.SetFloat("InputMagnitude", magn);
-        animator.SetFloat("InputAngle", rotCurrent);
-        animator.SetFloat("RawInputAngle", ang);
+        //animator.SetFloat("InputMagnitude", magn);
+        //animator.SetFloat("InputAngle", rotCurrent);
+        //animator.SetFloat("RawInputAngle", ang);
         
         if (Input.GetKeyDown(KeyCode.Space)) inCombat = true;
         if (Input.GetKeyUp(KeyCode.Space)) inCombat = false;
@@ -148,41 +149,12 @@ public class PlayerAnimator : MonoBehaviour {
     int trashNUM;
     void updateAttackType()
     {
-        /*
-        Equipment weapon = manager.GetCurrentWeapon();
-//      if (weapon != null)
-        if (true)
-        {
-//            int newWeapon = (int)weapon.attackType;
-            int newWeapon = trashNUM;// (int)weapon.attackType;
-            if (attackType!=newWeapon)
-            {
-                attackType = newWeapon;
-                animator.SetInteger("WeaponType", attackType);
-                animator.SetFloat("WeaponNumber", attackType);
-                animator.SetTrigger("SwitchWeapon");
-                showWeapon(attackType);
-            }
-        }
-        else
-        {
-            if (attackType != -1)
-            {
-                attackType = -1;
-                animator.SetInteger("WeaponType", attackType);
-            }
-        }
-        //*/
+       
     }
 
 	protected virtual void UpdateXxxx () {
         float speedPercent = 0;//agent.velocity.magnitude / agent.speed;
-
-        /*if (agent.enabled==true) {
-            speedPercent = agent.velocity.magnitude;
-        }
-        else 
-        //*/
+        
         if (controller != null)
         {
             speedPercent = controller.velocity.magnitude;//agent.velocity.magnitude / agent.speed;
@@ -268,7 +240,6 @@ public class PlayerAnimator : MonoBehaviour {
         {
             animator.SetTrigger("Kick");
         }
-        //*/
         if (machineShooting)
         {
             machineTimer += Time.deltaTime;
@@ -302,4 +273,5 @@ public class PlayerAnimator : MonoBehaviour {
             weapons[num].SetActive(true);
         }
     }
+    //*/
 }

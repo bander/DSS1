@@ -31,8 +31,7 @@ public class BulletDemo : MonoBehaviour {
                 {
                     Instantiate(impact, transform.position, transform.rotation, transform);
                 }
-                GameObject.Destroy(trail);
-                GameObject.Destroy(this.gameObject);
+                dest();
             }
         }
         else
@@ -42,9 +41,20 @@ public class BulletDemo : MonoBehaviour {
             destroyTimer += Time.deltaTime;
             if (destroyTimer > 2)
             {
-                GameObject.Destroy(trail);
-                GameObject.Destroy(this.gameObject);
+                dest();
             }
         }
 	}
+    bool destinated = false;
+    void dest()
+    {
+        if(destinated) return;
+        destinated = true;
+            
+        target.GetComponent<EnemyDemoScene>().Death();
+
+        GameObject.Destroy(trail, 0.5f);
+                GameObject.Destroy(this.gameObject,0.5f);
+
+    }
 }

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Name: Hall_2_Box 1
   m_EditorClassIdentifier: 
   go: {fileID: 150542, guid: 8a5905e364e813847a8c0994e09d5d60, type: 2}
-  pos: {x: -16.3, y: 0, z: -31.4}
+  pos: {x: -16.3, y: 0, z: -26.9}
   rot: {x: 0, y: 0, z: 0}
   scal: {x: 1, y: 1, z: 1}
   rot2: {x: 0, y: 0, z: 0, w: 0}

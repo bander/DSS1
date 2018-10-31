@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Name: Holographic-Screen-05-Scifi-Blank 1
   m_EditorClassIdentifier: 
   go: {fileID: 100004, guid: 09e2d12638a27524d94247de27bff8a8, type: 2}
-  pos: {x: -15.8, y: 0.03, z: -43.3}
+  pos: {x: -15.8, y: 0.03, z: -38.9}
   rot: {x: 0, y: 90, z: 0}
   scal: {x: 0.7, y: 0.7, z: 0.7}
   rot2: {x: 0, y: 0, z: 0, w: 0}

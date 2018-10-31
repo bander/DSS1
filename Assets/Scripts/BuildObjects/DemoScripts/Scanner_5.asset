@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Name: Scanner_5
   m_EditorClassIdentifier: 
   go: {fileID: 128062, guid: 5ac9cb26986f25e4a8fa44f7bd968fcd, type: 2}
-  pos: {x: -16, y: 0.03, z: -36.5}
+  pos: {x: -16, y: 0.03, z: -32}
   rot: {x: 0, y: -90, z: 0}
   scal: {x: 1, y: 1, z: 1}
   rot2: {x: 0, y: 0, z: 0, w: 0}

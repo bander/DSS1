@@ -175,8 +175,35 @@ public class Movement : MonoBehaviour {
     bool comb=false;
     public GameObject[] trashEnemy;
     int currentE = 0;
+    public int mine = 1;
+    int  trashCount;
+    public GameObject trashPickup;
     void TrashForDemo()
     {
+
+        if (Input.GetKeyDown(KeyCode.LeftAlt))
+        {
+            if (trashCount == 0)
+            {
+                trashCount++;
+                anim.SetTrigger("pickPP");
+                Destroy(trashPickup, 0.8f);
+            }
+            else
+            {
+                anim.SetInteger("Mine", mine);
+                anim.SetTrigger("Miner");
+            }
+            
+        }
+
+        if (Input.GetKeyUp(KeyCode.LeftShift))
+        {
+            anim.SetFloat("WeaponNumber", -1);
+            anim.SetInteger("WeaponType", -1);
+            activateCombat(0);
+            comb = false;
+        }
         if (!demo) return;
 
         if (Input.GetKeyDown(KeyCode.LeftShift))
@@ -186,25 +213,22 @@ public class Movement : MonoBehaviour {
             activateCombat(1);
             comb = true;
         }
-        if (Input.GetKeyUp(KeyCode.LeftShift))
+
+        if (trashEnemy[currentE].GetComponent<EnemyDemoScene>().dead)
+            currentE++;
+
+        if (currentE == trashEnemy.Length)
         {
-            anim.SetFloat("WeaponNumber", -1);
-            anim.SetInteger("WeaponType", -1);
-            activateCombat(0);
-            comb = false;
+            demo = false;
+            return;
         }
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            anim.SetTrigger("Shoot");
-            //trashEnemy[currentE].GetComponent<EnemyDemoScene>().Death();
-            trashShoot();
 
-            if (currentE == trashEnemy.Length)
-            {
-                demo = false;
-                return;
-            }
-            //currentE++;
+//            anim.SetTrigger("Shoot");
+//            trashShoot();
+
+           
         }
 
         if (!comb) return;

@@ -23,10 +23,7 @@ public class CameraControl : MonoBehaviour {
             transform.position = Vector3.MoveTowards(transform.position, target.position + offset, Time.deltaTime*10);// - offset;
             rotator.LookAt(target.transform);
             transform.rotation = Quaternion.RotateTowards(transform.rotation, rotator.rotation, Time.deltaTime * 215);
-            //target.position + offset;
         }
-        //transform.localPosition = offset;
-
         if (Input.GetKeyDown(KeyCode.G))
         {
             constructMode = false;

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Name: Power_Tank_03
   m_EditorClassIdentifier: 
   go: {fileID: 103256, guid: c6f294b210d661b4fb79507541b4c541, type: 2}
-  pos: {x: -16.5, y: 5.8, z: -34.5}
+  pos: {x: -16.5, y: 5.8, z: -29}
   rot: {x: 90, y: 0, z: 0}
   scal: {x: 1, y: 1, z: 1.4}
   rot2: {x: 0, y: 0, z: 0, w: 0}

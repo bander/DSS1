@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.EventSystems;
 using DG.Tweening;
+using TMPro;
 
 public class HomeConstructor : MonoBehaviour {
     #region Singleton
@@ -142,11 +143,11 @@ public class HomeConstructor : MonoBehaviour {
             timer += Time.deltaTime;
             if (timer > times[step])
             {
-                timer = 0;
+/*                timer = 0;
                 step++;
                 TestBuilding();
                 TestB3();
-            }
+ */           }
         }
 
         if (!stepping) return;
@@ -167,17 +168,23 @@ public class HomeConstructor : MonoBehaviour {
 
     public GameObject[] bb;
     public GameObject[] pp;
+    public GameObject[] pp2;
+    public TMP_Text textFloor;
     void actbb(int n)
     {
         if (n<5)
         {
             pp[0].SetActive(true);
             pp[1].SetActive(false);
+            pp2[0].SetActive(true);
+            pp2[1].SetActive(false);
         }
         else
         {
             pp[1].SetActive(true);
             pp[0].SetActive(false);
+            pp2[0].SetActive(true);
+            pp2[1].SetActive(false);
         }
         foreach (GameObject rr in bb)
         {
@@ -247,11 +254,11 @@ public class HomeConstructor : MonoBehaviour {
         switch (step)
         {
             case 1:
-//                cameraMoveTo(new Vector3(11.25f, 14.25f, -7.5f), 0.1f, Ease.Linear);
+                cameraMoveTo(new Vector3(11.25f, 12.25f, -7.5f), 0.1f, Ease.Linear);
                 CanvasController.instance.ShowHomeConstructor();
                 ShowAvailableFloors();
 
-                cameraMoveTo(new Vector3(11.25f, 11.25f, 1.5f),0.7f,Ease.InOutExpo);
+//                cameraMoveTo(new Vector3(11.25f, 11.25f, 1.5f),0.7f,Ease.InOutExpo);
                 actbb(0);
                 break;
             case 2:
@@ -349,10 +356,12 @@ public class HomeConstructor : MonoBehaviour {
                 wl[0][new Vector3(3, 1, 180)].Build();
                 break;
             case 30:
-                cameraMoveTo(new Vector3(2.25f, 11.25f, -6.5f), 1.2f, Ease.InOutExpo);
+//               cameraMoveTo(new Vector3(2.25f, 11.25f, -6.5f), 1.2f, Ease.InOutExpo);
+                cameraMoveTo(new Vector3(2.25f, 12.25f, -14.5f), 0.1f, Ease.Linear);
                 break;
             case 31:
-                cameraMoveTo(new Vector3(11.25f, 11.25f, 1.5f), 0.7f, Ease.InOutExpo);
+//                cameraMoveTo(new Vector3(11.25f, 11.25f, 1.5f), 0.7f, Ease.InOutExpo);
+                cameraMoveTo(new Vector3(11.25f, 12.25f, -7.5f), 0.1f, Ease.Linear);
                 break;
             case 32:
                 currentLevel = 0;
@@ -375,9 +384,11 @@ public class HomeConstructor : MonoBehaviour {
                 RemoveAllPoints();
                 break;
             case 36:
+                textFloor.text = "2";
                 currentLevel = 1;
                 ChangeLevel();
-                cameraMoveTo(new Vector3(8.25f, 15.25f, 6.5f), 0.7f, Ease.InOutExpo);
+                //cameraMoveTo(new Vector3(8.25f, 15.25f, 6.5f), 0.7f, Ease.InOutExpo);
+                cameraMoveTo(new Vector3(11.25f, 16.25f, -7.5f), 0.1f, Ease.Linear);
                 break;
             case 37:
                 actbb(0);
@@ -460,14 +471,17 @@ public class HomeConstructor : MonoBehaviour {
                 st[1][new Vector3(0, 0, 270)].obj.transform.position = st[1][new Vector3(0, 0, 270)].obj.transform.position + new Vector3(1, 0, -1.2f);
                 break;
             case 58:
+                textFloor.text = "2";
                 currentLevel = 1;
                 ChangeLevel();
 
                 break;
             case 64:
+                textFloor.text = "1";
                 currentLevel = 0;
                 ChangeLevel();
-                cameraMoveTo(new Vector3(8.25f, 11.25f, 1.5f), 0.7f, Ease.InOutExpo);
+//                cameraMoveTo(new Vector3(8.25f, 11.25f, 1.5f), 0.7f, Ease.InOutExpo);
+                cameraMoveTo(new Vector3(8.25f, 14.25f, -7.5f), 0.1f, Ease.Linear);
 
                 break;
             case 75:
@@ -557,7 +571,7 @@ public class HomeConstructor : MonoBehaviour {
         
         ObjectsToConstruct o = otc[step - 59];
         Quaternion q =Quaternion.Euler(o.rot.x, o.rot.y, o.rot.z);
-        o.pos+= new Vector3(0, 0, 5);
+        //o.pos+= new Vector3(0, 0, 15);
         GameObject gob = Instantiate(o.go,o.pos, q);
         gob.transform.localScale = o.scal;
         if (step-59>4) {

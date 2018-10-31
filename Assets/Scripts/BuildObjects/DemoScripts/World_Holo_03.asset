@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Name: World_Holo_03
   m_EditorClassIdentifier: 
   go: {fileID: 183656, guid: 5e6ad5c9a113f9744a619981db4fc042, type: 2}
-  pos: {x: -2.4, y: 0.03, z: -30}
+  pos: {x: -2.4, y: 0.03, z: -26}
   rot: {x: 0, y: 90, z: 0}
   scal: {x: 1, y: 1, z: 1}
   rot2: {x: 0, y: 0, z: 0, w: 0}

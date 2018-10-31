@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Name: ScreenPedestal08
   m_EditorClassIdentifier: 
   go: {fileID: 100000, guid: 253ba661f8a9eb34ba80cf2f897c0783, type: 2}
-  pos: {x: -16.65, y: 4.039, z: -29.53}
+  pos: {x: -16.65, y: 4.039, z: -24}
   rot: {x: -90, y: 0, z: 225}
-  scal: {x: 0.8, y: 0.8, z: 0.8}
+  scal: {x: 0.6, y: 0.6, z: 0.6}
   rot2: {x: 0, y: 0, z: 0, w: 0}

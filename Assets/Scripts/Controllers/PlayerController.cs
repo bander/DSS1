@@ -183,10 +183,14 @@ public class PlayerController : MonoBehaviour {
             if (attackType != newWeapon)
             {
                 attackType = newWeapon;
+
+                /*
                 pAnim.animator.SetInteger("WeaponType", attackType);
                 pAnim.animator.SetFloat("WeaponNumber", attackType);
                 pAnim.animator.SetTrigger("SwitchWeapon");
                 pAnim.showWeapon(attackType);
+
+                //*/
         }
         agent.stoppingDistance = attackDist;
     }
@@ -195,7 +199,7 @@ public class PlayerController : MonoBehaviour {
             if (attackType != -1)
             {
                 attackType = -1;
-                pAnim.animator.SetInteger("WeaponType", attackType);
+        //        pAnim.animator.SetInteger("WeaponType", attackType);
             }
         }
     }

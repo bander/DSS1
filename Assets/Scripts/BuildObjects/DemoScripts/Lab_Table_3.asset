@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Name: Lab_Table_3
   m_EditorClassIdentifier: 
   go: {fileID: 155564, guid: 82f826c924b6e4f4187f444ecdf23875, type: 2}
-  pos: {x: -8.845, y: 4.01, z: -39.55}
+  pos: {x: -8.845, y: 4.01, z: -35}
   rot: {x: 0, y: 0, z: 0}
   scal: {x: 1.17, y: 1.17, z: 1.17}
   rot2: {x: 0, y: 0, z: 0, w: 0}
