@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class PlayerStats : CharacterStats {
 
+    public float maxOxygen = 100;
+    public float currentOxygen;// { get; private set; }
+    public float maxEnergy = 100;
+    public float currentEnergy;// { get; private set; }
+
     public delegate void OnHPChange();
     public OnHPChange onHPChange;
 
@@ -81,12 +86,40 @@ public class PlayerStats : CharacterStats {
     public override void TakeDamage(float damage)
     {
         base.TakeDamage(damage);
-        if (onHPChange != null) onHPChange.Invoke();
+
+        //if (onHPChange != null) onHPChange.Invoke();
+    }
+    public void ChangeOxygenBy(int n)
+    {
+        currentOxygen -= n;
+        if (currentOxygen <= 0)
+        {
+            currentOxygen = 0;
+        }
+        PlayerStatsBars.instance.UpdateStats();
+        SaveStats();
+    }
+    public void ChangeEnergyBy(int n)
+    {
+        currentEnergy -= n;
+        if (currentEnergy <= 0)
+        {
+            currentEnergy = 0;
+        }
+        PlayerStatsBars.instance.UpdateStats();
+        SaveStats();
     }
 
     public override void Die()
     {
         base.Die();
         PlayerManager.instance.KillPlayer();
+    }
+
+    void SaveStats()
+    {
+        Vector3 s = new Vector3(currentHealth,currentOxygen,currentEnergy);
+        SaveGame.Instance.s=s;
+        SaveGame.Save();
     }
 }

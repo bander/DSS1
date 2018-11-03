@@ -135,7 +135,7 @@ public class HomeConstructor : MonoBehaviour {
     {
         if (!SCENECONSTRUCT) return;
         
-        game2.transform.position = new Vector3(-3.17f, 0.03f, -40);
+      //  game2.transform.position = new Vector3(-3.17f, 0.03f, -40);
         /////////////
 
         if (step < times.Length)
@@ -158,6 +158,7 @@ public class HomeConstructor : MonoBehaviour {
         TestB3();
     }
     public CameraControl cc;
+    public GameObject rotateButton;
     void cameraMoveTo(Vector3 pos,float time,Ease es)
     {
         pos = pos + new Vector3(0, 0, 5);
@@ -183,14 +184,23 @@ public class HomeConstructor : MonoBehaviour {
         {
             pp[1].SetActive(true);
             pp[0].SetActive(false);
-            pp2[0].SetActive(true);
-            pp2[1].SetActive(false);
+            pp2[1].SetActive(true);
+            pp2[0].SetActive(false);
         }
         foreach (GameObject rr in bb)
         {
             rr.SetActive(false);
         }
         bb[n].SetActive(true);
+
+        if (n==5)
+        {
+            rotateButton.SetActive(true);
+        }
+        else
+        {
+            rotateButton.SetActive(false);
+        }
     }
         ///////////////////////////////////
 
@@ -210,6 +220,46 @@ public class HomeConstructor : MonoBehaviour {
 
 
     }
+
+
+    public GameObject digFake;
+    public GameObject digReal;
+    void TestBuilding()
+    {
+        switch (step)
+        {
+            case 1:
+                //cameraMoveTo(new Vector3(11.25f, 12.25f, -7.5f), 0.7f, Ease.Linear);
+                CanvasController.instance.ShowHomeConstructor();
+                //ShowAvailableFloors();
+                actbb(0);
+                //                cameraMoveTo(new Vector3(11.25f, 11.25f, 1.5f),0.7f,Ease.InOutExpo);
+                actbb(0);
+                break;
+            case 2:
+                actbb(5);
+
+                //                cameraMoveTo(new Vector3(11.25f, 14.25f, 16.5f), 15f,Ease.Linear);
+                //fl[0][new Vector2(0, 0)].Build(2);
+                break;
+            case 3:
+                actbb(7);
+                digFake.SetActive(true);
+
+                //fl[0][new Vector2(1, 0)].Build(2);
+                break;
+            case 4:
+                digFake.SetActive(false);
+                digReal.SetActive(true);
+
+                break;
+            case 5:
+                CanvasController.instance.ShowMain();
+
+                break;
+        }
+    }
+
 
     public HomeConstrPanel hcp;
     void TestBuildingLow()
@@ -249,12 +299,12 @@ public class HomeConstructor : MonoBehaviour {
 
         //cr[1][new Vector3(3, -1, 270)].HideHalf();
     }
-    void TestBuilding()
+    void TestBuilding4()
     {
         switch (step)
         {
             case 1:
-                cameraMoveTo(new Vector3(11.25f, 12.25f, -7.5f), 0.1f, Ease.Linear);
+                cameraMoveTo(new Vector3(11.25f, 12.25f, -7.5f), 0.7f, Ease.Linear);
                 CanvasController.instance.ShowHomeConstructor();
                 ShowAvailableFloors();
 
@@ -349,7 +399,7 @@ public class HomeConstructor : MonoBehaviour {
                 wl[0][new Vector3(3, 0, 180)].Build();
                 break;
             case 28:
-                actbb(3);
+                actbb(4);
                 wallType = WallType.Door;
                 break;
             case 29:
@@ -357,16 +407,16 @@ public class HomeConstructor : MonoBehaviour {
                 break;
             case 30:
 //               cameraMoveTo(new Vector3(2.25f, 11.25f, -6.5f), 1.2f, Ease.InOutExpo);
-                cameraMoveTo(new Vector3(2.25f, 12.25f, -14.5f), 0.1f, Ease.Linear);
+                cameraMoveTo(new Vector3(2.25f, 12.25f, -14.5f), 1.2f, Ease.Linear);
                 break;
             case 31:
 //                cameraMoveTo(new Vector3(11.25f, 11.25f, 1.5f), 0.7f, Ease.InOutExpo);
-                cameraMoveTo(new Vector3(11.25f, 12.25f, -7.5f), 0.1f, Ease.Linear);
+                cameraMoveTo(new Vector3(11.25f, 12.25f, -7.5f), 0.7f, Ease.Linear);
                 break;
             case 32:
                 currentLevel = 0;
                 ChangeLevel();
-                actbb(4);
+                actbb(5);
 
                 buildType = BuildType.OnFloor;
                 tileType = TileType.Stair;
@@ -388,7 +438,7 @@ public class HomeConstructor : MonoBehaviour {
                 currentLevel = 1;
                 ChangeLevel();
                 //cameraMoveTo(new Vector3(8.25f, 15.25f, 6.5f), 0.7f, Ease.InOutExpo);
-                cameraMoveTo(new Vector3(11.25f, 16.25f, -7.5f), 0.1f, Ease.Linear);
+                cameraMoveTo(new Vector3(11.25f, 16.25f, -7.5f), 0.7f, Ease.Linear);
                 break;
             case 37:
                 actbb(0);
@@ -481,7 +531,7 @@ public class HomeConstructor : MonoBehaviour {
                 currentLevel = 0;
                 ChangeLevel();
 //                cameraMoveTo(new Vector3(8.25f, 11.25f, 1.5f), 0.7f, Ease.InOutExpo);
-                cameraMoveTo(new Vector3(8.25f, 14.25f, -7.5f), 0.1f, Ease.Linear);
+                cameraMoveTo(new Vector3(11.25f, 14.25f, -7.5f), 0.1f, Ease.Linear);
 
                 break;
             case 75:

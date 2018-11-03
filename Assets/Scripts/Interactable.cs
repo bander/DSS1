@@ -57,16 +57,18 @@ public class Interactable : MonoBehaviour {
     {
 
     }
-
     public virtual void inRange()
     {
         if (isInRange)
         {
             MenuScript.instance.addImteractables(this);
+            //Debug.Log("In");
         }
         else
         {
             MenuScript.instance.removeImteractables(this);
+            //Debug.Log("out");
         }
     }
+
 }

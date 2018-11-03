@@ -18,7 +18,7 @@ public class CameraContainer : MonoBehaviour {
         //plane.localPosition = -plane.up * 1.5f;
     }
     void Update()  {
-        if (playerMode) transform.position = Vector3.MoveTowards(transform.position,target.position,Time.deltaTime/10);
+ //       if (playerMode) transform.position = Vector3.MoveTowards(transform.position,target.position,Time.deltaTime/10);
             //transform.position = target.position ;
     }// -offset;}
 

@@ -28,6 +28,8 @@ public class LootInventory : Interactable
     {
         base.Interact();
         openLootMenu();
+
+
     }
 
     void openLootMenu()

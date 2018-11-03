@@ -114,7 +114,7 @@ public class CanvasController : MonoBehaviour {
     }
     public void ShowHomeConstructor()
     {
-        if (PlayerManager.instance.demo) return;
+        //if (PlayerManager.instance.demo) return;
 
         closeAll();
         //BuildUI.SetActive(true);
@@ -124,7 +124,7 @@ public class CanvasController : MonoBehaviour {
         camContainer.SetConstructMode();
         homeConstPanel.Show();
     }
-
+    
 
     public void ShowMain()
     {

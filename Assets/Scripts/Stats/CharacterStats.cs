@@ -2,7 +2,7 @@
 
 public class CharacterStats : MonoBehaviour {
     public float maxHealth=100;
-    public float currentHealth { get; private set; }
+    public float currentHealth;//{ get; private set; }
 
     public Stat damage;
     public Stat attackRate;

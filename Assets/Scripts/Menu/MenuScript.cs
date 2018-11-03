@@ -49,6 +49,7 @@ public class MenuScript : MonoBehaviour
     {
         if (inters.Count == 0)
         {
+            Debug.Log("act");
             use.SetActive(true);
         }
         inters.Add(inter);
@@ -58,6 +59,7 @@ public class MenuScript : MonoBehaviour
         inters.Remove(inter);
         if (inters.Count == 0)
         {
+            Debug.Log("deact");
             use.SetActive(false);
         }
     }
