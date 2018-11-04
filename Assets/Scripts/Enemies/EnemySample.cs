@@ -13,11 +13,11 @@ public class EnemySample : Interactable {
     {   
         if (isInRange)
         {
-            if(!stats.dead) MenuScript.instance.AddEnemy(this);
+//            if(!stats.dead) MenuScript.instance.AddEnemy(this);
         }
         else
         {
-            MenuScript.instance.RemoveEnemy(this);
+//            MenuScript.instance.RemoveEnemy(this);
         }
     }
 

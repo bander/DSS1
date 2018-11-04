@@ -3,82 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
+public enum MoveTypes {joystickForward,joysetickLocomotion,navigation };
+
 [DisallowMultipleComponent]
 [RequireComponent(typeof(Animator))]
 public class Movement : MonoBehaviour {
-
-    /*
-        Vector3 cameraForward = new Vector3(Camera.main.transform.forward.x, 0, Camera.main.transform.forward.z).normalized;
-        joysDirection = cameraForward * vJoystick.Vertical + Camera.main.transform.right * vJoystick.Horizontal;
-        
-        float ver = Input.GetAxis("Vertical");
-        float hor = Input.GetAxis("Horizontal");
-        float magn = joysDirection.magnitude;
-        float ang=0;
-        if (magn>0) {
-            Vector3 end = joysDirection;
-            Debug.DrawLine(new Vector3(0,0,0),end*4);
-
-            ang = Vector3.Angle(transform.forward, end);
-            Vector3 cross = Vector3.Cross(transform.forward, end);
-            if (cross.y < 0) ang = -ang;
-
-            if (prevClip != animator.GetCurrentAnimatorClipInfo(0)[0].clip.name)
-            {
-                clip = animator.GetCurrentAnimatorClipInfo(0)[0].clip.name;
-                rotCurrent = 0;
-                animator.SetFloat("WalkStartAngle", ang);
-            }
-
-            
-            if (ang > 1 && rotCurrent < ang) rotCurrent += (ang - rotCurrent)/5;// rotSpeed * Time.deltaTime; 
-            else if (ang < 1 && rotCurrent > ang) rotCurrent += (ang - rotCurrent)/5;//rotSpeed * Time.deltaTime; 
-            else
-            {
-                if (rotCurrent > 1) rotCurrent -= 1;
-                else if (rotCurrent < 1) rotCurrent += 1;
-                else rotCurrent = 0;
-            }
-
-            if (prevClip !=clip)
-            {
-                prevClip = clip;
-            }
-        }
-
-        animator.SetFloat("InputMagnitude", magn);
-        animator.SetFloat("InputAngle", rotCurrent);
-        animator.SetFloat("RawInputAngle", ang);
-        
-        if (Input.GetKeyDown(KeyCode.Space)) inCombat = true;
-        if (Input.GetKeyUp(KeyCode.Space)) inCombat = false;
-       animator.SetBool("InCombat", inCombat);
-
-        if (inCombat)
-        {
-            Quaternion tr = transform.rotation;
-            tr.y = -tr.y;
-            Vector3 strafeDirection = tr * joysDirection;
-            animator.SetFloat("X", strafeDirection.x);
-            animator.SetFloat("Z", strafeDirection.z);
-        }
-
-        if (Input.GetKeyDown(KeyCode.LeftControl))
-        {
-            animator.SetTrigger("Shoot");
-        }
-        if (Input.GetKeyDown(KeyCode.LeftShift))
-        {
-            animator.SetBool("Shooting",true);
-        }
-        if (Input.GetKeyUp(KeyCode.LeftShift))
-        {
-            animator.SetBool("Shooting", false);
-        }
-
-//*/
-
-        
     Animator anim;
     Joystick joystick;
     NavMeshAgent agent;
@@ -88,8 +17,7 @@ public class Movement : MonoBehaviour {
 
     float rot=0;
     float rotationSpeed=160;
-    string currentClip;
-    int moveType;
+    MoveTypes moveType;
 
     public delegate void OnUpdate();
     public OnUpdate onUpdate;
@@ -97,12 +25,12 @@ public class Movement : MonoBehaviour {
     public delegate void OnArrived();
     public OnArrived onArrived;
 
-    GameObject target;
-
     public GameObject navLocal;
 
     public GameObject SetTarget {
-        set{ target = value; } }
+        set{ target = value; }
+    }
+    GameObject target;
 
     void Awake()
     {
@@ -114,15 +42,28 @@ public class Movement : MonoBehaviour {
 
         onUpdate += MoveDefault;
     }
+    
 
-    public void SetCrouch(bool newCrouch)
+    public void ChangeMoveType(MoveTypes _mType)// Combat(int type=0)
     {
-        activateCombat(3);
-        anim.SetBool("Crouch", newCrouch);
-    }
-    public void activateCombat(int type=0)
-    {
-        if (type == 2) type = 1;
+        switch (_mType)
+        {
+            case MoveTypes.joystickForward:
+                onUpdate = MoveDefault;
+                break;
+            case MoveTypes.joysetickLocomotion:
+                onUpdate = MoveInCombat;
+                break;
+            case MoveTypes.navigation:
+                if (agent.isStopped) agent.isStopped = false;
+
+                agent.destination = target.transform.position;
+                agent.stoppingDistance = target.GetComponent<Interactable>().stopping;
+                onUpdate = MoveNavigation;
+                break;
+        }
+
+        /*if (type == 2) type = 1;
 
         if (type==0)
         {
@@ -168,7 +109,8 @@ public class Movement : MonoBehaviour {
                 onUpdate = MoveToPickup;
             }
         }
-        moveType = type;
+        //*/
+        moveType = _mType;
     }
 
     bool demo = true;
@@ -180,7 +122,6 @@ public class Movement : MonoBehaviour {
     public GameObject trashPickup;
     void TrashForDemo()
     {
-
         if (Input.GetKeyDown(KeyCode.LeftAlt))
         {
             if (trashCount == 0)
@@ -201,7 +142,7 @@ public class Movement : MonoBehaviour {
         {
             anim.SetFloat("WeaponNumber", -1);
             anim.SetInteger("WeaponType", -1);
-            activateCombat(0);
+//            activateCombat(0);
             comb = false;
         }
         if (!demo) return;
@@ -210,7 +151,7 @@ public class Movement : MonoBehaviour {
         {
             anim.SetFloat("WeaponNumber", 2);
             anim.SetInteger("WeaponType", 2);
-            activateCombat(1);
+//            activateCombat(1);
             comb = true;
         }
 
@@ -224,11 +165,8 @@ public class Movement : MonoBehaviour {
         }
         if (Input.GetKeyDown(KeyCode.Space))
         {
-
 //            anim.SetTrigger("Shoot");
 //            trashShoot();
-
-           
         }
 
         if (!comb) return;
@@ -262,26 +200,31 @@ public class Movement : MonoBehaviour {
 
 
     void Update() {
-        TrashForDemo();
-
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            // trash = !trash;
-            // navLocal.SetActive(trash);
-        }
-
+//        TrashForDemo();
+        
         Vector3 cameraForward = new Vector3(Camera.main.transform.forward.x, 0, Camera.main.transform.forward.z).normalized;
         
         jDir = cameraForward * joystick.Vertical + Camera.main.transform.right * joystick.Horizontal;
         keyDir = cameraForward * Input.GetAxis("Vertical") + Camera.main.transform.right * Input.GetAxis("Horizontal");
-        
-       if(keyDir.magnitude > 0)  jDir = keyDir;
 
-       if (moveType == 2 && jDir.magnitude > 0) activateCombat(1);
+        if (keyDir.magnitude > 0)
+        {
+            jDir = keyDir;
+        }
+        if(jDir.magnitude>0)
+            if (moveType == MoveTypes.navigation)
+                StopNavigateMotions();
 
-       if (onUpdate != null) onUpdate.Invoke();
+
+        if (onUpdate != null) onUpdate.Invoke();
     }
 
+    void StopNavigateMotions()
+    {
+        if (!agent.isStopped) agent.isStopped = true;
+        anim.SetTrigger("StopPickup");
+        ChangeMoveType(MoveTypes.joystickForward);
+    }
 
     
     void MoveToPickup()
@@ -343,9 +286,11 @@ public class Movement : MonoBehaviour {
     void MoveNavigation()
     {
         Vector3 velocity = new Vector3(0, 0,0);
-        if (!AgentStopping())
+        if (!AgentDone())//(!AgentStopping())
         {
-            velocity = Quaternion.Inverse(transform.rotation) * agent.desiredVelocity;
+            velocity = agent.desiredVelocity;// Quaternion.Inverse(transform.rotation) * agent.desiredVelocity;
+            velocity.y = 0;
+            if(Quaternion.LookRotation(velocity)!=null) transform.rotation = Quaternion.LookRotation(velocity);
         }
         else
         {
@@ -353,10 +298,6 @@ public class Movement : MonoBehaviour {
             if (onUpdate != null) onUpdate = null;
         }
         anim.SetFloat("InputMagnitude", velocity.magnitude);
-        anim.SetFloat("X", velocity.x);
-        anim.SetFloat("Z", velocity.z);
-
-        RotationNavigate();
     }
 
     float GetJoystickAngleRelativeToChar()
@@ -378,20 +319,7 @@ public class Movement : MonoBehaviour {
         }
 
     }
-    void CheckAnimStates(float ang)
-    {
-        AnimatorStateInfo nextState = anim.GetNextAnimatorStateInfo(0);
-        if (nextState.IsName("RunFwdStart"))
-        {
-
-        }
-        string nextClip = anim.GetCurrentAnimatorClipInfo(0)[0].clip.name;
-        if (nextClip!=currentClip)
-        {
-
-        }
-    }
-
+    
     
     void OnAnimatorMove()
     {
@@ -400,21 +328,13 @@ public class Movement : MonoBehaviour {
     }
     protected bool AgentDone()
     {
-        return !agent.pathPending || AgentStopping();
+        return AgentStopping();// ||  !agent.pathPending;
     }
     protected bool AgentStopping()
     {
         return agent.remainingDistance <= agent.stoppingDistance;
     }
-
-    void RotationNavigate()
-    {
-        Vector3 direction =  (IsTargetInSight())? target.transform.position - transform.position: agent.desiredVelocity;
-        direction = IsTargetInSight()? target.transform.position - transform.position: agent.desiredVelocity;
-        direction.y = 0;
-
-        transform.rotation = Quaternion.LookRotation(direction);
-    }
+    
     bool IsTargetInSight()
     {
         Ray ray = new Ray(transform.position, target.transform.position-transform.position);
@@ -442,5 +362,18 @@ public class Movement : MonoBehaviour {
         
         if (q.y< 0.1) return true;
         return false;
+    }
+
+
+    ////////////////////  trash
+    ///
+    public void StartLoot()
+    {
+        anim.CrossFadeInFixedTime("TurnLoot", 0.1f, 0, 0);
+        anim.Update(0);
+    }
+    public void _LootFinish()
+    {
+        PlayerControl.instance._AnimPickup();
     }
 }

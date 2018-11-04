@@ -1,15 +1,16 @@
 ﻿using UnityEngine;
 
 public class Interactable : MonoBehaviour {
-    protected Transform player;
+    protected PlayerInteractions player;
     public float radius = 2f;
+    public float stopping = 0.5f;
     protected bool isInRange = false;
     public EnemyStats stats;
     public bool low = true;
 
     void Start()
     {
-        player = PlayerManager.instance.player.transform;
+        player = PlayerInteractions.instance;
         stats = GetComponent<EnemyStats>();
     }
 
@@ -25,7 +26,7 @@ public class Interactable : MonoBehaviour {
 
         if (player != null)
         {
-            if ((player.position - transform.position).magnitude < radius)
+            if ((player.transform.position - transform.position).magnitude < radius)
             {
                 if (!isInRange)
                 {
@@ -37,6 +38,7 @@ public class Interactable : MonoBehaviour {
             {
                 if (isInRange)
                 {
+
                     isInRange = false;
                     inRange();
                 }
@@ -61,13 +63,11 @@ public class Interactable : MonoBehaviour {
     {
         if (isInRange)
         {
-            MenuScript.instance.addImteractables(this);
-            //Debug.Log("In");
+            player.addInteractables(this);
         }
         else
         {
-            MenuScript.instance.removeImteractables(this);
-            //Debug.Log("out");
+            player.removeInteractables(this);
         }
     }
 

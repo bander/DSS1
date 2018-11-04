@@ -24,6 +24,8 @@ public class TileObject : ConstructObject
         ConnectBuildAndWallsAround();
         RemoveWalls();
         RemoveRoof();
+
+        HomeConstructor.instance.AddWallToSave(key);
     }
     void ConnectBuildAndWallsAround()
     {

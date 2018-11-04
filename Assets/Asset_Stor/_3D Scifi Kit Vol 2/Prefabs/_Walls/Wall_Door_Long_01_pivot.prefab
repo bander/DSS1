@@ -77,9 +77,9 @@ GameObject:
   m_Component:
   - component: {fileID: 472192}
   - component: {fileID: 6584672}
-  - component: {fileID: 11474550}
+  - component: {fileID: 114149524663161512}
   m_Layer: 0
-  m_Name: Horizontal_Doors_Kit
+  m_Name: Horizontal_Doors_Kit (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -392,7 +392,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 152292}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8.712654, y: 0.034246836, z: -28.086884}
+  m_LocalPosition: {x: -19.26654, y: 0.037027854, z: -46.28375}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4082469469971036}
@@ -432,11 +432,11 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 137670}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.3500004, y: 0, z: 0.020000458}
-  m_LocalScale: {x: 0.8099129, y: 1, z: 1.7874516}
+  m_LocalPosition: {x: 1.87, y: 0, z: 0.020000458}
+  m_LocalScale: {x: 0.80991, y: 1, z: 1.78745}
   m_Children: []
   m_Father: {fileID: 4082469469971036}
-  m_RootOrder: 2
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &475006
 Transform:
@@ -771,7 +771,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 4, y: 2.7363071, z: 2.3}
+  m_Size: {x: 3.5, y: 2.7363071, z: 2.3}
   m_Center: {x: 0, y: 1.3781536, z: 0}
 --- !u!82 &8239828
 AudioSource:
@@ -998,7 +998,7 @@ MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 137670}
+  m_GameObject: {fileID: 1548260665603922}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 55bdc53e072ca4143a2004ca33085fb7, type: 3}
@@ -1035,6 +1035,23 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1548260665603922
+GameObject:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4543672286750670}
+  - component: {fileID: 65767798294146350}
+  - component: {fileID: 11474550}
+  m_Layer: 0
+  m_Name: Horizontal_Doors_Kit
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!1 &1552737101209496
 GameObject:
@@ -1096,7 +1113,7 @@ Transform:
   m_Children:
   - {fileID: 4848585634113464}
   - {fileID: 4654520869954668}
-  - {fileID: 472192}
+  - {fileID: 4543672286750670}
   - {fileID: 494304}
   - {fileID: 407516}
   - {fileID: 412690}
@@ -1109,8 +1126,22 @@ Transform:
   - {fileID: 427860}
   - {fileID: 469284}
   - {fileID: 4977968641567368}
+  - {fileID: 472192}
   m_Father: {fileID: 451370}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4543672286750670
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1548260665603922}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 1.3500004, y: 0, z: 0.020000458}
+  m_LocalScale: {x: 0.8099129, y: 1, z: 1.7874516}
+  m_Children: []
+  m_Father: {fileID: 4082469469971036}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4654520869954668
 Transform:
@@ -1171,6 +1202,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!65 &65767798294146350
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1548260665603922}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4, y: 2.7363071, z: 2.3}
+  m_Center: {x: 0, y: 1.3781536, z: 0}
 --- !u!114 &114062595044740138
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1180,6 +1223,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 11860926615a46d4c81c2e39b31fc85a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114149524663161512
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 137670}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 895932488da8b664b80a7de30c38872c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &114279073089118072

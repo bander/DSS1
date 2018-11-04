@@ -97,7 +97,7 @@ public class CanvasController : MonoBehaviour {
 
     public void ShowInventory()
     {
-        if (PlayerManager.instance.demo) return;
+//        if (PlayerManager.instance.demo) return;
 
         closeAll();
         inventoryUI.SetActive(true);
@@ -145,6 +145,8 @@ public class CanvasController : MonoBehaviour {
         showBuildPanel(false);
 
         camContainer.SetPlayerMode();
+
+        InvManager.instance.SaveAllInventories();
     }
 
     public void RemoveSelectedItem()
@@ -275,7 +277,7 @@ public class CanvasController : MonoBehaviour {
     }
     void TrackEnemy()
     {
-        EnemySample newEnemy = mainUI.GetComponent<MenuScript>().FindNearestEnemy() as EnemySample;
+        EnemySample newEnemy = null;// mainUI.GetComponent<MenuScript>().FindNearestEnemy() as EnemySample;
         if (newEnemy == null)
         {
             StarttrackEnemy(false);

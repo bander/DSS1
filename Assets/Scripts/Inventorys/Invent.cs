@@ -26,8 +26,14 @@ public class Invent : MonoBehaviour {
             i++;
         }
     }
+    public void InitLoading(List<Item> tm)
+    {
+        items = tm;
+    }
     public bool Add(Item newItem)
     {
+        if (newItem == null) return false;
+
         bool ret = false;
         int i = -1;
         if (newItem.countInSlot ==1)

@@ -6,18 +6,12 @@ public class Pickup : Interactable {
     public override void Interact()
     {
         base.Interact();
-
-        GetItem();
-    }
-    void GetItem()
-    {
+        
         //bool wasPickuped = Inventory.instance.Add(item);
-
         bool wasPickuped = InvManager.instance.AddToInventory(item,0);
-
         if (wasPickuped)
         {
-            MenuScript.instance.removeImteractables(this);
+//            MenuScript.instance.removeImteractables(this);
             Destroy(gameObject);
         }
     }

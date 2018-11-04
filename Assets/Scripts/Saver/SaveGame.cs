@@ -1,8 +1,10 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
 public class SaveGame
 {
-    public bool first=true;
+    public bool first = true;
     public Vector3 s = new Vector3(100, 25, 100);
 
     private static string _gameDataFileName = "data.json";
@@ -16,17 +18,13 @@ public class SaveGame
                 Load();
             return _instance;
         }
-
     }
-
     public static void Save()
     {
         FileManager.Save(_gameDataFileName, _instance);
     }
-
     public static void Load()
     {
         _instance = FileManager.Load<SaveGame>(_gameDataFileName);
     }
-
 }

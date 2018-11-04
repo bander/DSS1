@@ -216,16 +216,52 @@ public class HomeConstructor : MonoBehaviour {
         Destroy(modifier);
 
         //ShowAvailableFloors();
-        TestBuilding();
+        //TestBuilding();
 
-
+        //LoadBuilding();
     }
 
-
+    void LoadBuilding()
+    {
+        SaveHome.Load();
+        List<Vector3> vFloors = SaveHome.Instance.v;
+        foreach (Vector3 vf in vFloors)
+        {
+            if (fl[0].ContainsKey(vf))
+               fl[0][vf].Build();
+        }
+        List<Vector3> vWalls = SaveHome.Instance.w;
+        foreach (Vector3 vfx in vWalls)
+        {
+            if (wl[0].ContainsKey(vfx))
+                wl[0][vfx].Build();
+        }
+    }
+    public void AddFLoorToSave(Vector3 vFloor)
+    {
+        List<Vector3> vFloors = SaveHome.Instance.v;
+        foreach (Vector3 vv in vFloors)
+        {
+            if (vv == vFloor) return;
+        }
+        SaveHome.Instance.v.Add(vFloor);
+        SaveHome.Save();
+    }
+    public void AddWallToSave(Vector3 vWall)
+    {
+        List<Vector3> vWalls = SaveHome.Instance.w;
+        foreach (Vector3 vv in vWalls)
+        {
+            if (vv == vWall) return;
+        }
+        SaveHome.Instance.w.Add(vWall);
+        SaveHome.Save();
+    }
     public GameObject digFake;
     public GameObject digReal;
-    void TestBuilding()
+    void TestBuildingDigger()
     {
+        Debug.Log(step);
         switch (step)
         {
             case 1:
@@ -299,7 +335,7 @@ public class HomeConstructor : MonoBehaviour {
 
         //cr[1][new Vector3(3, -1, 270)].HideHalf();
     }
-    void TestBuilding4()
+    void TestBuilding()
     {
         switch (step)
         {
@@ -716,7 +752,6 @@ public class HomeConstructor : MonoBehaviour {
             }
         }
     }
-    
     void ShowAvailableWalls()
     {
         RemoveAllPoints();
@@ -937,6 +972,40 @@ public class HomeConstructor : MonoBehaviour {
         //*/
     }
 
+    public void ChangeLevelByPlayerPosition(Vector3 pos)
+    {
+        int preLevel = 2;
+        if (pos.y < 2)
+            preLevel = 0;
+        else if (pos.y > 2 && pos.y < 6)
+            preLevel = 1;
+        
+        bool hasUnderTile = false;
+        Ray ray = new Ray(pos+Vector3.up*0.2f, -Vector3.up);
+        RaycastHit[] hits = Physics.RaycastAll(ray, 4, LayerMask.GetMask("House"));
+        foreach (RaycastHit hit in hits)
+        {
+            if (hit.collider.transform.parent != null)
+            { 
+                ConstructElement parent = hit.collider.transform.parent.GetComponent<ConstructElement>();
+
+                if (hit.collider.transform.parent == null)
+                    if (hit.collider.transform.parent.parent != null)
+                        parent = hit.collider.transform.parent.parent.GetComponent<ConstructElement>();
+                if (parent != null){
+                    if (parent.construct != null) {
+                        if (parent.construct.state == 1){
+                            hasUnderTile = true;
+                        }
+                    }
+                }
+            }
+        }
+        if (!hasUnderTile) preLevel = 2;
+        
+        currentLevel = preLevel;
+        ChangeLevel();
+    }
     int oldLevel;
     void ChangeLevel()
     {
@@ -1172,7 +1241,7 @@ public class HomeConstructor : MonoBehaviour {
 
     void speedBuild()
     {
-        for(int i = 0; i < 57; i++)
+        for(int i = 0; i < 75; i++)
         {
             step++;
             TestBuilding();
@@ -1365,6 +1434,10 @@ public class HomeConstructor : MonoBehaviour {
         SetBuildType(buildType,0);
     }
 
+    public void FinishConstruct()
+    {
+        RemoveAllPoints();
+    }
     ////  //////////////     BUILDINGS
     
     public void CreateBuilding(ConstructObject t)

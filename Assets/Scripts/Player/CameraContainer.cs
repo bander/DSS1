@@ -11,6 +11,7 @@ public class CameraContainer : MonoBehaviour {
 
     //   Vector3 baseOffset = new Vector3(5.5f, 5.5f, -3);
     Vector3 baseOffset = new Vector3(5.5f,5.5f,-3);
+    Vector3 constructOffset = new Vector3(9,11,-7);
 
     void Start()
     {
@@ -20,21 +21,21 @@ public class CameraContainer : MonoBehaviour {
     void Update()  {
  //       if (playerMode) transform.position = Vector3.MoveTowards(transform.position,target.position,Time.deltaTime/10);
             //transform.position = target.position ;
-    }// -offset;}
+    }
 
     public void SetConstructMode()
     {
         camControl.target = transform;
-        camControl.offset = new Vector3(5, 8, -5);
         playerMode = false;
         plane.constructMode = true;
         camControl.constructMode = true;
+        camControl.offset = constructOffset;
     }
     public void SetPlayerMode()
     {
         //camControl.target.transform.DOMove(target.position, 1).OnComplete(TransformToPlayerComplete);
         TransformToPlayerComplete();
-        camControl.offset = new Vector3(5.5f, 5.5f, -3);
+        camControl.offset = baseOffset;
         playerMode = false;
         plane.constructMode = false;
     }
@@ -47,7 +48,7 @@ public class CameraContainer : MonoBehaviour {
     public void SetLevel(int level)
     {
         plane.constructMode = false;
-        camControl.offset = new Vector3(5.5f,5.5f,-3)+level* Vector3.up * 4;
+        camControl.offset = constructOffset+level* Vector3.up * 4;
         camControl.transform.DOMove(camControl.target.position + camControl.offset, 1).OnComplete(ChangeLevelComplete);
     }
     void ChangeLevelComplete()

@@ -31,18 +31,55 @@ public class PlayerControl : MonoBehaviour {
 
     public GameObject[] weapons;
 
-    bool crouch = false;
-    public bool Crouch
+    public Item ite;
+
+    void trashSAveTesT()
     {
-        get { return crouch; }
-        set {
-            crouch = value;
-            movem.SetCrouch(crouch);
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            /*
+            SaveGameInventory.Instance.itemsInv = new List<Item>();
+            InvManager.instance.invents[0].Add(ite);
+            Debug.Log("ADD "+ InvManager.instance.invents[0].items.Count);
+            /*
+            SaveGameInventory.Instance.itemsInv.Add(ite);
+            Debug.Log("Save -- "+SaveGameInventory.Instance.itemsInv.Count);
+            int i = 0;
+            foreach (Item itt in SaveGameInventory.Instance.itemsInv)
+            {
+                if (itt != null)
+                {
+
+                }
+                i++;
+            }
+            SaveGameInventory.Save();
+            //*/
+        }
+
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            /*
+            SaveGameInventory.Load();
+
+            int i = 0;
+            foreach(Item itt in SaveGameInventory.Instance.itemsInv)
+            {
+                if (itt != null)
+                {
+
+                    Debug.Log(i + "  LOAD  " + itt.name);
+                }
+                i++;
+            }
+            //*/
         }
     }
 
     void Update()
     {
+        trashSAveTesT();
+
         if (onUpdate != null) onUpdate.Invoke();
 
         //////////////////
@@ -59,14 +96,13 @@ public class PlayerControl : MonoBehaviour {
 
         if (Input.GetKeyDown(KeyCode.P))
         {
-            PickupTarget();
-
+            GoToPickup();
         }
     }
 
     void CheckCurerntTarget()
     {
-        Interactable enemyInter = MenuScript.instance.FindNearestEnemy();
+        Interactable enemyInter = PlayerInteractions.instance.FindNearestEnemy();
         if (enemyInter == null) return;
         GameObject newEnemy = enemyInter.gameObject;
         
@@ -92,9 +128,7 @@ public class PlayerControl : MonoBehaviour {
         stats.onStatsUpdate += UpdateAttackState;
         UpdateAttackState();
 
-
-        Screen.fullScreen=false;
-        Cursor.visible = false;
+        
     }
 	
 	void UpdateAttackState () {
@@ -147,7 +181,7 @@ public class PlayerControl : MonoBehaviour {
         anim.SetInteger("RandomAttack", random);
 
         CheckCurerntTarget();
-        movem.activateCombat(1);
+        movem.ChangeMoveType(MoveTypes.joysetickLocomotion);//activateCombat(1);
         anim.SetTrigger("Shoot");
         timer = 0;
 
@@ -170,7 +204,7 @@ public class PlayerControl : MonoBehaviour {
 
 
         CheckCurerntTarget();
-        movem.activateCombat(2);
+        movem.ChangeMoveType(MoveTypes.navigation);//.activateCombat(2);
         anim.SetTrigger("Shoot");
         timer = 0;
 
@@ -183,7 +217,7 @@ public class PlayerControl : MonoBehaviour {
     }
     void ShootOnce()
     {
-        movem.activateCombat(1);
+        movem.ChangeMoveType(MoveTypes.joysetickLocomotion);//.activateCombat(1);
         anim.SetTrigger("Shoot");
         timer = 0;
         if (!pistolResetter)
@@ -206,19 +240,19 @@ public class PlayerControl : MonoBehaviour {
             timer = 0;
             onUpdate -= ResetCombatModeafterPistolShoot;
             onUpdate -= CheckCurerntTarget;
-            movem.activateCombat(0);
+            movem.ChangeMoveType(MoveTypes.joystickForward);//.activateCombat(0);
             pistolResetter = false;
         }
     }
     void StartShooting()
     {
         onUpdate += CheckCurerntTarget;
-        movem.activateCombat(1);
+        movem.ChangeMoveType(MoveTypes.joysetickLocomotion);//.activateCombat(1);
     }
     void StopShooting()
     {
         onUpdate -= CheckCurerntTarget;
-        movem.activateCombat(0);
+        movem.ChangeMoveType(MoveTypes.joystickForward);//.activateCombat(0);
     }
 
     public void _AnimShoot()
@@ -257,45 +291,27 @@ public class PlayerControl : MonoBehaviour {
     }
 
 
-    public List<Interactable> trash;
+    //public List<Interactable> trash;
     Interactable currentPickup;
-    public void PickupTarget()// Interactable inter)
+    public void GoToPickup()//Interactable inter)
     {
-        float angle = 361;
-        float dist = 20;
-        foreach (Interactable pick in trash)
-        {
-            float newDist = (pick.transform.position - transform.position).magnitude;
-            if (newDist < dist)
-            {
-                dist = newDist;
-                if (dist > 0.7f)
-                {
-                    currentPickup = pick;
-                }
-            }
-            if (newDist < 0.7f)
-            {
-                float newAngle = Vector3.Angle(transform.forward, pick.transform.position - transform.position);
-                if (newAngle < angle)
-                {
-                    currentPickup = pick;
-                    angle = newAngle;
-                }
-            }
-        }
+        currentPickup=PlayerInteractions.instance.FindNearestItemToPlayer();
+        if (currentPickup == null) return;
 
         movem.SetTarget=currentPickup.gameObject;
-        movem.activateCombat(4);
+        movem.onArrived = ArriveToPickTarget;
+        movem.ChangeMoveType(MoveTypes.navigation);//.activateCombat(4);
+    }
+    public void ArriveToPickTarget()
+    {
+        movem.onArrived = null;
+        movem.StartLoot();
+        //currentPickup.Interact();
     }
     public void _AnimPickup()
     {
         if (currentPickup != null)
         {
-            if (trash.Contains(currentPickup))
-            {
-                trash.Remove(currentPickup);
-            }
             currentPickup.Interact();
         }
     }

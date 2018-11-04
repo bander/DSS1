@@ -120,6 +120,8 @@ public class WallObject : ConstructObject
         }
 
         BuildCornersIn();
+
+        HomeConstructor.instance.AddWallToSave(key);
     }
 
     void disableTilesNearDoor()
