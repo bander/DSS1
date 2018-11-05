@@ -203,8 +203,10 @@ public class Building
             if (w.state == 1 && w.isDoor == false)// && w.canBeDoor == true)
             {
                 StairObject stair = new StairObject(w.key, level);
+                stair.isAtWall = true;
                 home.st[level].Add(w.key, stair);
                 AddStair(stair);
+                
             }
         }
         //*/
