@@ -219,6 +219,7 @@ public class HomeConstructor : MonoBehaviour {
         //TestBuilding();
 
         //LoadBuilding();
+        //TestBuildingStair();
     }
 
     void LoadBuilding()
@@ -296,6 +297,30 @@ public class HomeConstructor : MonoBehaviour {
         }
     }
 
+    void TestBuildingStair()
+    {
+        actbb(0);
+        fl[0][new Vector2(0, 0)].Build(2);
+        
+        buildType = BuildType.Wall;
+        wallType = WallType.Wall;
+        wl[0][new Vector3(-1, 0, 0)].Build();
+        wl[0][new Vector3(0, 1, 90)].Build();
+        wl[0][new Vector3(0, -1, 270)].Build();
+        wallType = WallType.Door;
+        wl[0][new Vector3(1, 0, 180)].Build();
+
+        buildType = BuildType.OnFloor;
+        tileType = TileType.Stair;
+
+        st[0][new Vector3(-1, 0, 0)].Build();
+        st[0][new Vector3(0, -1, 270)].Build();
+
+        GameObject ff = GameObject.Instantiate(trashStair,transform.position,Quaternion.Euler(0,270,0),transform);
+        ff.transform.parent = transform;
+        ff.transform.localPosition = new Vector3(0,0,-12);
+    }
+    public GameObject trashStair;
 
     public HomeConstrPanel hcp;
     void TestBuildingLow()
