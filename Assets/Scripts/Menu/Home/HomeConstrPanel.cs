@@ -62,6 +62,7 @@ public class HomeConstrPanel : MonoBehaviour {
     }
     public void CloseButton()
     {
+        HomeConstructor.instance.FinishConstruct();
         CanvasController.instance.ShowMain();
     }
 

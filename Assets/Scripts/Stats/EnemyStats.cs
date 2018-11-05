@@ -45,11 +45,11 @@ public class EnemyStats : CharacterStats {
             onUpdate = null;
             onHit = null;
 
-            GameObject.FindGameObjectWithTag("Menu").GetComponent<MenuScript>().RemoveEnemy(GetComponent<Interactable>());
+//            GameObject.FindGameObjectWithTag("Menu").GetComponent<MenuScript>().RemoveEnemy(GetComponent<Interactable>());
              GetComponentInChildren<Animator>().SetTrigger("Die");
 
             MakeLoot();
-            MenuScript.instance.RemoveEnemy(GetComponent<EnemySample>());
+//            MenuScript.instance.RemoveEnemy(GetComponent<EnemySample>());
         }
     }
 

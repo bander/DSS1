@@ -26,8 +26,6 @@ public class InvManager : MonoBehaviour {
     public delegate void OnInvChanged();
     public OnInvChanged OnInvChangedCallback;
 
-    public Item trashPrefab;
-
     void Start()
     {
         GameObject invent= new GameObject();
@@ -50,8 +48,11 @@ public class InvManager : MonoBehaviour {
         EquipInvs.SetNum(1);
         lootInvs.SetNum(2);
 
-        trashPrefab.countInSlot = 16;
-        invents[0].Add(trashPrefab);
+        //trashPrefab.countInSlot = 16;
+        // invents[0].Add(trashPrefab);
+
+        SaveGameInventory.Load();
+        invents[0].InitLoading(SaveGameInventory.Instance.itemsInv);
     }
     public void SetBackpack(bool act = true)
     {
@@ -71,7 +72,6 @@ public class InvManager : MonoBehaviour {
 
     public bool AddToInventory(Item item,int numInv)
     {
-
         if (numInv==0 && item!=null)
         {
             if (invents[0].isEmptySlotAvailable())
@@ -300,5 +300,22 @@ public class InvManager : MonoBehaviour {
         
 
         return itm;
+    }
+
+    public void SaveAllInventories()
+    {
+        SaveGameInventory.Instance.itemsInv= invents[0].items;
+        //SaveGame.Instance.items[1]= invents[1].items;
+        /*LootInventory[] loots = GameObject.FindObjectsOfType<LootInventory>();
+        foreach (LootInventory loot in loots)
+        {
+            if (loot.loadedNumber == 2)
+                SaveGameInventory.Instance.itemsLoot1 = loot.items;
+                //           if (loot.loadedNumber>1)
+                //SaveGame.Instance.items[loot.loadedNumber] = loot.items;
+        }
+        //*/
+        SaveGameInventory.Save();
+  //      Debug.Log("Saved "+ SaveGameInventory.Instance.itemsInv.Count);
     }
 }

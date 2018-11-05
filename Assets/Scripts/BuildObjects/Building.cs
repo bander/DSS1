@@ -197,15 +197,19 @@ public class Building
                 }
             }
         }
+        
         foreach (WallObject w in walls)//home.wl[level].Values)
         {
             if (w.state == 1 && w.isDoor == false)// && w.canBeDoor == true)
             {
                 StairObject stair = new StairObject(w.key, level);
+                stair.isAtWall = true;
                 home.st[level].Add(w.key, stair);
                 AddStair(stair);
+                
             }
         }
+        //*/
     }
     int ContainsKey(List<ConstructObject> list,Vector3 key)
     {

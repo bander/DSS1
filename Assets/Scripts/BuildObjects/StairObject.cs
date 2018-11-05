@@ -17,6 +17,7 @@ public class StairObject : ConstructObject
     }
 
     public TileType tileType;
+    public bool isAtWall = false;
 
     public override void Show(bool b = true)
     {
@@ -45,6 +46,7 @@ public class StairObject : ConstructObject
     {
         tileType = home.tileType;
         int buildMesh=3;
+        if (isAtWall && tileType == TileType.Stair) tileType = TileType.StairWall;
         switch (tileType)
         {
             case TileType.Stair:
@@ -52,6 +54,9 @@ public class StairObject : ConstructObject
                 break;
             case TileType.Turret:
                 buildMesh = 7;
+                break;
+            case TileType.StairWall:
+                buildMesh = 8;
                 break;
         }
 
