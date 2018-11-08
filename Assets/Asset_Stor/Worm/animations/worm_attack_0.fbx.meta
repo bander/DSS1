@@ -1,0 +1,185 @@
+fileFormatVersion: 2
+guid: 53456043de271794b8c0b6a5614a3128
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: BigB
+    100002: BigF
+    100004: bigL
+    100006: BigR
+    100008: dump_neck
+    100010: dump_spine00
+    100012: dump_spine01
+    100014: dump_spine02
+    100016: dump_spine03
+    100018: dump_spine04
+    100020: dump_spine05
+    100022: head
+    100024: left0_00
+    100026: left0_01
+    100028: left1_00
+    100030: left1_01
+    100032: left2_00
+    100034: left2_01
+    100036: left3_00
+    100038: left3_01
+    100040: neck
+    100042: right0_00
+    100044: right0_01
+    100046: right1_00
+    100048: right1_01
+    100050: right2_00
+    100052: right2_01
+    100054: right3_00
+    100056: right3_01
+    100058: root
+    100060: rot_base
+    100062: rot_tip
+    100064: spine00
+    100066: spine01
+    100068: spine02
+    100070: spine03
+    100072: spine04
+    100074: spine05
+    100076: //RootNode
+    100078: zub0
+    100080: zub001
+    100082: zub002
+    100084: zub003
+    100086: zub004
+    100088: zub005
+    100090: zub006
+    100092: zub007
+    400000: BigB
+    400002: BigF
+    400004: bigL
+    400006: BigR
+    400008: dump_neck
+    400010: dump_spine00
+    400012: dump_spine01
+    400014: dump_spine02
+    400016: dump_spine03
+    400018: dump_spine04
+    400020: dump_spine05
+    400022: head
+    400024: left0_00
+    400026: left0_01
+    400028: left1_00
+    400030: left1_01
+    400032: left2_00
+    400034: left2_01
+    400036: left3_00
+    400038: left3_01
+    400040: neck
+    400042: right0_00
+    400044: right0_01
+    400046: right1_00
+    400048: right1_01
+    400050: right2_00
+    400052: right2_01
+    400054: right3_00
+    400056: right3_01
+    400058: root
+    400060: rot_base
+    400062: rot_tip
+    400064: spine00
+    400066: spine01
+    400068: spine02
+    400070: spine03
+    400072: spine04
+    400074: spine05
+    400076: //RootNode
+    400078: zub0
+    400080: zub001
+    400082: zub002
+    400084: zub003
+    400086: zub004
+    400088: zub005
+    400090: zub006
+    400092: zub007
+    7400000: worm_attack_0
+    9500000: //RootNode
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 0.01
+    hasPreviousCalculatedGlobalScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 1
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: 535fe4186fe7e3540a8aa99594b0b5aa,
+    type: 3}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
