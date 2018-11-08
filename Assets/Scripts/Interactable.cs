@@ -7,6 +7,8 @@ public class Interactable : MonoBehaviour {
     protected bool isInRange = false;
     public EnemyStats stats;
     public bool low = true;
+    public bool closed = false;
+
 
     void Start()
     {

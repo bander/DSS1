@@ -27,7 +27,7 @@ public class Equipment : Item {
     public override Item Clone()
     {
         Equipment itm = new Equipment();
-        itm.name = "New Item";
+        itm.name = name;
         itm.mesh = mesh;
 
         itm.icon = icon;

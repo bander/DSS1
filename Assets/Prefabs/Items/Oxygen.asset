@@ -13,8 +13,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Oxygen
   mesh: {fileID: 0}
-  icon: {fileID: 21300000, guid: 54ddc0ab0f8ed5c42bec3a4c0761fdf9, type: 3}
+  icon: {fileID: 21300000, guid: 1daf202e12f67c64498cc9636a53a599, type: 3}
   isDefaultItem: 0
   countInSlot: 3
   maxCountInSlot: 5
   type: 2
+  equipSlot2: 0

@@ -52,7 +52,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1019281349959532}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 24.52, y: -0.6, z: -2.880001}
+  m_LocalPosition: {x: 6.4, y: -0.6, z: 7.7}
   m_LocalScale: {x: 65.302, y: 1, z: 42.116}
   m_Children: []
   m_Father: {fileID: 4545736303572924}
@@ -65,7 +65,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1224143767005184}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -17.4, y: 0.03203, z: -35.41203}
+  m_LocalPosition: {x: -15.02, y: 0.036109436, z: -42.96}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4397105238383554}
@@ -179,9 +179,11 @@ MonoBehaviour:
   t1: {fileID: 0}
   t2: {fileID: 0}
   game2: {fileID: 0}
-  SCENECONSTRUCT: 0
+  SCENECONSTRUCT: 1
   cc: {fileID: 0}
+  rotateButton: {fileID: 0}
   bb:
+  - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
@@ -192,6 +194,13 @@ MonoBehaviour:
   pp:
   - {fileID: 0}
   - {fileID: 0}
+  pp2:
+  - {fileID: 0}
+  - {fileID: 0}
+  textFloor: {fileID: 0}
+  digFake: {fileID: 0}
+  digReal: {fileID: 0}
+  trashStair: {fileID: 1304503982963498, guid: e6f992a163708964cb00c1350cfd0aaa, type: 2}
   hcp: {fileID: 0}
   otc:
   - {fileID: 11400000, guid: 7ab03f695329d8742a09f44d0f82f2b4, type: 2}

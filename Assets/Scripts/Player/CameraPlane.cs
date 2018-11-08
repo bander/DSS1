@@ -21,7 +21,7 @@ public class CameraPlane : MonoBehaviour {
         Ray r = mainCamera.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(r, out hit, 10000f, LayerMask.GetMask("CamCube")))
         {
-            Vector3 delta = hit.point - prevposition;
+            Vector3 delta = prevposition- hit.point;
             fakeTarget.position += delta /10;
             prevposition = hit.point;
         }
