@@ -5,7 +5,7 @@ using DG.Tweening;
 
 public class CameraControl : MonoBehaviour {
     public Transform target;
-    public Vector3 offset = new Vector3(5.5f, 5.5f, -5);
+    public Vector3 offset = new Vector3(5.5f, 7f, -5);
     public CameraPlane plane;
     public bool constructMode = false;
 
