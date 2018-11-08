@@ -1,0 +1,188 @@
+fileFormatVersion: 2
+guid: 535fe4186fe7e3540a8aa99594b0b5aa
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: BigB
+    100004: BigF
+    100006: bigL
+    100008: BigR
+    100010: dump_neck
+    100012: dump_spine00
+    100014: dump_spine01
+    100016: dump_spine02
+    100018: dump_spine03
+    100020: dump_spine04
+    100022: dump_spine05
+    100024: head
+    100026: left0_00
+    100028: left0_01
+    100030: left1_00
+    100032: left1_01
+    100034: left2_00
+    100036: left2_01
+    100038: left3_00
+    100040: left3_01
+    100042: neck
+    100044: right0_00
+    100046: right0_01
+    100048: right1_00
+    100050: right1_01
+    100052: right2_00
+    100054: right2_01
+    100056: right3_00
+    100058: right3_01
+    100060: root
+    100062: rot_base
+    100064: rot_tip
+    100066: spine00
+    100068: spine01
+    100070: spine02
+    100072: spine03
+    100074: spine04
+    100076: spine05
+    100078: worm
+    100080: zub0
+    100082: zub001
+    100084: zub002
+    100086: zub003
+    100088: zub004
+    100090: zub005
+    100092: zub006
+    100094: zub007
+    400000: //RootNode
+    400002: BigB
+    400004: BigF
+    400006: bigL
+    400008: BigR
+    400010: dump_neck
+    400012: dump_spine00
+    400014: dump_spine01
+    400016: dump_spine02
+    400018: dump_spine03
+    400020: dump_spine04
+    400022: dump_spine05
+    400024: head
+    400026: left0_00
+    400028: left0_01
+    400030: left1_00
+    400032: left1_01
+    400034: left2_00
+    400036: left2_01
+    400038: left3_00
+    400040: left3_01
+    400042: neck
+    400044: right0_00
+    400046: right0_01
+    400048: right1_00
+    400050: right1_01
+    400052: right2_00
+    400054: right2_01
+    400056: right3_00
+    400058: right3_01
+    400060: root
+    400062: rot_base
+    400064: rot_tip
+    400066: spine00
+    400068: spine01
+    400070: spine02
+    400072: spine03
+    400074: spine04
+    400076: spine05
+    400078: worm
+    400080: zub0
+    400082: zub001
+    400084: zub002
+    400086: zub003
+    400088: zub004
+    400090: zub005
+    400092: zub006
+    400094: zub007
+    2100000: No Name
+    4300000: worm
+    9500000: //RootNode
+    13700000: worm
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 0.01
+    hasPreviousCalculatedGlobalScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
