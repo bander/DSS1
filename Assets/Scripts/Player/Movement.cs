@@ -374,6 +374,10 @@ public class Movement : MonoBehaviour {
     }
     public void _LootFinish()
     {
-        PlayerControl.instance._AnimPickup();
+        PlayerControl.instance._AnimPickupAtEnd();
+    }
+    public void _LootStart()
+    {
+        PlayerControl.instance._AnimPickupAtStart();
     }
 }

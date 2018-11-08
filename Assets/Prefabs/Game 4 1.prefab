@@ -16380,10 +16380,7 @@ MonoBehaviour:
   - {fileID: 1537444824707368}
   - {fileID: 1222641689393956}
   - {fileID: 1701229950456212}
-  trash:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  ite: {fileID: 0}
 --- !u!114 &114390601319215268
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -24992,6 +24989,7 @@ MonoBehaviour:
   tm: {fileID: 11400000, guid: 0bc96dd653fd2fd46bd7bb5c8a388b47, type: 2}
   tm2: {fileID: 11400000, guid: 0bc96dd653fd2fd46bd7bb5c8a388b47, type: 2}
   invents: []
+  trashPrefab: {fileID: 0}
 --- !u!114 &114920246996868918
 MonoBehaviour:
   m_ObjectHideFlags: 1

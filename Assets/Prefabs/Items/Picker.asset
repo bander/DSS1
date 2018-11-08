@@ -13,7 +13,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Picker
   mesh: {fileID: 0}
-  icon: {fileID: 21300000, guid: 944d03b355fa964488818693d7f0d1ea, type: 3}
+  icon: {fileID: 21300000, guid: fd71c374495c8124f91f1dd7e990101c, type: 3}
   isDefaultItem: 0
   countInSlot: 1
   maxCountInSlot: 1

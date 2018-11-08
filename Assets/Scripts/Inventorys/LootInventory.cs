@@ -17,15 +17,8 @@ public class LootInventory : Interactable
         gameObject.AddComponent<Invent>();
         invent = GetComponent<Invent>();
         invent.Init(8);
-
-        List<Item> loaded=new List<Item>();
-        if (SaveGameInventory.Instance.itemsLoot1.Count>0)
-            loaded = SaveGameInventory.Instance.itemsLoot1;
-
-        if (loaded.Count!=0)
-        {
-            items = loaded;
-        }
+        
+        items = SaveController1.instance.GetItems2();
         foreach (Item item in items)
         {
             invent.Add(item);

@@ -14,7 +14,7 @@ public class Item : ScriptableObject{
 
     public EquipmentSlot equipSlot2;
 
-    public enum ItemType {Equip,Metall,Oxygen };
+    public enum ItemType {Equip,Metall,Oxygen,Oil,Food };
 
     public virtual void Use()
     {
@@ -29,7 +29,7 @@ public class Item : ScriptableObject{
     public virtual Item Clone()
     {
         Item itm = new Item();
-        itm.name = "New Item";
+        itm.name = name;
         itm.mesh = mesh;
 
         itm.icon = icon;

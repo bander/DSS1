@@ -3,12 +3,6 @@ using System.IO;
 
 public class FileManager
 {
-    /// <summary>
-    /// Load File
-    /// </summary>
-    /// <typeparam name="T">Data Model Type</typeparam>
-    /// <param name="filename">File Name</param>
-    /// <returns>Instance</returns>
     public static T Load<T>(string filename) where T : new()
     {
         string filePath = Path.Combine(Application.persistentDataPath, filename);

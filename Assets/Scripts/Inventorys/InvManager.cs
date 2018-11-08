@@ -51,9 +51,39 @@ public class InvManager : MonoBehaviour {
         //trashPrefab.countInSlot = 16;
         // invents[0].Add(trashPrefab);
 
-        SaveGameInventory.Load();
-        invents[0].InitLoading(SaveGameInventory.Instance.itemsInv);
+        //SaveInventory.Load();
+        //Debug.Log("load "+SaveInventory.Instance.items.Count);
+        /* if (SaveInventory.Instance.items.Count>0)
+         {
+             Debug.Log("load " + SaveInventory.Instance.items[0]);
+         }
+         //*/
+        // invents[0].Add(trashPrefab);
+        //invents[0].InitLoading(SaveInventory.Instance.items);
+        /*
+        if (OnInvChangedCallback != null)
+            OnInvChangedCallback.Invoke();
+
+        AddToInventory(trashPrefab, 0);
+        AddToInventory(trashPrefab2, 0);
+        SaveInventory.Instance.items.Add(new Vector3(0, 0, Random.Range(2, 7)));// =invents[0].items;
+        SaveInventory.Save();
+
+        //*/
+
+
+        /*
+        invents[0].items = GameDataController.GetItems2();
+        if (OnInvChangedCallback != null)
+            OnInvChangedCallback.Invoke();
+
+        //*/
+        invents[0].items = SaveController1.instance.GetItems();
+        if (OnInvChangedCallback != null)
+            OnInvChangedCallback.Invoke();
     }
+    public Item trashPrefab;
+    public Item trashPrefab2;
     public void SetBackpack(bool act = true)
     {
         if (act)
@@ -304,18 +334,8 @@ public class InvManager : MonoBehaviour {
 
     public void SaveAllInventories()
     {
-        SaveGameInventory.Instance.itemsInv= invents[0].items;
-        //SaveGame.Instance.items[1]= invents[1].items;
-        /*LootInventory[] loots = GameObject.FindObjectsOfType<LootInventory>();
-        foreach (LootInventory loot in loots)
-        {
-            if (loot.loadedNumber == 2)
-                SaveGameInventory.Instance.itemsLoot1 = loot.items;
-                //           if (loot.loadedNumber>1)
-                //SaveGame.Instance.items[loot.loadedNumber] = loot.items;
-        }
-        //*/
-        SaveGameInventory.Save();
-  //      Debug.Log("Saved "+ SaveGameInventory.Instance.itemsInv.Count);
+        SaveController1.instance.SetItems(invents[0].items);
+        SaveController1.instance.SetItems2(invents[2].items);
+        //GameDataController.SetItems(invents[0].items);
     }
 }

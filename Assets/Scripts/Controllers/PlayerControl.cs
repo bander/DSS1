@@ -308,9 +308,17 @@ public class PlayerControl : MonoBehaviour {
         movem.StartLoot();
         //currentPickup.Interact();
     }
-    public void _AnimPickup()
+    public void _AnimPickupAtEnd()
     {
         if (currentPickup != null)
+        {
+            currentPickup.closed = false;
+            currentPickup.Interact();
+        }
+    }
+    public void _AnimPickupAtStart()
+    {
+        if (currentPickup != null && !currentPickup.closed)
         {
             currentPickup.Interact();
         }
