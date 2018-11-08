@@ -10,7 +10,7 @@ public class CameraContainer : MonoBehaviour {
     public bool playerMode=true;
 
     //   Vector3 baseOffset = new Vector3(5.5f, 5.5f, -3);
-    Vector3 baseOffset = new Vector3(5.5f,5.5f,-3);
+    Vector3 baseOffset = new Vector3(5.5f,7f,-3);
     Vector3 constructOffset = new Vector3(9,11,-7);
 
     void Start()
