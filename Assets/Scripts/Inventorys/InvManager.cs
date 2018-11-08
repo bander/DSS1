@@ -78,7 +78,7 @@ public class InvManager : MonoBehaviour {
             OnInvChangedCallback.Invoke();
 
         //*/
-        invents[0].items = SaveController1.instance.GetItems();
+//        invents[0].items = SaveController1.instance.GetItems();
         if (OnInvChangedCallback != null)
             OnInvChangedCallback.Invoke();
     }
@@ -334,8 +334,8 @@ public class InvManager : MonoBehaviour {
 
     public void SaveAllInventories()
     {
-        SaveController1.instance.SetItems(invents[0].items);
-        SaveController1.instance.SetItems2(invents[2].items);
+//        SaveController1.instance.SetItems(invents[0].items);
+//        SaveController1.instance.SetItems2(invents[2].items);
         //GameDataController.SetItems(invents[0].items);
     }
 }

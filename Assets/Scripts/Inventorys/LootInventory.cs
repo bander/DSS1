@@ -18,7 +18,7 @@ public class LootInventory : Interactable
         invent = GetComponent<Invent>();
         invent.Init(8);
         
-        items = SaveController1.instance.GetItems2();
+  //      items = SaveController1.instance.GetItems2();
         foreach (Item item in items)
         {
             invent.Add(item);
