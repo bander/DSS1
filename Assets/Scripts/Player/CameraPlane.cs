@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class CameraPlane : MonoBehaviour {
     public Camera mainCamera;
@@ -30,16 +31,19 @@ public class CameraPlane : MonoBehaviour {
     {
         if (Input.GetMouseButtonUp(0))
         {
+            if (EventSystem.current.IsPointerOverGameObject()) return;
             mb = null;
         }
         if (mb != null) mb.Invoke();
 
 
-        if (!constructMode)
+       // if (!constructMode)
             transform.rotation = Quaternion.identity;
         
         if (Input.GetMouseButtonDown(0))
         {
+            if (EventSystem.current.IsPointerOverGameObject()) return;
+
             if (!constructMode) return;
             RaycastHit hit;
             if (Physics.Raycast(mainCamera.ScreenPointToRay(Input.mousePosition), out hit, 10000f, LayerMask.GetMask("CamCube")))

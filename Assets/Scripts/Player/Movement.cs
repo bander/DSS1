@@ -27,6 +27,8 @@ public class Movement : MonoBehaviour {
 
     public GameObject navLocal;
 
+    public GameObject pick;
+
     public GameObject SetTarget {
         set{ target = value; }
     }
@@ -215,14 +217,17 @@ public class Movement : MonoBehaviour {
             if (moveType == MoveTypes.navigation)
                 StopNavigateMotions();
 
-
+        //Debug.Log("On "+onUpdate);
         if (onUpdate != null) onUpdate.Invoke();
     }
 
     void StopNavigateMotions()
     {
         if (!agent.isStopped) agent.isStopped = true;
+        if (onUpdate != null) onUpdate = null;
+        anim.SetInteger("Mine", 0);
         anim.SetTrigger("StopPickup");
+        pick.SetActive(false);
         ChangeMoveType(MoveTypes.joystickForward);
     }
 
@@ -294,10 +299,21 @@ public class Movement : MonoBehaviour {
         }
         else
         {
-            if (onArrived != null) onArrived.Invoke();
             if (onUpdate != null) onUpdate = null;
+            if (onArrived != null) onArrived.Invoke();
         }
         anim.SetFloat("InputMagnitude", velocity.magnitude);
+    }
+    void LookAtTarget()
+    {
+        if (target == null)
+        {
+            onUpdate = null;
+            return;
+        }
+        Quaternion lookRot = Quaternion.LookRotation(target.transform.position-transform.position);
+        if (Quaternion.Angle(transform.rotation,lookRot)>5)
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, lookRot, Time.deltaTime * rotationSpeed);
     }
 
     float GetJoystickAngleRelativeToChar()
@@ -366,12 +382,33 @@ public class Movement : MonoBehaviour {
 
 
     ////////////////////  trash
-    ///
+    /// <summary>
+    /// 
+    public void StartPickUp()
+    {
+        anim.CrossFadeInFixedTime("TurnPickUp", 0.1f, 0, 0);
+        anim.Update(0);
+        onUpdate = LookAtTarget;
+    }
     public void StartLoot()
     {
         anim.CrossFadeInFixedTime("TurnLoot", 0.1f, 0, 0);
         anim.Update(0);
+        onUpdate = LookAtTarget;
     }
+    public void StartMine()
+    {
+        pick.SetActive(true);
+
+        anim.SetInteger("Mine",1);
+        onUpdate = LookAtTarget;
+    }
+    public void EndMine()
+    {
+        pick.SetActive(false);
+        anim.SetInteger("Mine", 0);
+    }
+
     public void _LootFinish()
     {
         PlayerControl.instance._AnimPickupAtEnd();

@@ -36,7 +36,7 @@ public class Invent : MonoBehaviour {
 
         bool ret = false;
         int i = -1;
-        if (newItem.countInSlot ==1)
+        if (newItem.maxCountInSlot ==1)
         {
             i = findIndexEmptySlot();
             if(i != -1) items[i] = newItem.Clone();

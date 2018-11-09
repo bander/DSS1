@@ -35,7 +35,7 @@ public class HomeConstructor : MonoBehaviour {
     public Dictionary<Vector3, StairObject>[] tr = new Dictionary<Vector3, StairObject>[3] { new Dictionary<Vector3, StairObject>(), new Dictionary<Vector3, StairObject>(), new Dictionary<Vector3, StairObject>() };
     //Dictionary<Vector3, int>[] st = new Dictionary<Vector3, int>[3]{ new Dictionary<Vector3, int>(),new Dictionary<Vector3, int>(), new Dictionary<Vector3, int>() };
     Dictionary<Vector3, int>[] wlCuts = new Dictionary<Vector3, int>[3] { new Dictionary<Vector3, int>(), new Dictionary<Vector3, int>(), new Dictionary<Vector3, int>() };
-
+    
     public List<Building>[] buildings = new List<Building>[3] { new List<Building>(), new List<Building>(), new List<Building>(), };
 
     Dictionary<Vector3, GameObject>[] wlComplete = new Dictionary<Vector3, GameObject>[3] { new Dictionary<Vector3, GameObject>(), new Dictionary<Vector3, GameObject>(), new Dictionary<Vector3, GameObject>() };
@@ -940,6 +940,14 @@ public class HomeConstructor : MonoBehaviour {
         }
         //*/
     }
+    void ShowAvailableDiggers()
+    {
+        RemoveAllPoints();
+        if (diggerIsReady) return;
+        digFake.SetActive(true);
+    }
+
+
     Vector2[] GetStairKeys(int i, int j)
     {
         Vector2 key = new Vector2(i, j);
@@ -995,6 +1003,7 @@ public class HomeConstructor : MonoBehaviour {
         }
         constructs.Clear();
         //*/
+        digFake.SetActive(false);
     }
 
     public void ChangeLevelByPlayerPosition(Vector3 pos)
@@ -1192,6 +1201,9 @@ public class HomeConstructor : MonoBehaviour {
                         break;
                     case TileType.Turret:
                         ShowAvailableTurrets();
+                        break;
+                    case TileType.Digger:
+                        ShowAvailableDiggers();
                         break;
                 }
 
@@ -1417,35 +1429,31 @@ public class HomeConstructor : MonoBehaviour {
 
     }
 
+    bool diggerIsReady = false;
     void GetCLickObject()
     {
         
         RaycastHit hit;
         if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 100,LayerMask.GetMask("House")))
         {
+            if (hit.collider.transform.parent.gameObject == digFake)
+            {
+                RemoveAllPoints();
+                digReal.SetActive(true);
+                diggerIsReady = true;
+            }
             ConstructElement parent = hit.collider.transform.parent.GetComponent<ConstructElement>();
-            //Debug.Log("Click " + parent+" // "+ hit.collider+" __ "+ hit.collider.transform.parent);
+            
             if (parent == null)
             {
                 if (hit.collider.transform.parent.parent!=null)
                 parent = hit.collider.transform.parent.parent.GetComponent<ConstructElement>();
             }
-            //Debug.Log("22  " + parent);
+            
             if (parent == null) return;
             if (parent.construct == null) return;
-            //Debug.Log(" not return ");
             if (parent.construct.state == 0)
             {
-                /*if (select != null)
-                {
-                    select.Show();
-                }
-                if (parent.construct.Select())
-                {
-                    select = parent.construct;
-                    if (selectComplete != null) selectComplete.Invoke();
-                }
-                //*/
                 parent.construct.Build();
             }
         }
@@ -2809,7 +2817,7 @@ public class Building
 
 public enum BuildType { Floor,Wall,OnFloor};
 public enum WallType { Wall,SmallWindow,BigWindow,Door};
-public enum TileType { Floor,Stair,Turret,StairWall};
+public enum TileType { Floor,Stair,Turret,StairWall,Digger};
 
 [System.Serializable]
 public class TempPrefabsArray

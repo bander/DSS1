@@ -200,6 +200,8 @@ public class Building
         
         foreach (WallObject w in walls)//home.wl[level].Values)
         {
+            Vector3 tileKey = new Vector3(w.key.x,w.key.y,0);
+            //if (level==0)
             if (w.state == 1 && w.isDoor == false)// && w.canBeDoor == true)
             {
                 StairObject stair = new StairObject(w.key, level);

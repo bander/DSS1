@@ -8,6 +8,8 @@ public class AttackButton : MonoBehaviour {
     Button button;
     GameObject imageObject;
     Image image;
+    GameObject imageObject2;
+    Image image2;
 
     public Sprite hand;
     public Sprite sword;
@@ -26,6 +28,8 @@ public class AttackButton : MonoBehaviour {
         button = GetComponent<Button>();
         imageObject = transform.GetChild(0).gameObject;
         image = transform.GetChild(0).GetComponent<Image>();
+        imageObject2 = transform.GetChild(1).gameObject;
+        image2 = transform.GetChild(1).GetComponent<Image>();
 
         spriteDict = new Dictionary<WeaponAttackType, Sprite>();
         spriteDict.Add(WeaponAttackType.None, hand);
@@ -40,6 +44,17 @@ public class AttackButton : MonoBehaviour {
     {
 
         Equipment weapon = manager.GetCurrentWeapon();
+        if (weapon != null && weapon.attackType==WeaponAttackType.Pistol)
+        {
+            image.enabled = true;
+            image2.enabled = false;
+        }
+        else
+        {
+            image2.enabled = true;
+            image.enabled = false;
+        }
+        /*
         if (weapon != null)
         {
             image.sprite = spriteDict[weapon.attackType];
@@ -50,6 +65,7 @@ public class AttackButton : MonoBehaviour {
             image.sprite = spriteDict[0];
             //imageObject.SetActive(false);
         }
+        //*/
     }
 	
     public void Activate(bool act=true)
