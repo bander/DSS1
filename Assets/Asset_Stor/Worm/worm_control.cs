@@ -33,8 +33,6 @@ public class worm_control : MonoBehaviour {
 
     void Update()
     {
-        Debug.Log(state + " " + (Vector3.Distance(transform.position, PlayerTransform.position)).ToString());
-
         if (PlayerTransform == null)
             return;
 

@@ -7,14 +7,13 @@ public class Item : ScriptableObject{
 
     public Sprite icon = null;
     public bool isDefaultItem = false;
-    [HideInInspector]
     public int countInSlot = 1;
     public int maxCountInSlot=1;
     public ItemType type;
 
     public EquipmentSlot equipSlot2;
 
-    public enum ItemType {Equip,Metall,Oxygen,Oil,Food };
+    public enum ItemType {Equip,Metall,Oxygen,Oil,Food,Crystall };
 
     public virtual void Use()
     {

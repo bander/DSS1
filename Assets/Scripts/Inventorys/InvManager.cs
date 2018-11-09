@@ -104,6 +104,8 @@ public class InvManager : MonoBehaviour {
     {
         if (numInv==0 && item!=null)
         {
+            
+
             if (invents[0].isEmptySlotAvailable())
             {
                 invents[0].Add(item);
@@ -112,10 +114,14 @@ public class InvManager : MonoBehaviour {
                     OnInvChangedCallback.Invoke();
 
                 return true;
-            }else if(item.maxCountInSlot>1){
-                invents[0].findIndexNotFullItemOfType(item.type);
+            }else if (item.maxCountInSlot > 1)
+            {
+                if (invents[0].findIndexNotFullItemOfType(item.type) != -1)
+                {
+                    invents[0].Add(item);
+                }
             }
-     
+
             return false;
         }
         return false;
@@ -337,5 +343,17 @@ public class InvManager : MonoBehaviour {
 //        SaveController1.instance.SetItems(invents[0].items);
 //        SaveController1.instance.SetItems2(invents[2].items);
         //GameDataController.SetItems(invents[0].items);
+    }
+
+    public bool HasPickInBackpack()
+    {
+        foreach (Item item in invents[0].items)
+        {
+            if (item!=null && item.name == "Picker")
+            {
+                return true;
+            }
+        }
+        return false;
     }
 }

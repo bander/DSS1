@@ -53,7 +53,7 @@ public class PlayerStats : CharacterStats {
                         }
                         else
                         {
-                            weaponNum = 0;// (int)eq.attackType;
+                            weaponNum = -1;// (int)eq.attackType;
                             weapon = null;
                         }
                     }

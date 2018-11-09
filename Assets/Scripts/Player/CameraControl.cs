@@ -5,7 +5,7 @@ using DG.Tweening;
 
 public class CameraControl : MonoBehaviour {
     public Transform target;
-    public Vector3 offset = new Vector3(5.5f, 7f, -5);
+    public Vector3 offset = new Vector3(5.5f, 7f, -3);
     public CameraPlane plane;
     public bool constructMode = false;
 
@@ -14,7 +14,8 @@ public class CameraControl : MonoBehaviour {
     void Start()
     {
         transform.position = target.position + offset;
-        //plane.transform.position = target.position - transform.up * 1.1f;
+        rotator.LookAt(target.transform);
+        transform.rotation = rotator.rotation;
     }
     void Update()  {
         transform.position = Vector3.MoveTowards(transform.position, target.position + offset, Time.deltaTime * 10);// - offset;
@@ -24,12 +25,9 @@ public class CameraControl : MonoBehaviour {
             rotator.LookAt(target.transform);
             transform.rotation = Quaternion.RotateTowards(transform.rotation, rotator.rotation, Time.deltaTime * 215);
         }
-        if (Input.GetKeyDown(KeyCode.G))
+        else
         {
-            constructMode = false;
-            plane.constructMode = false;
-            offset += Vector3.up * 4;
-            transform.DOMove(target.position+offset, 1).OnComplete(ChangeLevelComplete);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(new Vector3(-offset.x,-offset.y,-offset.z)), Time.deltaTime * 40);
         }
     }
     void ChangeLevelComplete()

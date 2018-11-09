@@ -102,6 +102,7 @@ public class WallObject : ConstructObject
                 break;
             case WallType.Door:
                 meshNum = 6;
+                isDoor = true;
                 break;
         }
 

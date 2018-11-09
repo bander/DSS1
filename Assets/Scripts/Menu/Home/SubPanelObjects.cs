@@ -18,4 +18,11 @@ public class SubPanelObjects : SubPanelBase {
         tileType = TileType.Turret;
         SubClick();
     }
+    public void ActivateDigger()
+    {
+        type = 2;
+        buildType = BuildType.OnFloor;
+        tileType = TileType.Digger;
+        SubClick();
+    }
 }

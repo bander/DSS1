@@ -305,7 +305,21 @@ public class PlayerControl : MonoBehaviour {
     public void ArriveToPickTarget()
     {
         movem.onArrived = null;
-        movem.StartLoot();
+        if(currentPickup is LootInventory)
+        {
+            movem.StartLoot();
+        }
+        if (currentPickup is Pickup)
+        {
+            movem.StartPickUp();
+        }
+        if (currentPickup is PickupMine)
+        {
+            if (InvManager.instance.HasPickInBackpack())
+                movem.StartMine();
+            else
+                Debug.Log("Сообщение о кирке");
+        }
         //currentPickup.Interact();
     }
     public void _AnimPickupAtEnd()
@@ -323,7 +337,19 @@ public class PlayerControl : MonoBehaviour {
             currentPickup.Interact();
         }
     }
-
+    public void _AnimMineEnd()
+    {
+        if (currentPickup != null && !currentPickup.closed)
+        {
+            currentPickup.Interact();
+            if(currentPickup is PickupMine)
+            {
+                PickupMine pm = (PickupMine)currentPickup;
+                if(pm.iterations<0)
+                    movem.EndMine();
+            }
+        }
+    }
 
     public void showWeapon(int num)
     {
