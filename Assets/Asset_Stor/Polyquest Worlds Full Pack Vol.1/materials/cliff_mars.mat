@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: cliff_mars
-  m_Shader: {fileID: 4800000, guid: d8dc5b44f974a407888d976711c36e82, type: 3}
+  m_Shader: {fileID: 4800000, guid: ade8f89618d773f4dadfa26753f6bc77, type: 3}
   m_ShaderKeywords: _EMISSION _GLOSSYREFLECTIONS_OFF _HEIGHTFOGCOLOR
   m_LightmapFlags: 1
   m_EnableInstancingVariants: 0
@@ -54,6 +54,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _texcoord:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     m_Floats:
     - _BumpScale: 1
     - _Cutoff: 0.5
@@ -65,8 +69,9 @@ Material:
     - _GlossMapScale: 1
     - _Glossiness: 0
     - _GlossyReflections: 0
-    - _HeightFogEnd: 9.5
-    - _HeightFogStart: -14.51
+    - _HeightFogEnd: 5
+    - _HeightFogExp: 0.623
+    - _HeightFogStart: -13.9
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
