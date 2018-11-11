@@ -77,7 +77,7 @@ public class PlayerInteractions : MonoBehaviour {
     {
         if (enemies.Count == 0)
         {
-//            attack.Activate();
+            MenuScript.instance.attack.Activate();
             CanvasController.instance.StarttrackEnemy();
         }
         enemies.Add(enemy);
@@ -87,7 +87,7 @@ public class PlayerInteractions : MonoBehaviour {
         enemies.Remove(enemy);
         if (enemies.Count == 0)
         {
-//            attack.Activate(false);
+            MenuScript.instance.attack.Activate(false);
             CanvasController.instance.StarttrackEnemy(false);
         }
     }

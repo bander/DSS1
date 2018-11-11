@@ -57,7 +57,7 @@ public class EnemyMovement : MonoBehaviour
 
 	}
 	
-    void StartFollow()
+    public void StartFollow()
     {
         if (stats.dead) return;
 
@@ -83,7 +83,6 @@ public class EnemyMovement : MonoBehaviour
 
     void MoveNavDirection()
     {
-
         if (stats.dead)
         {
             onUpdate = null;

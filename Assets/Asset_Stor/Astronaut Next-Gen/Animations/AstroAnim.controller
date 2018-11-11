@@ -4293,9 +4293,9 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.25
-  m_TransitionOffset: 0
-  m_ExitTime: 0.6875
+  m_TransitionDuration: 0.10099277
+  m_TransitionOffset: 0.019226763
+  m_ExitTime: 0.73556674
   m_HasExitTime: 1
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
@@ -5466,14 +5466,8 @@ AnimatorStateTransition:
   m_PrefabInternal: {fileID: 0}
   m_Name: 
   m_Conditions:
-  - m_ConditionMode: 6
-    m_ConditionEvent: WeaponType
-    m_EventTreshold: 2
   - m_ConditionMode: 1
     m_ConditionEvent: Shoot
-    m_EventTreshold: 0
-  - m_ConditionMode: 1
-    m_ConditionEvent: InCombat
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1102551847463281590}
@@ -8865,7 +8859,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: Pistol_ShootPowerful
-  m_Speed: 5
+  m_Speed: 2
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 1101410617374971854}
@@ -10613,7 +10607,7 @@ AnimatorStateMachine:
     m_Position: {x: 576, y: -156, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102713125865567826}
-    m_Position: {x: 360, y: -180, z: 0}
+    m_Position: {x: 348, y: -156, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102765128069118114}
     m_Position: {x: -24, y: -180, z: 0}
@@ -10622,10 +10616,10 @@ AnimatorStateMachine:
     m_Position: {x: -132, y: -228, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102659203960404174}
-    m_Position: {x: 73.86963, y: 665.74194, z: 0}
+    m_Position: {x: 84, y: 696, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102145971122380122}
-    m_Position: {x: -2232, y: -1740, z: 0}
+    m_Position: {x: -696, y: 72, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102759568712444460}
     m_Position: {x: -276, y: 0, z: 0}

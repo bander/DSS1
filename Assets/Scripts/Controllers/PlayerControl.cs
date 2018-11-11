@@ -217,8 +217,10 @@ public class PlayerControl : MonoBehaviour {
     }
     void ShootOnce()
     {
+        Debug.Log("shoot ");
         movem.ChangeMoveType(MoveTypes.joysetickLocomotion);//.activateCombat(1);
         anim.SetTrigger("Shoot");
+        anim.SetBool("InCombat",true);
         timer = 0;
         if (!pistolResetter)
         {
@@ -238,6 +240,7 @@ public class PlayerControl : MonoBehaviour {
         if (timer > 6)
         {
             timer = 0;
+            anim.SetBool("InCombat", false);
             onUpdate -= ResetCombatModeafterPistolShoot;
             onUpdate -= CheckCurerntTarget;
             movem.ChangeMoveType(MoveTypes.joystickForward);//.activateCombat(0);
