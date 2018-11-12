@@ -1012,7 +1012,7 @@ Animator:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1726772554793846}
   m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 2ec002299a551624dac60c631d627080, type: 3}
+  m_Avatar: {fileID: 9000000, guid: 1d65c26c5422b3143bb7728402aa36fa, type: 3}
   m_Controller: {fileID: 9100000, guid: 17bfe07add349b3498a5669f389dceb7, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
@@ -1076,10 +1076,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   validMoveAngle: 130
-  attackDist: 1.3
+  attackDist: 1.2
   damage: 5
   followPlayerAtStart: 0
   legs: []
+  startRoll: 1
 --- !u!114 &114953091099580854
 MonoBehaviour:
   m_ObjectHideFlags: 1

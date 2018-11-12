@@ -28,7 +28,9 @@ public class PlayerStatsBars : MonoBehaviour {
 
     public void UpdateStats()
     {
-        hpBar.fillAmount = pStats.currentHealth/pStats.maxHealth;
+        if(pStats==null) pStats = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerStats>(); ;
+
+        hpBar.fillAmount = pStats.currentHealth / pStats.maxHealth;
         oxygenBar.fillAmount = pStats.currentOxygen / pStats.maxOxygen;
         energyBar.fillAmount = pStats.currentEnergy/pStats.maxEnergy;
     }

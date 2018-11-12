@@ -146,6 +146,9 @@ public class PlayerControl : MonoBehaviour {
 
         switch (num)
         {
+            case -1:
+                onAttack = KickOnce;
+                break;
             case 0:
                 onAttack = KickOnce;
                 break;
@@ -178,6 +181,9 @@ public class PlayerControl : MonoBehaviour {
     void KickOnce()
     {
         int random = Random.Range(0, 2);
+        anim.SetFloat("WeaponNumber", 0);
+        anim.SetBool("InCombat", true);
+        anim.SetBool("ReadyToAttack", true);
         anim.SetInteger("RandomAttack", random);
 
         CheckCurerntTarget();
@@ -241,6 +247,7 @@ public class PlayerControl : MonoBehaviour {
         {
             timer = 0;
             anim.SetBool("InCombat", false);
+            anim.SetFloat("WeaponNumber", -1);
             onUpdate -= ResetCombatModeafterPistolShoot;
             onUpdate -= CheckCurerntTarget;
             movem.ChangeMoveType(MoveTypes.joystickForward);//.activateCombat(0);

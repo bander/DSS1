@@ -16,14 +16,14 @@ public class ShootScript : MonoBehaviour {
     public Transform muzzlePistol;
     public Transform muzzleMachine;
 
-    void Start () {
+    void Start() {
         menu = GameObject.FindGameObjectWithTag("Menu").GetComponent<MenuScript>();
         audio = GetComponent<AudioSource>();
         stats = GetComponent<PlayerStats>();
         stats.onStatsUpdate += UpdateWeapon;
         UpdateWeapon();
-	}
-	void UpdateWeapon()
+    }
+    void UpdateWeapon()
     {
         weapon = stats.Wepaon;
         if (weapon != null)
@@ -49,12 +49,18 @@ public class ShootScript : MonoBehaviour {
 
 
     }
+    
 
     public void Fire(GameObject enemy)
     {
-        if (effect != null) Instantiate(effect, muzzle.transform);
-        if(clip!=null) audio.PlayOneShot(clip);
-        if (enemy != null && CheckDistToEnemy(enemy)) enemy.GetComponent<EnemyStats>().TakeDamage(GetComponent<PlayerStats>().damage.GetValue());
+        if (effect != null)
+            Instantiate(effect, muzzle.transform);
+
+        if(clip!=null)
+            audio.PlayOneShot(clip);
+
+        if (enemy != null && CheckDistToEnemy(enemy))
+            enemy.GetComponent<EnemyStats>().TakeDamage(GetComponent<PlayerStats>().damage.GetValue());
         
     } 
     bool CheckDistToEnemy(GameObject enemy)

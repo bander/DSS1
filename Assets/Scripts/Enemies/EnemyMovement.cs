@@ -28,6 +28,8 @@ public class EnemyMovement : MonoBehaviour
 
     public SpiderLeg[] legs;
 
+    public bool startRoll = false;
+
     void Start ()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -37,10 +39,14 @@ public class EnemyMovement : MonoBehaviour
         player = PlayerManager.instance.player;
         pStats = player.GetComponent<PlayerStats>();
 
-        agent.stoppingDistance = attackDist;
         agent.enabled = true;
         agent.updateRotation = false;
-        //agent.updatePosition = false;
+
+        if(startRoll)
+            agent.stoppingDistance = 1.5f;
+        else
+            agent.stoppingDistance = attackDist;
+
 
         if (followPlayerAtStart)
             StartFollow();
@@ -56,20 +62,26 @@ public class EnemyMovement : MonoBehaviour
         }
 
 	}
-	
+
     public void StartFollow()
     {
         if (stats.dead) return;
 
         agent.enabled = true;
 
-        onUpdate = null;
-        onUpdate += MoveNavDirection;
+        if (startRoll)
+        {
+            startRoll = false;
+            anim.SetBool("Roll", true);
+            onUpdate = MoveRoll;
+        }
+        else
+            onUpdate = MoveNavDirection;
 
     }
     void Arrive()
     {
-        onUpdate = null;
+        onUpdate = RotationToPlayer;
         anim.SetBool("Walk Forward", false);
         anim.SetBool("Attack", true);
         agent.enabled = false;
@@ -102,6 +114,30 @@ public class EnemyMovement : MonoBehaviour
             return;
         }
         
+        Move();
+    }
+    void MoveRoll()
+    {
+        if (stats.dead)
+        {
+            onUpdate = null;
+            return;
+        }
+
+        agent.SetDestination(player.transform.position);
+
+        if (!AgentStopping())
+        {
+            velocity = agent.desiredVelocity;
+        }
+        else
+        {
+            agent.stoppingDistance = attackDist;
+            anim.SetBool("Roll", false);
+            Arrive();
+            return;
+        }
+
         Move();
     }
 
@@ -140,6 +176,19 @@ public class EnemyMovement : MonoBehaviour
 
         Quaternion destRot = Quaternion.LookRotation(direction);
         transform.rotation = Quaternion.RotateTowards(transform.rotation, destRot, Time.deltaTime * rotationSpeed);
+    }
+    void RotationToPlayer()
+    {
+        Vector3 direction =  player.transform.position - transform.position;
+        direction.y = 0;
+
+        Quaternion destRot = Quaternion.LookRotation(direction);
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, destRot, Time.deltaTime * rotationSpeed);
+
+        if (direction.magnitude > attackDist)
+        {
+            StartFollow();
+        }
     }
 
     bool IsPlayerInSight()

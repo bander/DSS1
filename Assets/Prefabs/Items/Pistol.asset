@@ -26,5 +26,5 @@ MonoBehaviour:
   attackDistance: 6
   attackRate: 4
   speed: 0
-  audioClip: {fileID: 8300000, guid: baf2b2e1655472946841adbfb57b672a, type: 3}
-  muzzleEffect: {fileID: 100002, guid: e840492206edf364baccc15150e2cc63, type: 2}
+  audioClip: {fileID: 8300000, guid: a9422d5e633fb184f8cc567ad0544a2c, type: 3}
+  muzzleEffect: {fileID: 100010, guid: ee5ab34f99ef5e641a81ef6c71df99bb, type: 2}

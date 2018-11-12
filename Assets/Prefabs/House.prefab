@@ -90,8 +90,6 @@ MonoBehaviour:
     - {fileID: 127336, guid: bc5d91e180d9e40549982ae6c317cfb6, type: 2}
   surface: {fileID: 0}
   modifier: {fileID: 0}
-  DiggerFake: {fileID: 0}
-  DiggerReal: {fileID: 0}
   scaleFactor: 1
   floorConstruct: {fileID: 1332132588941348, guid: 029ffd8b07a24b744bca6fc3cce2cd32,
     type: 2}
