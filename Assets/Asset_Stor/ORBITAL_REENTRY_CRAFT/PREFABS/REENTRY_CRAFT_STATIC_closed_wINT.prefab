@@ -2053,8 +2053,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18b98e5159c244a45afe1f722caed2ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  radius: 5
-  stopping: 0.8
+  radius: 4
+  stopping: 0.7
   stats: {fileID: 0}
   low: 1
   closed: 0

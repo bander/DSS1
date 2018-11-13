@@ -21,11 +21,16 @@ public class CameraControl : MonoBehaviour {
         rotator.LookAt(target.transform);
         transform.rotation = rotator.rotation;
 
-        if(startScene)
+        GameObject.FindGameObjectWithTag("Player").GetComponent<Animator>().CrossFade("wakeup_motherfucker", 0.001f);
+        GameObject.FindGameObjectWithTag("Player").GetComponent<Animator>().Update(0);
+
+        if (startScene)
             StartSceneAnimation();
     }
     void StartSceneAnimation()
     {
+        
+
         transform.position = target.position +Vector3.up;
 
 

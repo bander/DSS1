@@ -61,6 +61,7 @@ public class Movement : MonoBehaviour {
 
                 agent.destination = target.transform.position;
                 agent.stoppingDistance = target.GetComponent<Interactable>().stopping;
+                Debug.Log("Start navigation");
                 onUpdate = MoveNavigation;
                 break;
         }
@@ -116,89 +117,8 @@ public class Movement : MonoBehaviour {
     }
 
     bool demo = true;
-    bool comb=false;
-    public GameObject[] trashEnemy;
-    int currentE = 0;
-    public int mine = 1;
-    int  trashCount;
-    public GameObject trashPickup;
-    void TrashForDemo()
-    {
-        if (Input.GetKeyDown(KeyCode.LeftAlt))
-        {
-            if (trashCount == 0)
-            {
-                trashCount++;
-                anim.SetTrigger("pickPP");
-                Destroy(trashPickup, 0.8f);
-            }
-            else
-            {
-                anim.SetInteger("Mine", mine);
-                anim.SetTrigger("Miner");
-            }
-            
-        }
-
-        if (Input.GetKeyUp(KeyCode.LeftShift))
-        {
-            anim.SetFloat("WeaponNumber", -1);
-            anim.SetInteger("WeaponType", -1);
-//            activateCombat(0);
-            comb = false;
-        }
-        if (!demo) return;
-
-        if (Input.GetKeyDown(KeyCode.LeftShift))
-        {
-            anim.SetFloat("WeaponNumber", 2);
-            anim.SetInteger("WeaponType", 2);
-//            activateCombat(1);
-            comb = true;
-        }
-
-        if (trashEnemy[currentE].GetComponent<EnemyDemoScene>().dead)
-            currentE++;
-
-        if (currentE == trashEnemy.Length)
-        {
-            demo = false;
-            return;
-        }
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-//            anim.SetTrigger("Shoot");
-//            trashShoot();
-        }
-
-        if (!comb) return;
-
-        transform.LookAt(trashEnemy[currentE].transform);
-    }
-
-    public GameObject muzTr;
-    public GameObject bull;
-    public GameObject muz;
-    public GameObject tra;
-    public GameObject imp;
-    public AudioClip aud;
+    
     public float speed;
-    void trashShoot()
-    {
-        if (muz != null)
-        {
-            Instantiate(muz, muzTr.transform.position, muzTr.transform.rotation);
-        }
-        if (aud != null)
-        {
-            GetComponent<AudioSource>().PlayOneShot(aud);
-        }
-        if(tra!=null || imp != null)
-        {
-            GameObject go = Instantiate(bull, muzTr.transform.position, muzTr.transform.rotation);
-            go.GetComponent<BulletDemo>().SET(speed,trashEnemy[currentE],tra,imp);
-        }
-    }
 
 
     void Update() {
@@ -217,48 +137,43 @@ public class Movement : MonoBehaviour {
         }
         if(jDir.magnitude>0)
             if (moveType == MoveTypes.navigation)
+            {
+                Debug.Log("JDIR >>>> ");
                 StopNavigateMotions();
+
+            }
 
         //Debug.Log("On "+onUpdate);
         if (onUpdate != null) onUpdate.Invoke();
-    }
 
-    void StopNavigateMotions()
-    {
-        if (!agent.isStopped) agent.isStopped = true;
-        if (onUpdate != null) onUpdate = null;
-        anim.SetInteger("Mine", 0);
-        anim.SetTrigger("StopPickup");
-        pick.SetActive(false);
-        ChangeMoveType(MoveTypes.joystickForward);
-    }
-
-    
-    void MoveToPickup()
-    {
-        Vector3 velocity = new Vector3(0, 0, 0);
-        
-        if (AgentStopping())
+        if (Input.GetKeyDown(KeyCode.LeftShift))
         {
-            onUpdate = null;
-
-            anim.SetFloat("InputMagnitude", 0);
-            //anim.SetFloat("PickupAngle", 0);
-            //anim.CrossFadeInFixedTime("TurnPickUp", 0.1f, 0, 0);
-            anim.Update(0);
-            return;
+            Debug.Log("LEFT");
+            agent.isStopped = true;
         }
-        
+    }
 
+    public void StopNavigateMotions()
+    {
+        Debug.Log("Stop navi");
+        if (!agent.hasPath) agent.ResetPath();//agent.isStopped = true;
+        if (onUpdate != null) onUpdate = null;
 
-        float angle = Vector3.Angle(transform.forward, agent.desiredVelocity);// jDir);
-        Vector3 cross = Vector3.Cross(transform.forward, agent.desiredVelocity);// jDir);
-        if (cross.y < 0) angle = -angle;
+        Debug.Log("isLoot?? false=? "+anim.GetCurrentAnimatorClipInfo(0)[0].clip.name);
 
-        SmoothRotation(angle);
-        anim.SetFloat("InputMagnitude", Mathf.Min(agent.desiredVelocity.magnitude, 0.69f));// 0.69f);
-        anim.SetFloat("InputAngle", rot);
-        anim.SetFloat("RawInputAngle", angle);
+        if(anim.GetCurrentAnimatorClipInfo(0)[0].clip.name== "Working On Device")
+        {
+            //anim.SetTrigger("StopPickup");
+            anim.SetBool("isLoot",false);
+        }
+
+        if (anim.GetCurrentAnimatorClipInfo(0)[0].clip.name == "1HAttack")
+        {
+            pick.SetActive(false);
+            anim.SetInteger("Mine", 0);
+        }
+
+        ChangeMoveType(MoveTypes.joystickForward);
     }
     
 
@@ -294,13 +209,17 @@ public class Movement : MonoBehaviour {
     {
         Vector3 velocity = new Vector3(0, 0,0);
         if (!AgentDone())//(!AgentStopping())
+        //if(!AgentReachTarget())
         {
             velocity = agent.desiredVelocity;// Quaternion.Inverse(transform.rotation) * agent.desiredVelocity;
             velocity.y = 0;
             if(Quaternion.LookRotation(velocity)!=null) transform.rotation = Quaternion.LookRotation(velocity);
+            
         }
         else
         {
+            Debug.Log("reach ");
+            anim.SetBool("isLoot", true);
             if (onUpdate != null) onUpdate = null;
             if (onArrived != null) onArrived.Invoke();
         }
@@ -346,13 +265,21 @@ public class Movement : MonoBehaviour {
     }
     protected bool AgentDone()
     {
-        return AgentStopping();// ||  !agent.pathPending;
+        return AgentStopping() &&  !agent.pathPending;
     }
     protected bool AgentStopping()
     {
+        //return agent.remainingDistance <= agent.stoppingDistance;
+        Debug.Log("stopping "+agent.remainingDistance + " // "+ agent.stoppingDistance+" == remain="+ agent.remainingDistance+" -- pathing="+ !agent.pathPending);
         return agent.remainingDistance <= agent.stoppingDistance;
     }
-    
+    protected bool AgentReachTarget()
+    {
+        //return agent.remainingDistance <= agent.stoppingDistance;
+        Debug.Log("reach? fact=" + Vector3.Distance(transform.position, target.transform.position) + " // a.stop=" + agent.stoppingDistance + " == remain=" + agent.remainingDistance + " -- pathing=" + agent.pathPending);
+        return Vector3.Distance(transform.position, target.transform.position) <= agent.stoppingDistance;
+    }
+
     bool IsTargetInSight()
     {
         Ray ray = new Ray(transform.position, target.transform.position-transform.position);
@@ -394,9 +321,10 @@ public class Movement : MonoBehaviour {
     }
     public void StartLoot()
     {
-        anim.CrossFadeInFixedTime("TurnLoot", 0.1f, 0, 0);
+        anim.CrossFadeInFixedTime("Working On Device", 0.1f, 0, 0);
         anim.Update(0);
         onUpdate = LookAtTarget;
+        Debug.Log("start loot");
     }
     public void StartMine()
     {

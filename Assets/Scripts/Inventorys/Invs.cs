@@ -36,7 +36,8 @@ public class Invs : MonoBehaviour {
         int i = 0;
         foreach (InvSlot s in slots)
         {
-            s.SetItem(null, i, num);
+            if(s!=null && s.isActiveAndEnabled)
+                s.SetItem(null, i, num);
             i++;
         }
     }
@@ -48,18 +49,19 @@ public class Invs : MonoBehaviour {
         {
             foreach (InvSlot s in slots)
             {
-                if (invent.items.Count > i)
-                {
-                    Item tm = invent.items[i];
-                    if (tm != null)
+                if(s!=null)
+                    if (invent.items.Count > i)
                     {
-                        s.SetItem(tm.Clone(), i, num);
+                        Item tm = invent.items[i];
+                        if (tm != null)
+                        {
+                            s.SetItem(tm.Clone(), i, num);
+                        }
+                        else
+                        {
+                            s.SetItem(null, i, num);
+                        }
                     }
-                    else
-                    {
-                        s.SetItem(null, i, num);
-                    }
-                }
 
                 i++;
             }

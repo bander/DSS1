@@ -354,6 +354,8 @@ public class PlayerControl : MonoBehaviour {
         if (currentPickup != null && !currentPickup.closed)
         {
             currentPickup.Interact();
+
+            movem.StopNavigateMotions();
         }
     }
     public void _AnimMineEnd()
