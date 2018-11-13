@@ -1293,7 +1293,7 @@ public class HomeConstructor : MonoBehaviour {
         }
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            stepping = true;
+           // stepping = true;
             //BuildObject();
         }
         UpdateScene();

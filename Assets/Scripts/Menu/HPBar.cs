@@ -19,6 +19,7 @@ public class HPBar : MonoBehaviour {
         {
             stats = newStats;
 
+            if(stats!=null && slider!=null)
             slider.value = ((float)stats.currentHealth / (float)stats.maxHealth);
             updateText();
         }

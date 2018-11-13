@@ -96,6 +96,9 @@ public class PlayerStats : CharacterStats {
         {
             currentOxygen = 0;
         }
+
+        if (PlayerStatsBars.instance == null) return;
+
         PlayerStatsBars.instance.UpdateStats();
         //SaveStats();
     }
@@ -106,6 +109,7 @@ public class PlayerStats : CharacterStats {
         {
             currentEnergy = 0;
         }
+        if (PlayerStatsBars.instance == null) return;
         PlayerStatsBars.instance.UpdateStats();
         //SaveStats();
     }

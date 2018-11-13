@@ -10,7 +10,7 @@ public class EnemySample : Interactable {
     public string enemyName = "Enemy1";
     
     public override void inRange()
-    {   
+    {
         if (isInRange)
         {
             if (!stats.dead)

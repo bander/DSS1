@@ -28,3 +28,4 @@ MonoBehaviour:
   speed: 0
   audioClip: {fileID: 8300000, guid: a9422d5e633fb184f8cc567ad0544a2c, type: 3}
   muzzleEffect: {fileID: 100010, guid: ee5ab34f99ef5e641a81ef6c71df99bb, type: 2}
+  bullet: {fileID: 1956909543330804, guid: 32b2a48d8f3109e4ca2706b56f1ca903, type: 2}

@@ -65,7 +65,7 @@ public class worm_control : MonoBehaviour {
                     animator.SetTrigger("attack");
                     attackTimer = Time.time + Random.Range(AttackTime.x, AttackTime.y);
                 }
-
+                /*
                 if (Input.GetMouseButtonDown(0))
                     animator.SetTrigger("damage");
 
@@ -74,7 +74,7 @@ public class worm_control : MonoBehaviour {
                     state = wormStates.dead;
                     animator.SetTrigger("death");
                 }
-
+                //*/
                 if (dist > Radius.y)
                 {
                     animator.SetBool("hide", true);
@@ -84,7 +84,15 @@ public class worm_control : MonoBehaviour {
         }
 
     }
-
+    public void Damage()
+    {
+        animator.SetTrigger("damage");
+    }
+    public void Die()
+    {
+        state = wormStates.dead;
+        animator.SetTrigger("death");
+    }
 
     public void Hide()
     {

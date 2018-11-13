@@ -10,6 +10,7 @@ public class ShootScript : MonoBehaviour {
 
     AudioClip clip;
     GameObject effect;
+    GameObject bullet;
     Transform muzzle;
     float fireDist;
 
@@ -17,7 +18,9 @@ public class ShootScript : MonoBehaviour {
     public Transform muzzleMachine;
 
     void Start() {
-        menu = GameObject.FindGameObjectWithTag("Menu").GetComponent<MenuScript>();
+        if(GameObject.FindGameObjectWithTag("Menu")!=null)
+            menu = GameObject.FindGameObjectWithTag("Menu").GetComponent<MenuScript>();
+
         audio = GetComponent<AudioSource>();
         stats = GetComponent<PlayerStats>();
         stats.onStatsUpdate += UpdateWeapon;
@@ -31,6 +34,7 @@ public class ShootScript : MonoBehaviour {
             clip = weapon.audioClip;
             effect = weapon.muzzleEffect;
             fireDist = weapon.attackDistance;
+            bullet = weapon.bullet;
 
             switch (weapon.attackType)
             {
@@ -49,18 +53,43 @@ public class ShootScript : MonoBehaviour {
 
 
     }
-    
 
+    public GameObject trash;
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            /*GameObject mz=Instantiate(trash, muzzlePistol.transform.position, muzzlePistol.transform.rotation);
+            mz.transform.parent = muzzlePistol.transform;
+            //*/
+        }
+
+    }
     public void Fire(GameObject enemy)
     {
         if (effect != null)
-            Instantiate(effect, muzzle.transform);
+        {
+            GameObject mz = Instantiate(effect, muzzlePistol.transform.position, muzzlePistol.transform.rotation);
+            mz.transform.parent = muzzlePistol.transform;
+        }
+        if (bullet != null)
+        {
+            GameObject bl = Instantiate(bullet, muzzlePistol.transform.position, muzzlePistol.transform.rotation);
+            bl.GetComponent<PistolBullet>().target = enemy;
+            //mz.transform.parent = muzzlePistol.transform;
+        }
 
-        if(clip!=null)
+        if (clip!=null)
             audio.PlayOneShot(clip);
 
         if (enemy != null && CheckDistToEnemy(enemy))
-            enemy.GetComponent<EnemyStats>().TakeDamage(GetComponent<PlayerStats>().damage.GetValue());
+        {
+            if(enemy.GetComponent<EnemyStats>()!=null)
+                enemy.GetComponent<EnemyStats>().TakeDamage(GetComponent<PlayerStats>().damage.GetValue());
+            if (enemy.GetComponent<EnemyStatsWorm>() != null)
+                enemy.GetComponent<EnemyStatsWorm>().TakeDamage(GetComponent<PlayerStats>().damage.GetValue());
+        }
+            
         
     } 
     bool CheckDistToEnemy(GameObject enemy)

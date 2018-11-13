@@ -29,7 +29,8 @@ public class PlayerManager : MonoBehaviour {
         pStats.currentEnergy = savedStats.z;
         //*/
 
-        PlayerStatsBars.instance.UpdateStats();
+        if(PlayerStatsBars.instance!=null)
+            PlayerStatsBars.instance.UpdateStats();
 
         playerUpdate += oxygenDecrease;
         playerUpdate += energyDecrease;

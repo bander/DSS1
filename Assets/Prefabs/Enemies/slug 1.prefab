@@ -618,8 +618,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1726772554793846}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -8.747408, y: 0.0338572, z: -36.35747}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -4.9, y: -0.011, z: -60.39}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children:
   - {fileID: 4008893078959288}
   - {fileID: 4935135433830256}
@@ -1038,7 +1038,7 @@ MonoBehaviour:
   stats: {fileID: 114080634190577618}
   low: 1
   closed: 0
-  enemyName: Enemy1
+  enemyName: Slug
 --- !u!114 &114080634190577618
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1050,8 +1050,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 178a426313c5c834c9c729ed62dad753, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 30
-  currentHealth: 30
+  maxHealth: 100
+  currentHealth: 100
   damage:
     baseValue: 15
   attackRate:
@@ -1081,6 +1081,7 @@ MonoBehaviour:
   followPlayerAtStart: 0
   legs: []
   startRoll: 1
+  trashGroup: 2
 --- !u!114 &114953091099580854
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -81,15 +81,38 @@ public class EnemyMovement : MonoBehaviour
     }
     void Arrive()
     {
+        anim.SetBool("Roll", false);
         onUpdate = RotationToPlayer;
         anim.SetBool("Walk Forward", false);
         anim.SetBool("Attack", true);
         agent.enabled = false;
     }
 
+    public int trashGroup = 0;
 	void Update ()
     {
         if (onUpdate != null) onUpdate.Invoke();
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            if (trashGroup == 1)
+            {
+                StartFollow();
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            if (trashGroup == 2)
+            {
+                StartFollow();
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            if (trashGroup == 3)
+            {
+                StartFollow();
+            }
+        }
     }
     
 
@@ -100,9 +123,9 @@ public class EnemyMovement : MonoBehaviour
             onUpdate = null;
             return;
         }
-        
-        agent.SetDestination(player.transform.position);
 
+        agent.SetDestination(player.transform.position);
+        //Debug.Log("ag rem "+agent.remainingDistance);
         if (!AgentStopping())
         {
             //velocity = Quaternion.Inverse(transform.rotation) * agent.desiredVelocity;
@@ -167,7 +190,9 @@ public class EnemyMovement : MonoBehaviour
 
     bool AgentStopping()
     {
-        return agent.remainingDistance <= agent.stoppingDistance;
+        float dist = Vector3.Distance(transform.position, player.transform.position);
+        return dist <= agent.stoppingDistance;
+        //return agent.remainingDistance <= agent.stoppingDistance;
     }
     void RotationNavigate()
     {
@@ -216,7 +241,7 @@ public class EnemyMovement : MonoBehaviour
     {
         float dist = (player.transform.position - transform.position).magnitude;
 
-        if (dist > attackDist+0.4f)
+        if (dist > attackDist+0.1f)
         {
             StartFollow();
             return;

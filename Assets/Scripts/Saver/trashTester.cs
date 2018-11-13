@@ -7,11 +7,11 @@ public class trashTester : MonoBehaviour {
 	void Update () {
         if (Input.GetKeyDown(KeyCode.E))
         {
-            SaveController1.instance.SaveGame();
+            //SaveController1.instance.SaveGame();
         }
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            SaveController1.instance.LoadData();
+            //SaveController1.instance.LoadData();
         }
     }
 }
