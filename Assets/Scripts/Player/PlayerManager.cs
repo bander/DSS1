@@ -21,13 +21,16 @@ public class PlayerManager : MonoBehaviour {
         player = GameObject.FindGameObjectWithTag("Player");
         pStats = player.GetComponent<PlayerStats>();
 
+        /*
         SaveGame.Load();
         Vector3 savedStats = SaveGame.Instance.s;
         pStats.currentHealth = savedStats.x;
         pStats.currentOxygen = savedStats.y;
         pStats.currentEnergy = savedStats.z;
+        //*/
 
-        PlayerStatsBars.instance.UpdateStats();
+        if(PlayerStatsBars.instance!=null)
+            PlayerStatsBars.instance.UpdateStats();
 
         playerUpdate += oxygenDecrease;
         playerUpdate += energyDecrease;

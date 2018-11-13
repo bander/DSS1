@@ -300,7 +300,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: spider_move
-  m_Speed: 14
+  m_Speed: 3
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 1101224144520555580}

@@ -10,14 +10,19 @@ public class EnemySample : Interactable {
     public string enemyName = "Enemy1";
     
     public override void inRange()
-    {   
+    {
         if (isInRange)
         {
-//            if(!stats.dead) MenuScript.instance.AddEnemy(this);
+            if (!stats.dead)
+            { //MenuScript.instance.AddEnemy(this);
+                player.AddEnemy(this);
+                GetComponent<EnemyMovement>().StartFollow();
+            }
         }
         else
         {
-//            MenuScript.instance.RemoveEnemy(this);
+            player.RemoveEnemy(this);
+            //MenuScript.instance.RemoveEnemy(this);
         }
     }
 

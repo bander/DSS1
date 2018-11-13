@@ -96,8 +96,11 @@ public class PlayerStats : CharacterStats {
         {
             currentOxygen = 0;
         }
+
+        if (PlayerStatsBars.instance == null) return;
+
         PlayerStatsBars.instance.UpdateStats();
-        SaveStats();
+        //SaveStats();
     }
     public void ChangeEnergyBy(int n)
     {
@@ -106,8 +109,9 @@ public class PlayerStats : CharacterStats {
         {
             currentEnergy = 0;
         }
+        if (PlayerStatsBars.instance == null) return;
         PlayerStatsBars.instance.UpdateStats();
-        SaveStats();
+        //SaveStats();
     }
 
     public override void Die()

@@ -28,6 +28,8 @@ public class EnemyMovement : MonoBehaviour
 
     public SpiderLeg[] legs;
 
+    public bool startRoll = false;
+
     void Start ()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -37,10 +39,14 @@ public class EnemyMovement : MonoBehaviour
         player = PlayerManager.instance.player;
         pStats = player.GetComponent<PlayerStats>();
 
-        agent.stoppingDistance = attackDist;
         agent.enabled = true;
         agent.updateRotation = false;
-        //agent.updatePosition = false;
+
+        if(startRoll)
+            agent.stoppingDistance = 1.5f;
+        else
+            agent.stoppingDistance = attackDist;
+
 
         if (followPlayerAtStart)
             StartFollow();
@@ -56,42 +62,70 @@ public class EnemyMovement : MonoBehaviour
         }
 
 	}
-	
-    void StartFollow()
+
+    public void StartFollow()
     {
         if (stats.dead) return;
 
         agent.enabled = true;
 
-        onUpdate = null;
-        onUpdate += MoveNavDirection;
+        if (startRoll)
+        {
+            startRoll = false;
+            anim.SetBool("Roll", true);
+            onUpdate = MoveRoll;
+        }
+        else
+            onUpdate = MoveNavDirection;
 
     }
     void Arrive()
     {
-        onUpdate = null;
+        anim.SetBool("Roll", false);
+        onUpdate = RotationToPlayer;
         anim.SetBool("Walk Forward", false);
         anim.SetBool("Attack", true);
         agent.enabled = false;
     }
 
+    public int trashGroup = 0;
 	void Update ()
     {
         if (onUpdate != null) onUpdate.Invoke();
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            if (trashGroup == 1)
+            {
+                StartFollow();
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            if (trashGroup == 2)
+            {
+                StartFollow();
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            if (trashGroup == 3)
+            {
+                StartFollow();
+            }
+        }
     }
     
 
     void MoveNavDirection()
     {
-
         if (stats.dead)
         {
             onUpdate = null;
             return;
         }
-        
-        agent.SetDestination(player.transform.position);
 
+        agent.SetDestination(player.transform.position);
+        //Debug.Log("ag rem "+agent.remainingDistance);
         if (!AgentStopping())
         {
             //velocity = Quaternion.Inverse(transform.rotation) * agent.desiredVelocity;
@@ -103,6 +137,30 @@ public class EnemyMovement : MonoBehaviour
             return;
         }
         
+        Move();
+    }
+    void MoveRoll()
+    {
+        if (stats.dead)
+        {
+            onUpdate = null;
+            return;
+        }
+
+        agent.SetDestination(player.transform.position);
+
+        if (!AgentStopping())
+        {
+            velocity = agent.desiredVelocity;
+        }
+        else
+        {
+            agent.stoppingDistance = attackDist;
+            anim.SetBool("Roll", false);
+            Arrive();
+            return;
+        }
+
         Move();
     }
 
@@ -132,7 +190,9 @@ public class EnemyMovement : MonoBehaviour
 
     bool AgentStopping()
     {
-        return agent.remainingDistance <= agent.stoppingDistance;
+        float dist = Vector3.Distance(transform.position, player.transform.position);
+        return dist <= agent.stoppingDistance;
+        //return agent.remainingDistance <= agent.stoppingDistance;
     }
     void RotationNavigate()
     {
@@ -141,6 +201,19 @@ public class EnemyMovement : MonoBehaviour
 
         Quaternion destRot = Quaternion.LookRotation(direction);
         transform.rotation = Quaternion.RotateTowards(transform.rotation, destRot, Time.deltaTime * rotationSpeed);
+    }
+    void RotationToPlayer()
+    {
+        Vector3 direction =  player.transform.position - transform.position;
+        direction.y = 0;
+
+        Quaternion destRot = Quaternion.LookRotation(direction);
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, destRot, Time.deltaTime * rotationSpeed);
+
+        if (direction.magnitude > attackDist)
+        {
+            StartFollow();
+        }
     }
 
     bool IsPlayerInSight()
@@ -168,7 +241,7 @@ public class EnemyMovement : MonoBehaviour
     {
         float dist = (player.transform.position - transform.position).magnitude;
 
-        if (dist > attackDist+0.4f)
+        if (dist > attackDist+0.1f)
         {
             StartFollow();
             return;

@@ -28,7 +28,9 @@ public class Interactable : MonoBehaviour {
 
         if (player != null)
         {
-            if ((player.transform.position - transform.position).magnitude < radius)
+            float d = Vector3.Distance(player.transform.position,transform.position);
+           
+            if (d< radius)
             {
                 if (!isInRange)
                 {

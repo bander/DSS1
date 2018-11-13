@@ -16,6 +16,7 @@ public class Equipment : Item {
 
     public AudioClip audioClip;
     public GameObject muzzleEffect;
+    public GameObject bullet;
 
     public override void Use()
     {
@@ -46,6 +47,7 @@ public class Equipment : Item {
         itm.speed = speed;
         itm.audioClip = audioClip;
         itm.muzzleEffect = muzzleEffect;
+        itm.bullet = bullet;
 
         return itm;
     }

@@ -77,7 +77,7 @@ public class PlayerInteractions : MonoBehaviour {
     {
         if (enemies.Count == 0)
         {
-//            attack.Activate();
+            MenuScript.instance.attack.Activate();
             CanvasController.instance.StarttrackEnemy();
         }
         enemies.Add(enemy);
@@ -87,7 +87,7 @@ public class PlayerInteractions : MonoBehaviour {
         enemies.Remove(enemy);
         if (enemies.Count == 0)
         {
-//            attack.Activate(false);
+            MenuScript.instance.attack.Activate(false);
             CanvasController.instance.StarttrackEnemy(false);
         }
     }
@@ -97,7 +97,7 @@ public class PlayerInteractions : MonoBehaviour {
         {
             return null;
         }
-        if (enemies.Count == 1)
+        if (enemies.Count == 1 && !enemies[0].GetComponent<CharacterStats>().dead)
         {
             return enemies[0];
         }
@@ -105,12 +105,16 @@ public class PlayerInteractions : MonoBehaviour {
         float dist = (pControl.transform.position - enemies[0].transform.position).magnitude;
         for (int i = 1; i < enemies.Count; i++)
         {
-            float newDist = (pControl.transform.position - enemies[i].transform.position).magnitude;
-            if (dist > newDist)
+            if (!enemies[i].GetComponent<CharacterStats>().dead)
             {
-                inter = enemies[i];
-                dist = newDist;
+                float newDist = (pControl.transform.position - enemies[i].transform.position).magnitude;
+                if (dist > newDist)
+                {
+                    inter = enemies[i];
+                    dist = newDist;
+                }
             }
+            
         }
         return inter;
     }

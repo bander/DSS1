@@ -26,7 +26,7 @@ public class PlayerControl : MonoBehaviour {
     Animator anim;
     ShootScript shootScript;
 
-    GameObject enemy;
+   public  GameObject enemy;
     bool enemyLow;
 
     public GameObject[] weapons;
@@ -128,7 +128,10 @@ public class PlayerControl : MonoBehaviour {
         stats.onStatsUpdate += UpdateAttackState;
         UpdateAttackState();
 
-        
+//        Cursor.visible = false;
+
+  //      anim.CrossFadeInFixedTime("wakeup_motherfucker", 0.1f, 0, 0);
+  //      anim.Update(0);
     }
 	
 	void UpdateAttackState () {
@@ -146,6 +149,9 @@ public class PlayerControl : MonoBehaviour {
 
         switch (num)
         {
+            case -1:
+                onAttack = KickOnce;
+                break;
             case 0:
                 onAttack = KickOnce;
                 break;
@@ -178,6 +184,9 @@ public class PlayerControl : MonoBehaviour {
     void KickOnce()
     {
         int random = Random.Range(0, 2);
+        anim.SetFloat("WeaponNumber", 0);
+        anim.SetBool("InCombat", true);
+        anim.SetBool("ReadyToAttack", true);
         anim.SetInteger("RandomAttack", random);
 
         CheckCurerntTarget();
@@ -219,6 +228,7 @@ public class PlayerControl : MonoBehaviour {
     {
         movem.ChangeMoveType(MoveTypes.joysetickLocomotion);//.activateCombat(1);
         anim.SetTrigger("Shoot");
+        anim.SetBool("InCombat",true);
         timer = 0;
         if (!pistolResetter)
         {
@@ -238,6 +248,8 @@ public class PlayerControl : MonoBehaviour {
         if (timer > 6)
         {
             timer = 0;
+            anim.SetBool("InCombat", false);
+            anim.SetFloat("WeaponNumber", 2);
             onUpdate -= ResetCombatModeafterPistolShoot;
             onUpdate -= CheckCurerntTarget;
             movem.ChangeMoveType(MoveTypes.joystickForward);//.activateCombat(0);
@@ -257,7 +269,14 @@ public class PlayerControl : MonoBehaviour {
 
     public void _AnimShoot()
     {
-        shootScript.Fire(enemy);
+        if (enemy == null) return;
+
+        if(enemy.GetComponent<EnemyStats>())
+            if(!enemy.GetComponent<EnemyStats>().dead)
+                shootScript.Fire(enemy);
+        if(enemy.GetComponent<EnemyStatsWorm>())
+            if(!enemy.GetComponent<EnemyStatsWorm>().dead)
+                shootScript.Fire(enemy);
     }
 
     public void _AnimStartMelee()
@@ -335,6 +354,8 @@ public class PlayerControl : MonoBehaviour {
         if (currentPickup != null && !currentPickup.closed)
         {
             currentPickup.Interact();
+
+            movem.StopNavigateMotions();
         }
     }
     public void _AnimMineEnd()
