@@ -44,7 +44,7 @@ public class CameraControl : MonoBehaviour {
         transform.DOMove(transform.position + (target.transform.forward * 4 + Vector3.up*2), 14).SetEase(Ease.InOutSine);
     }
     void Update()  {
-        //transform.position = Vector3.MoveTowards(transform.position, target.position + offset, Time.deltaTime * 10);// - offset;
+        transform.position = Vector3.MoveTowards(transform.position, target.position + offset, Time.deltaTime * 10);// - offset;
         
 
         if (!constructMode)
@@ -58,7 +58,7 @@ public class CameraControl : MonoBehaviour {
         }
         else
         {
-            //transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(new Vector3(-offset.x,-offset.y,-offset.z)), Time.deltaTime * 40);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(new Vector3(-offset.x,-offset.y,-offset.z)), Time.deltaTime * 40);
  //           transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(new Vector3(-offset.x,-offset.y,-offset.z)), Time.deltaTime * 10);
         }
     }
