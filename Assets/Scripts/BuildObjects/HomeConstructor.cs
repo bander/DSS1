@@ -5,6 +5,7 @@ using UnityEngine.AI;
 using UnityEngine.EventSystems;
 using DG.Tweening;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class HomeConstructor : MonoBehaviour {
     #region Singleton
@@ -221,7 +222,60 @@ public class HomeConstructor : MonoBehaviour {
         //LoadBuilding();
         //TestBuildingStair();
     }
+    public void ResetScene()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+    public void ResetBuilding()
+    {
+        RemoveAllPoints();
+        if (buildings[0] != null) buildings[0].Clear();
+        if (buildings[1] != null) buildings[1].Clear();
+        if (buildings[2] != null) buildings[2].Clear();
 
+        foreach (Dictionary<Vector2, TileObject> flt in fl)
+        {
+            foreach (TileObject to in flt.Values)
+            {
+                GameObject.Destroy(to.obj);
+                GameObject.Destroy(to.roof);
+            }
+            flt.Clear();
+        }
+        foreach (Dictionary<Vector3, WallObject> wlt in wl)
+        {
+            foreach (WallObject to in wlt.Values)
+            {
+                GameObject.Destroy(to.obj);
+            }
+            wlt.Clear();
+        }
+        foreach (Dictionary<Vector3, StairObject> stt in st)
+        {
+            foreach (StairObject to in stt.Values)
+            {
+                GameObject.Destroy(to.obj);
+            }
+            stt.Clear();
+        }
+        foreach (Dictionary<Vector3, StairObject> stt in tr)
+        {
+            foreach (StairObject to in stt.Values)
+            {
+                GameObject.Destroy(to.obj);
+            }
+            stt.Clear();
+        }
+        foreach (Dictionary<Vector3, CornerObject> crt in cr)
+        {
+            foreach (CornerObject to in crt.Values)
+            {
+                GameObject.Destroy(to.obj);
+            }
+            crt.Clear();
+        }
+        SetAvailablePoints(4, 4, -2, -1);
+    }
     void LoadBuilding()
     {
         SaveHome.Load();
