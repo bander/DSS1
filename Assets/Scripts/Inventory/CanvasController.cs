@@ -23,6 +23,7 @@ public class CanvasController : MonoBehaviour {
     public GameObject closeButton;
     public GameObject LootUI;
     public GameObject BuildUI;
+    public GameObject CraftUI;
     public GameObject BuildPanel;
     public GameObject SplitPanel;
 
@@ -124,7 +125,13 @@ public class CanvasController : MonoBehaviour {
         camContainer.SetConstructMode();
         homeConstPanel.Show();
     }
-    
+    public void ShowCraft()
+    {
+        closeAll();
+        CraftUI.SetActive(true);
+        closeButton.SetActive(true);
+        UpdateGetAllButton();
+    }
 
     public void ShowMain()
     {
@@ -138,6 +145,7 @@ public class CanvasController : MonoBehaviour {
         //Camera.main.GetComponent<CameraController>().SetCameraMode(0);
         inventoryUI.SetActive(false);
         equipUI.SetActive(false);
+        CraftUI.SetActive(false);
         closeButton.SetActive(false);
         mainUI.SetActive(false);
         LootUI.SetActive(false);
