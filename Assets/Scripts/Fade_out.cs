@@ -4,15 +4,20 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class Fade_out : MonoBehaviour {
+    Image im;
     void Start()
     {
+        im = GetComponent<Image>();
+
+        var tempColor = im.color;
+        tempColor.a =1;
+        im.color = tempColor;
+
         StartCoroutine(DoFade());
     }
 
     IEnumerator DoFade()
     {
-        CanvasGroup canvasGroup = GetComponent<CanvasGroup>();
-        Image im = GetComponent<Image>();
 
         while (im.color.a > 0)
         {

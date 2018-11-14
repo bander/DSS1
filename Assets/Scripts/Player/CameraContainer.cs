@@ -15,6 +15,13 @@ public class CameraContainer : MonoBehaviour {
 
     void Start()
     {
+        camControl.offset = baseOffset;
+        camControl.offset = baseOffset;
+        playerMode = true;
+        plane.constructMode = false;
+        camControl.target = target;
+        camControl.constructMode = false;
+
         transform.position = Vector3.MoveTowards(transform.position, target.position, Time.deltaTime*10) ;
     }
     void Update()
@@ -34,13 +41,13 @@ public class CameraContainer : MonoBehaviour {
     public void SetPlayerMode()
     {
         //camControl.target.transform.DOMove(target.position, 1).OnComplete(TransformToPlayerComplete);
-        TransformToPlayerComplete();
+  //      TransformToPlayerComplete();
         camControl.offset = baseOffset;
         playerMode = true;
         plane.constructMode = false;
-    }
-    void TransformToPlayerComplete()
-    {
+ //   }
+ //   void TransformToPlayerComplete()
+ //   {
         camControl.target = target;
         camControl.constructMode = false;
     }

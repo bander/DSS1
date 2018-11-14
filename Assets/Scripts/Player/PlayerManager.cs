@@ -29,11 +29,13 @@ public class PlayerManager : MonoBehaviour {
         pStats.currentEnergy = savedStats.z;
         //*/
 
+        /*
         if(PlayerStatsBars.instance!=null)
             PlayerStatsBars.instance.UpdateStats();
 
         playerUpdate += oxygenDecrease;
         playerUpdate += energyDecrease;
+        //*/
     }
 
     delegate void PlayerUpdate();
@@ -71,23 +73,25 @@ public class PlayerManager : MonoBehaviour {
     }
     void oxygenDecrease()
     {
+        /*
         oxygenTimer += Time.deltaTime;
         if (oxygenTimer > oxygenDecreaseInterval)
         {
             oxygenTimer = 0;
             pStats.ChangeOxygenBy(1);
         }
-
+        //*/
     }
     void energyDecrease()
     {
+        /*
         energyTimer += Time.deltaTime;
         if (energyTimer > energyDecreaseInterval)
         {
             energyTimer = 0;
             pStats.ChangeEnergyBy(1);
         }
-
+        //*/
     }
 
     public void KillPlayer()
