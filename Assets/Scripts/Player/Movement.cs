@@ -158,16 +158,14 @@ public class Movement : MonoBehaviour {
         Debug.Log("Stop navi");
         if (!agent.hasPath) agent.ResetPath();//agent.isStopped = true;
         if (onUpdate != null) onUpdate = null;
-
-        Debug.Log("isLoot?? false=? "+anim.GetCurrentAnimatorClipInfo(0)[0].clip.name);
-
+        
         if(anim.GetCurrentAnimatorClipInfo(0)[0].clip.name== "Working On Device")
         {
             //anim.SetTrigger("StopPickup");
             anim.SetBool("isLoot",false);
         }
 
-        if (anim.GetCurrentAnimatorClipInfo(0)[0].clip.name == "1HAttack")
+        if (anim.GetCurrentAnimatorClipInfo(0)[0].clip.name == "pick_kick B1")
         {
             pick.SetActive(false);
             anim.SetInteger("Mine", 0);
@@ -218,7 +216,6 @@ public class Movement : MonoBehaviour {
         }
         else
         {
-            Debug.Log("reach ");
             anim.SetBool("isLoot", true);
             if (onUpdate != null) onUpdate = null;
             if (onArrived != null) onArrived.Invoke();
@@ -270,7 +267,6 @@ public class Movement : MonoBehaviour {
     protected bool AgentStopping()
     {
         //return agent.remainingDistance <= agent.stoppingDistance;
-        Debug.Log("stopping "+agent.remainingDistance + " // "+ agent.stoppingDistance+" == remain="+ agent.remainingDistance+" -- pathing="+ !agent.pathPending);
         return agent.remainingDistance <= agent.stoppingDistance;
     }
     protected bool AgentReachTarget()

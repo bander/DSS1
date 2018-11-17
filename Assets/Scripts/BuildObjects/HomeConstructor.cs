@@ -1418,7 +1418,9 @@ public class HomeConstructor : MonoBehaviour {
 
         if (Input.GetMouseButtonDown(0))
         {
-            if (EventSystem.current.IsPointerOverGameObject()) return;
+            //if (EventSystem.current.IsPointerOverGameObject()) return;
+            if (IsPointerOverUIObject()) return;
+            
             buttonDownPosition = Input.mousePosition;
             buttonDownTime = Time.time;
         }
@@ -1431,6 +1433,15 @@ public class HomeConstructor : MonoBehaviour {
             GetCLickObject();
         }
     }
+    private bool IsPointerOverUIObject()
+    {
+        PointerEventData eventDataCurrentPosition = new PointerEventData(EventSystem.current);
+        eventDataCurrentPosition.position = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
+        List<RaycastResult> results = new List<RaycastResult>();
+        EventSystem.current.RaycastAll(eventDataCurrentPosition, results);
+        return results.Count > 0;
+    }
+
     float buttonDownTime;
     Vector3 buttonDownPosition;
 
