@@ -29,10 +29,7 @@ public class CameraControl : MonoBehaviour {
     }
     void StartSceneAnimation()
     {
-        
-
         transform.position = target.position +Vector3.up;
-
 
         rotator.position = transform.position;
         rotator.LookAt(target.transform);

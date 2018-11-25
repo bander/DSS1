@@ -155,7 +155,6 @@ public class Movement : MonoBehaviour {
 
     public void StopNavigateMotions()
     {
-        Debug.Log("Stop navi");
         if (!agent.hasPath) agent.ResetPath();//agent.isStopped = true;
         if (onUpdate != null) onUpdate = null;
         
@@ -320,7 +319,6 @@ public class Movement : MonoBehaviour {
         anim.CrossFadeInFixedTime("Working On Device", 0.1f, 0, 0);
         anim.Update(0);
         onUpdate = LookAtTarget;
-        Debug.Log("start loot");
     }
     public void StartMine()
     {

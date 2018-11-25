@@ -178,15 +178,15 @@ public class HomeConstructor : MonoBehaviour {
         {
             pp[0].SetActive(true);
             pp[1].SetActive(false);
-            pp2[0].SetActive(true);
-            pp2[1].SetActive(false);
+       //    pp2[0].SetActive(true);
+        //    pp2[1].SetActive(false);
         }
         else
         {
             pp[1].SetActive(true);
             pp[0].SetActive(false);
-            pp2[1].SetActive(true);
-            pp2[0].SetActive(false);
+        //    pp2[1].SetActive(true);
+        //    pp2[0].SetActive(false);
         }
         foreach (GameObject rr in bb)
         {
@@ -196,14 +196,27 @@ public class HomeConstructor : MonoBehaviour {
 
         if (n==5)
         {
-            rotateButton.SetActive(true);
+        //   rotateButton.SetActive(true);
         }
         else
         {
-            rotateButton.SetActive(false);
+         //   rotateButton.SetActive(false);
         }
     }
         ///////////////////////////////////
+
+    public void StartConstructMode(bool atHome=true)
+    {
+        if (atHome){
+            actbb(0);
+            ShowAvailableFloors();
+        }
+        else
+        {
+            actbb(7);
+            ShowAvailableDiggers();
+        }
+    }
 
     void Start () {
 
@@ -1342,7 +1355,7 @@ public class HomeConstructor : MonoBehaviour {
     {
         if (Input.GetKeyDown(KeyCode.Z))
         {
-            speedBuild();
+         //   speedBuild();
             //BuildObject();
         }
         if (Input.GetKeyDown(KeyCode.Space))
@@ -1363,7 +1376,7 @@ public class HomeConstructor : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.X))
         {
 
-            SetBuildType(BuildType.OnFloor, 0);
+         //   SetBuildType(BuildType.OnFloor, 0);
         }
         if (Input.GetKeyDown(KeyCode.C))
         {
@@ -1494,7 +1507,7 @@ public class HomeConstructor : MonoBehaviour {
 
     }
 
-    bool diggerIsReady = false;
+    public bool diggerIsReady = false;
     void GetCLickObject()
     {
         
