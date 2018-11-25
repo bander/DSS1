@@ -122,8 +122,8 @@ public class CanvasController : MonoBehaviour {
         //updateBuildButtonsActivity();
 
         //Camera.main.GetComponent<CameraController>().SetCameraMode(1);
-        camContainer.SetConstructMode();
         homeConstPanel.Show();
+        camContainer.SetConstructMode();
     }
     public void ShowCraft()
     {

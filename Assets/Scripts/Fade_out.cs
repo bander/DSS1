@@ -14,6 +14,7 @@ public class Fade_out : MonoBehaviour {
         im.color = tempColor;
 
         StartCoroutine(DoFade());
+        GameObject.Destroy(gameObject,6);
     }
 
     IEnumerator DoFade()
@@ -26,7 +27,5 @@ public class Fade_out : MonoBehaviour {
             im.color = tempColor;
             yield return null;
         }
-        GameObject.Destroy(gameObject);
     }
-
 }

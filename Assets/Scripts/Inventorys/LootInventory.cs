@@ -37,6 +37,10 @@ public class LootInventory : Interactable
             manager.OnInvChangedCallback.Invoke();
 
         CanvasController.instance.ShowLoot();
+    }
 
+    public void AddDiscoveredItem(Item itm)
+    {
+        invent.Add(itm);
     }
 }

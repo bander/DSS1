@@ -15,10 +15,10 @@ public class CameraContainer : MonoBehaviour {
 
     void Start()
     {
-        camControl.offset = baseOffset;
-        camControl.offset = baseOffset;
         playerMode = true;
         plane.constructMode = false;
+
+        camControl.offset = baseOffset;
         camControl.target = target;
         camControl.constructMode = false;
 
@@ -32,7 +32,17 @@ public class CameraContainer : MonoBehaviour {
 
     public void SetConstructMode()
     {
-        camControl.target = transform;
+        if (target.position.z < 0)
+        {
+            FindObjectOfType<HomeConstructor>().StartConstructMode();
+            camControl.target = FindObjectOfType<HomeConstructor>().transform.GetChild(0).transform;
+        }
+        else
+        {
+            FindObjectOfType<HomeConstructor>().StartConstructMode(false);
+            camControl.target = FindObjectOfType<DiggerSelector>().transform;
+        }
+
         playerMode = false;
         plane.constructMode = true;
         camControl.constructMode = true;

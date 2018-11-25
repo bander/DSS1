@@ -104,8 +104,6 @@ public class InvManager : MonoBehaviour {
     {
         if (numInv==0 && item!=null)
         {
-            
-
             if (invents[0].isEmptySlotAvailable())
             {
                 invents[0].Add(item);
@@ -153,10 +151,7 @@ public class InvManager : MonoBehaviour {
 
     public void GetAllLoot()
     {
-
-
         List<Item> loot = invents[2].items;
-       // int j = 0;
 
         int i = 0;
         foreach (Item item in loot)
@@ -175,7 +170,7 @@ public class InvManager : MonoBehaviour {
                 }
                 else
                 {
-                    ///мщес все слот незаполненнык с аналогичным айтемом
+                    ///ищем все незаполненные слоты с аналогичным айтемом
                     ///заполняем его
                     ///если не все айтемы перенесены
                     ///ищем следующий аналогичный незаполненный слот

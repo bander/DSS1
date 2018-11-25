@@ -62,6 +62,9 @@ public class PlayerStats : CharacterStats {
             i++;
         }
         if(equipmentWasChanged && onStatsUpdate != null) onStatsUpdate.Invoke();
+
+        if(equipmentWasChanged)
+            TestEnemySpawn();
     }
 	
     void onEquipmentChange(Equipment newItem,Equipment oldItem)
@@ -82,11 +85,14 @@ public class PlayerStats : CharacterStats {
             speed.RemoveModifier(oldItem.speed);
         }
     }
+    private void TestEnemySpawn()
+    {
+        GameObject.FindObjectOfType<TestEnemySpawner>().ActivateSpawn(weaponNum>1);
+    }
 
     public override void TakeDamage(float damage)
     {
         base.TakeDamage(damage);
-
         //if (onHPChange != null) onHPChange.Invoke();
     }
     public void ChangeOxygenBy(int n)

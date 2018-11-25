@@ -13,7 +13,7 @@ public class Item : ScriptableObject{
 
     public EquipmentSlot equipSlot2;
 
-    public enum ItemType {Equip,Metall,Oxygen,Oil,Food,Crystall };
+    public enum ItemType {Equip,Metall,Oxygen,Oil,Food,Crystall,Bots };
 
     public virtual void Use()
     {
@@ -37,7 +37,7 @@ public class Item : ScriptableObject{
         itm.maxCountInSlot = maxCountInSlot;
         itm.type=type;
         itm.equipSlot2 = equipSlot2;
-
+        
         return itm;
     }
 }
