@@ -81,9 +81,9 @@ public class Building
         }
     }
 
-    public void CheckDoors()
+    public bool CheckDoors()
     {
-        if (walls.Count < 3) return;
+        if (walls.Count < 3) return false;
 
         int canBeDoorsCount = 0;
         int emptyWalls = 0;
@@ -105,8 +105,6 @@ public class Building
                 if (w.isDoor) hasDoor = true;
             i++;
         }
-
-        if (emptyWalls == 0) Isolate();
 
         if (!hasDoor)
         {
@@ -132,6 +130,8 @@ public class Building
         }
 
 
+        if (emptyWalls == 0) Isolate();
+        return (emptyWalls == 0);
     }
 
     void Isolate()
