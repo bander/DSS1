@@ -166,6 +166,8 @@ public class EnemyMovement : MonoBehaviour
 
     void Move()
     {
+        if (stats.dead) return;
+
         float angle = Vector3.Angle(transform.forward, velocity);
         Vector3 cross = Vector3.Cross(transform.forward, velocity);
         if (cross.y < 0) angle = -angle;
@@ -196,6 +198,8 @@ public class EnemyMovement : MonoBehaviour
     }
     void RotationNavigate()
     {
+        if (stats.dead) return;
+
         Vector3 direction = (AgentStopping()) ? player.transform.position - transform.position : agent.desiredVelocity;
         direction.y = 0;
 
@@ -204,6 +208,8 @@ public class EnemyMovement : MonoBehaviour
     }
     void RotationToPlayer()
     {
+        if (stats.dead) return;
+
         Vector3 direction =  player.transform.position - transform.position;
         direction.y = 0;
 
@@ -239,6 +245,8 @@ public class EnemyMovement : MonoBehaviour
     
     void _AnimAttack()
     {
+        if (stats.dead) return;
+
         float dist = (player.transform.position - transform.position).magnitude;
 
         if (dist > attackDist+0.1f)

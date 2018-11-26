@@ -6,7 +6,7 @@ public class Item : ScriptableObject{
     public SkinnedMeshRenderer mesh;
 
     public Sprite icon = null;
-    public bool isDefaultItem = false;
+    public bool isUsable = false;
     public int countInSlot = 1;
     public int maxCountInSlot=1;
     public ItemType type;
@@ -32,7 +32,7 @@ public class Item : ScriptableObject{
         itm.mesh = mesh;
 
         itm.icon = icon;
-        itm.isDefaultItem = isDefaultItem;
+        itm.isUsable = isUsable;
         itm.countInSlot = countInSlot;
         itm.maxCountInSlot = maxCountInSlot;
         itm.type=type;

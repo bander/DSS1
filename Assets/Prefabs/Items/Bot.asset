@@ -14,7 +14,7 @@ MonoBehaviour:
   name: Bot
   mesh: {fileID: 0}
   icon: {fileID: 21300000, guid: b2666a252596a7646acca96e83403e26, type: 3}
-  isDefaultItem: 0
+  isUsable: 1
   countInSlot: 1
   maxCountInSlot: 1
   type: 6

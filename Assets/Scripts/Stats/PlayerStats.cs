@@ -21,6 +21,8 @@ public class PlayerStats : CharacterStats {
 
     List<Equipment> currentEquipment=new List<Equipment>();
 
+    public bool pistolInHand = false;
+
     void Start () {
         for (int i = 0; i < 7; i++)
         {
@@ -88,6 +90,7 @@ public class PlayerStats : CharacterStats {
     private void TestEnemySpawn()
     {
         GameObject.FindObjectOfType<TestEnemySpawner>().ActivateSpawn(weaponNum>1);
+        pistolInHand = (weaponNum > 1);
     }
 
     public override void TakeDamage(float damage)
