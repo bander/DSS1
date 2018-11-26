@@ -34,7 +34,7 @@ public class Inventory : MonoBehaviour {
 
     public bool Add(Item item)
     {
-        if (!item.isDefaultItem)
+        if (!item.isUsable)
         {
             for (int i = 0; i < items.Count; i++)
             {

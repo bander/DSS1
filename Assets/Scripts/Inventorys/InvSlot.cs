@@ -99,7 +99,7 @@ public class InvSlot : MonoBehaviour,IDragHandler,IBeginDragHandler,IEndDragHand
             }
 
             highLight();
-            CanvasController.instance.buttonsControl(false, splitted, true);
+            CanvasController.instance.buttonsControl(item.isUsable, splitted, true);
         }
         //*/
     }

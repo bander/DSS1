@@ -32,7 +32,7 @@ public class Equipment : Item {
         itm.mesh = mesh;
 
         itm.icon = icon;
-        itm.isDefaultItem = isDefaultItem;
+        itm.isUsable = isUsable;
         itm.countInSlot = countInSlot;
         itm.maxCountInSlot = maxCountInSlot;
         itm.type = type;
