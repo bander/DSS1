@@ -100,7 +100,7 @@ public class PlayerControl : MonoBehaviour {
         }
     }
 
-    void CheckCurerntTarget()
+    public void CheckCurerntTarget()
     {
         Interactable enemyInter = PlayerInteractions.instance.FindNearestEnemy();
         if (enemyInter == null) return;

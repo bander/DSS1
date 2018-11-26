@@ -9,6 +9,7 @@ TagManager:
   - Enemy
   - Canvas
   - Menu
+  - BotDestinations
   layers:
   - Default
   - TransparentFX

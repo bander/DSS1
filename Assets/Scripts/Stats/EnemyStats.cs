@@ -49,7 +49,9 @@ public class EnemyStats : CharacterStats {
              GetComponentInChildren<Animator>().SetTrigger("Die");
 
             MakeLoot();
-//            MenuScript.instance.RemoveEnemy(GetComponent<EnemySample>());
+            //            MenuScript.instance.RemoveEnemy(GetComponent<EnemySample>());
+
+            PlayerManager.instance.player.GetComponent<PlayerControl>().CheckCurerntTarget();
         }
     }
 

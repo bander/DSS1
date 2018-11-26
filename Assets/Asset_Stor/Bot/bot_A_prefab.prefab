@@ -848,7 +848,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1134765840302292}
   m_LocalRotation: {x: -0, y: -0.81456023, z: -0, w: 0.58007896}
-  m_LocalPosition: {x: -12.228547, y: 0.051, z: -48.12813}
+  m_LocalPosition: {x: -14.01, y: 0.057, z: -46.15}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4259217430551762}
@@ -886,7 +886,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   radius: 2
-  stopping: 0.5
+  stopping: 1
   stats: {fileID: 0}
   low: 1
   closed: 0
@@ -905,6 +905,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefab: {fileID: 11400000, guid: 12fe9aedf5f325d4a857016b72adf079, type: 2}
+  destinations:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  stoppingDistForPlayer: 2
+  discoverTime: 5
 --- !u!137 &137540859329875594
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1
@@ -986,8 +995,8 @@ NavMeshAgent:
   m_GameObject: {fileID: 1134765840302292}
   m_Enabled: 1
   m_AgentTypeID: -334000983
-  m_Radius: 0.5
-  m_Speed: 4
+  m_Radius: 0.3
+  m_Speed: 0.001
   m_Acceleration: 20
   avoidancePriority: 50
   m_AngularSpeed: 720
@@ -998,4 +1007,4 @@ NavMeshAgent:
   m_Height: 2
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 1
+  m_ObstacleAvoidanceType: 3

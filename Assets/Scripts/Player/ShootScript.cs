@@ -49,6 +49,9 @@ public class ShootScript : MonoBehaviour {
         else
         {
             fireDist = 0.7f;
+            clip = null;
+            effect = null;
+            bullet = null;
         }
 
 

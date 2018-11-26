@@ -14,6 +14,7 @@ public class Movement : MonoBehaviour {
 
     Vector3 jDir;
     Vector3 keyDir;
+    PlayerStats pStats;
 
     float rot=0;
     float rotationSpeed=160;
@@ -28,6 +29,7 @@ public class Movement : MonoBehaviour {
     public GameObject navLocal;
 
     public GameObject pick;
+    public GameObject pistol;
 
     public GameObject SetTarget {
         set{ target = value; }
@@ -45,6 +47,10 @@ public class Movement : MonoBehaviour {
         onUpdate += MoveDefault;
     }
     
+    void Start()
+    {
+        pStats = GetComponent<PlayerStats>();
+    }
 
     public void ChangeMoveType(MoveTypes _mType)// Combat(int type=0)
     {
@@ -167,6 +173,7 @@ public class Movement : MonoBehaviour {
         if (anim.GetCurrentAnimatorClipInfo(0)[0].clip.name == "pick_kick B1")
         {
             pick.SetActive(false);
+            if (pStats.pistolInHand) pistol.SetActive(false);
             anim.SetInteger("Mine", 0);
         }
 
@@ -323,6 +330,7 @@ public class Movement : MonoBehaviour {
     public void StartMine()
     {
         pick.SetActive(true);
+        if (pStats.pistolInHand) pistol.SetActive(false);
 
         anim.SetInteger("Mine",1);
         onUpdate = LookAtTarget;
@@ -330,6 +338,8 @@ public class Movement : MonoBehaviour {
     public void EndMine()
     {
         pick.SetActive(false);
+        if (pStats.pistolInHand) pistol.SetActive(true);
+
         anim.SetInteger("Mine", 0);
     }
 

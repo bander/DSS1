@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.UI;
 using TMPro;
 
@@ -165,6 +166,41 @@ public class CanvasController : MonoBehaviour {
 
             InvManager.instance.invents[numInvent].RemoveItemByNum(selectedSlot.slotIndex);
         }
+    }
+    public void UseSelectedItem()
+    {
+        if (selectedSlot != null && selectedSlot.GetItem() != null)
+        {
+            int numInvent = selectedSlot.invIndex;
+            
+
+            Vector3 point;
+            float range = 3;
+            if (RandomPoint(PlayerManager.instance.player.transform.position, range, out point))
+            {
+                Debug.DrawRay(point, Vector3.up, Color.blue, 3.0f);
+                GameObject.Instantiate(bot,point,Quaternion.identity);
+                InvManager.instance.invents[numInvent].RemoveItemByNum(selectedSlot.slotIndex);
+            }
+        }
+    }
+
+    // TRANSFER TO PLAYER
+    [SerializeField] GameObject bot;
+    bool RandomPoint(Vector3 center, float range, out Vector3 result)
+    {
+        for (int i = 0; i < 30; i++)
+        {
+            Vector3 randomPoint = center + Random.insideUnitSphere * range;
+            NavMeshHit hit;
+            if (NavMesh.SamplePosition(randomPoint, out hit, range,NavMesh.AllAreas))
+            {
+                result = hit.position;
+                return true;
+            }
+        }
+        result = Vector3.zero;
+        return false;
     }
 
     public void buildFloor()

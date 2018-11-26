@@ -8,10 +8,17 @@ public class TestEnemySpawner : MonoBehaviour {
 
     bool active;
     float timer;
+    bool isFirstTime = true;
     public void ActivateSpawn(bool act=true)
     {
         timer = 0;
         active = act;
+
+        if (isFirstTime)
+        {
+            isFirstTime = false;
+            SpawnWave();
+        }
     }
 
 	void Update () {
