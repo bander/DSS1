@@ -1548,6 +1548,13 @@ public class HomeConstructor : MonoBehaviour {
     public void FinishConstruct()
     {
         RemoveAllPoints();
+        currentLevel = 3;
+        ChangeLevel();
+    }
+    public void LevelUp()
+    {
+        currentLevel++;
+        ChangeLevel();
     }
     ////  //////////////     BUILDINGS
     

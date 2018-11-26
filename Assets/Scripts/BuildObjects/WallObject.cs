@@ -86,6 +86,7 @@ public class WallObject : ConstructObject
         return false;
     }
 
+    public bool goToNextFloor = false;
     public override void Build(int meshNum=3)
     {
         wallType = home.wallType;
@@ -123,6 +124,12 @@ public class WallObject : ConstructObject
         BuildCornersIn();
 
         HomeConstructor.instance.AddWallToSave(key);
+
+        if (goToNextFloor)
+        {
+            goToNextFloor = false;
+            HomeConstructor.instance.LevelUp();
+        }
     }
 
     void disableTilesNearDoor()

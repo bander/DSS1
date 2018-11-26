@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4406972394112990}
   - component: {fileID: 114086351947431690}
   - component: {fileID: 114229278349141830}
+  - component: {fileID: 208388145573384604}
   m_Layer: 0
   m_Name: Corridor_Coin_Small_03_Split
   m_TagString: Untagged
@@ -66,7 +67,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1304915353796350}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0.71, y: 0, z: 18.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4273382789645298}
@@ -149,3 +150,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11860926615a46d4c81c2e39b31fc85a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!208 &208388145573384604
+NavMeshObstacle:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1304915353796350}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 1, y: 1, z: 1}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 1, y: 1, z: -1}
+  m_TimeToStationary: 0.5

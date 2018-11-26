@@ -447,6 +447,7 @@ GameObject:
   - component: {fileID: 33176399024479454}
   - component: {fileID: 114531697385411264}
   - component: {fileID: 65774652107112296}
+  - component: {fileID: 208192276610182880}
   m_Layer: 0
   m_Name: NavMeshTag
   m_TagString: Untagged
@@ -497,6 +498,7 @@ GameObject:
   - component: {fileID: 33499787569651526}
   - component: {fileID: 114279256339028614}
   - component: {fileID: 65412563174334212}
+  - component: {fileID: 208703961849407230}
   m_Layer: 0
   m_Name: NavMeshTag (1)
   m_TagString: Untagged
@@ -720,3 +722,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11860926615a46d4c81c2e39b31fc85a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!208 &208192276610182880
+NavMeshObstacle:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1276131616588852}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
+--- !u!208 &208703961849407230
+NavMeshObstacle:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1459807777446036}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5

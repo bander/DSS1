@@ -89,7 +89,13 @@ public class ConstructObject
         state = 1;// meshNUm - 2;
 
         if(building !=null)
-            building.CheckDoors();
+            if (building.CheckDoors())
+            {
+                if(this is WallObject)
+                {
+                    (this as WallObject).goToNextFloor = true;
+                }
+            }
         //CheckDoorsAllBuildings();
     }
     public virtual void UpdateMesh(int n)
