@@ -1556,8 +1556,13 @@ public class HomeConstructor : MonoBehaviour {
         currentLevel++;
         ChangeLevel();
     }
+    public void Level0()
+    {
+        currentLevel=0;
+        ChangeLevel();
+    }
     ////  //////////////     BUILDINGS
-    
+
     public void CreateBuilding(ConstructObject t)
     {
         Building b = new Building(t);
