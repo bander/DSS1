@@ -26,6 +26,8 @@ public class BotController : MonoBehaviour {
         loot = GetComponent<LootInventory>();
         anim = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
+        agent.updateRotation =  true;
+        agent.updatePosition = true;
 
         player = PlayerManager.instance.player.transform;
         nextDestination();
@@ -69,8 +71,24 @@ public class BotController : MonoBehaviour {
         {
             velocity = agent.desiredVelocity;// Quaternion.Inverse(transform.rotation) * agent.desiredVelocity;
             velocity.y = 0;
-            if (Quaternion.LookRotation(velocity) != null) transform.rotation = Quaternion.LookRotation(velocity);
-            
+            float angle = GetAngleRelativeToNavigation(velocity);
+
+            Debug.Log("angle "+angle);
+            //if (Quaternion.LookRotation(velocity) != null) transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(velocity), 120);
+            if (Mathf.Abs(angle) <= 45)
+            {
+                anim.SetBool("canWalk", true);
+                anim.SetFloat("Angle", 0);
+                if (Quaternion.LookRotation(velocity) != null)
+                    transform.rotation =  Quaternion.RotateTowards(transform.rotation,Quaternion.LookRotation(velocity),Time.deltaTime*100);
+                
+            }
+            else
+            {
+                anim.SetBool("canWalk", false);
+                anim.SetFloat("Angle",angle);
+            }
+            //*/
         }
         else
         {
@@ -78,6 +96,15 @@ public class BotController : MonoBehaviour {
         }
         anim.SetBool("Forward", (velocity.magnitude > 0.00001f));
     }
+
+    float GetAngleRelativeToNavigation(Vector3 dir)
+    {
+        float angle = Vector3.Angle(transform.forward,dir);
+        Vector3 cross = Vector3.Cross(transform.forward, dir);
+        if (cross.y < 0) angle = -angle;
+        return angle;
+    }
+
     protected bool AgentDone()
     {
         return AgentStopping() && !agent.pathPending;
@@ -128,6 +155,8 @@ public class BotController : MonoBehaviour {
         nearPlayer = act;
         if (isMoving)
         {
+            anim.SetBool("canWalk", !act);
+            anim.SetFloat("Angle", 0);
             anim.SetBool("Forward",!act);
         }
         else

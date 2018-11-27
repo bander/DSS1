@@ -35,13 +35,15 @@ public class CameraContainer : MonoBehaviour {
         if (target.position.z < 0)
         {
             FindObjectOfType<HomeConstructor>().StartConstructMode();
-            transform.position = FindObjectOfType<HomeConstructor>().transform.GetChild(0).transform.position;
+            //transform.position = FindObjectOfType<HomeConstructor>().transform.GetChild(0).transform.position;
+            transform.DOMove(FindObjectOfType<HomeConstructor>().transform.GetChild(0).transform.position,2);
             camControl.target = transform;
         }
         else
         {
             FindObjectOfType<HomeConstructor>().StartConstructMode(false);
-            transform.position = FindObjectOfType<DiggerSelector>().transform.position;
+            //transform.position = FindObjectOfType<DiggerSelector>().transform.position;
+            transform.DOMove(FindObjectOfType<DiggerSelector>().transform.position,2);
             camControl.target = transform;
         }
         playerMode = false;
