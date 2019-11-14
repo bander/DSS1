@@ -38,7 +38,8 @@ public class InvSlot : MonoBehaviour,IDragHandler,IBeginDragHandler,IEndDragHand
             item = newItem.Clone();
             icon.sprite = item.icon;
             icon.enabled = true;
-            transform.SetSiblingIndex(slotIndex);
+            if(invIndex!=1)
+                transform.SetSiblingIndex(slotIndex);
             if (item.countInSlot != 1)
             {
                 countText.SetActive(true);

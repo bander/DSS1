@@ -87,10 +87,16 @@ public class ShootScript : MonoBehaviour {
 
         if (enemy != null && CheckDistToEnemy(enemy))
         {
-            if(enemy.GetComponent<EnemyStats>()!=null)
-                enemy.GetComponent<EnemyStats>().TakeDamage(GetComponent<PlayerStats>().damage.GetValue());
+
+            int damg = (int)Random.Range(15, 35);
+            Debug.Log("dd " + damg);
+
+            if (enemy.GetComponent<EnemyStats>()!=null)
+                //enemy.GetComponent<EnemyStats>().TakeDamage(GetComponent<PlayerStats>().damage.GetValue());
+                enemy.GetComponent<EnemyStats>().TakeDamage(damg);
             if (enemy.GetComponent<EnemyStatsWorm>() != null)
-                enemy.GetComponent<EnemyStatsWorm>().TakeDamage(GetComponent<PlayerStats>().damage.GetValue());
+                //enemy.GetComponent<EnemyStatsWorm>().TakeDamage(GetComponent<PlayerStats>().damage.GetValue());
+                enemy.GetComponent<EnemyStatsWorm>().TakeDamage(damg);
         }
             
         

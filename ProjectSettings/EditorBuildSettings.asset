@@ -20,7 +20,10 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/Mars_Wall 5.unity
     guid: 3f56219a77cc55742b05bad8b812c7c5
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Mars_Wall 6.unity
     guid: d41e490dab6919947929c8eaa4e2efad
+  - enabled: 1
+    path: Assets/Scenes/Mars_Wall 8.unity
+    guid: 08e718d438f4115429f01b58f9f2d213
   m_configObjects: {}

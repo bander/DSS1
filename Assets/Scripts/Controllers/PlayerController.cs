@@ -163,7 +163,10 @@ public class PlayerController : MonoBehaviour {
 
         if (enemy != null)
         {
-            enemy.GetComponent<EnemyStats>().TakeDamage(GetComponent<PlayerStats>().damage.GetValue());
+            int damg = (int)Random.Range(15, 35);
+            Debug.Log("dd "+damg);
+            enemy.GetComponent<EnemyStats>().TakeDamage(damg);// GetComponent<PlayerStats>().damage.GetValue());
+            //enemy.GetComponent<EnemyStats>().TakeDamage(GetComponent<PlayerStats>().damage.GetValue());
         }
     }
 

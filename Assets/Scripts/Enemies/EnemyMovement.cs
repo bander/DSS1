@@ -22,7 +22,8 @@ public class EnemyMovement : MonoBehaviour
     public float validMoveAngle = 60;
 
     public float attackDist=0.7f;
-    public float damage=3;
+    public float damageMin=3;
+    public float damageMax=3;
 
     public bool followPlayerAtStart = false;
 
@@ -255,14 +256,14 @@ public class EnemyMovement : MonoBehaviour
             return;
         }
 
-        pStats.TakeDamage(damage);
+        pStats.TakeDamage( (int)Random.Range(damageMin,damageMax));
     }
 
     void LegHit()
     {
         float dist = Vector3.Magnitude(transform.position - player.transform.position);
         if (dist <= agent.stoppingDistance + 0.4f)
-            pStats.TakeDamage(damage);
+            pStats.TakeDamage((int)Random.Range(damageMin, damageMax));
         else
             StartFollow();
     }

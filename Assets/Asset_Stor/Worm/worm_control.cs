@@ -14,7 +14,7 @@ public class worm_control : MonoBehaviour {
 
     public Vector2 Radius = new Vector2(10f, 20f);
     public float RotationSpeed = 1f;
-    public Vector2 AttackTime = new Vector2(10f, 20f);
+    public Vector2 AttackTime = new Vector2(4f, 7f);
     public Transform PlayerTransform;
     public GameObject SpawnFX;
     public GameObject Worm;

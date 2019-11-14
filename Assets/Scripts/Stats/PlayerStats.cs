@@ -29,6 +29,9 @@ public class PlayerStats : CharacterStats {
             currentEquipment.Add(null);
         }
         InvManager.instance.OnInvChangedCallback += checkAllEquipmentSlots;
+
+        currentEnergy = 100;
+        currentOxygen = 50;
 	}
     void checkAllEquipmentSlots()
     {
@@ -89,7 +92,7 @@ public class PlayerStats : CharacterStats {
     }
     private void TestEnemySpawn()
     {
-        GameObject.FindObjectOfType<TestEnemySpawner>().ActivateSpawn(weaponNum>1);
+        //GameObject.FindObjectOfType<TestEnemySpawner>().ActivateSpawn(weaponNum>1);
         pistolInHand = (weaponNum > 1);
     }
 
@@ -97,6 +100,10 @@ public class PlayerStats : CharacterStats {
     {
         base.TakeDamage(damage);
         //if (onHPChange != null) onHPChange.Invoke();
+        
+        if (PlayerStatsBars.instance == null) return;
+
+        PlayerStatsBars.instance.UpdateStats();
     }
     public void ChangeOxygenBy(int n)
     {

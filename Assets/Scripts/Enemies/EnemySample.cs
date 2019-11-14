@@ -16,7 +16,10 @@ public class EnemySample : Interactable {
             if (!stats.dead)
             { //MenuScript.instance.AddEnemy(this);
                 player.AddEnemy(this);
-                GetComponent<EnemyMovement>().StartFollow();
+                if(GetComponent<EnemyMovement>()!=null)//.StartFollow();
+                   GetComponent<EnemyMovement>().StartFollow();
+                if (GetComponent<EnemySerpentMovement>() != null)//.StartFollow();
+                    GetComponent<EnemySerpentMovement>().StartFollow();
             }
         }
         else

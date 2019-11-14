@@ -12,6 +12,7 @@ public class EnemiesSpawnerDemo : MonoBehaviour {
             if(go!=null)
                 go.SetActive(true);
         }
+        Destroy(gameObject);
 	}
 	
 }
